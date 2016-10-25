@@ -28,16 +28,51 @@ MyGraph.prototype.addEdges = function(){
 	}
 }
 
+//inicializa uma dada primitiva, de um vertice
+MyGraph.prototype.getPrimitives = function (vertex,primitive, info) {
+    var prim;
+    switch(info){
+        case "rect":
+            prim = new MyRectangle(this.scene, primitive[1], primitive[2], primitive[3], primitive[4]);
+            break;
+        case "tri":
+            prim = new MyTriangle(this.scene, primitive[1], primitive[2], primitive[3], primitive[4], primitive[5], primitive[6], primitive[7], primitive[8], primitive[9]);
+            break;
+        case "cyl":
+            prim = new MyCylinder(this.scene, primitive[1], primitive[2], primitive[3], primitive[4], primitive[5]);
+            break;
+        case "sph":
+            prim = new MySphere(this.scene, primitive[1], primitive[2], primitive[3]);
+            break;
+        case "don":
+            prim = new MyTorus(this.scene, primitive[1],primitive[2], primitive[3], primitive[4]);
+            break;
+    }
+    vertex.component.primitivess.push(prim);
+}
 
-MyGraph.prototype.pesquisa_profundidade = function(vertexID){
+//funcao responsavel por invocar a inicializacao das primitivas de um vertice/componente
+MyGraph.prototype.initiatePrimitives = function (vertex) {
+    for(var i = 0; i < vertex.primitives.length; i++){
+        this.getPrimitives(vertex,vertex.primitives[i],vertex.primitive_types[i]);
+    }
+    for(var i = 0; i < vertex.derivates.length; i++){
+        this.initiatePrimitives(vertex.derivates[i]);
+    }
+}
+
+//funcao que vai correr 1 vez em profundidade o grafo, para inicializar as primitivas de todos os vertices.
+MyGraph.prototype.pesquisa_profundidade = function(vertexID, scene){
 	var indice = this.vertexIDs.indexOf(vertexID);
 	if(indice == -1){
 		console.log("Nao encontrou a componente com indice" + vertexID);
 		return -1;
 	}
-
+    this.scene = scene;
 	for(var i = 0; i< this.vertexSet.length; i++)
 	    this.vertexSet[i].visited = false;
+
+    this.initiatePrimitives(this.vertexSet[indice]);
 	
 }
 

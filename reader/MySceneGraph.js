@@ -571,7 +571,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement){
 	}
 	this.graph.vertexIDs = this.components;
 	if(this.graph.addEdges() == -1) return "error at scene graph";
-	if(this.graph.pesquisa_profundidade(this.rootObj) == -1)return "error on the root element";
+	if(this.graph.pesquisa_profundidade(this.rootObj,this.scene) == -1)return "error on the root element";
 }
 
 /*

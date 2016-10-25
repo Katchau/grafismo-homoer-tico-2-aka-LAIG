@@ -17,6 +17,7 @@ function MyComponent() {
 	this.materials = [];
 	this.texture = "";
 
+	this.primitivess = [];
 	this.children_comp = [];
 	this.children_prim = [];
 }

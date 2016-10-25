@@ -52,7 +52,7 @@ MyTriangle.prototype.initBuffers = function() {
 
     this.texCoords = [
         c - (a * cosC)*this.maxS, a * senC*this.maxT,
-        0, 1*this.maxT,
+        0, 1,
         c*this.maxS, 0
     ];
 

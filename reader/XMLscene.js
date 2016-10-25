@@ -103,8 +103,8 @@ XMLscene.prototype.createLights = function () {
 	
 	for(var j=0; j < num_spot; j++){
 		
-		this.lights[num_omni + j].setSpotDirection(this.graph.spot_ify[j][4],this.graph.spot_ify[j][5],this.graph.spot_ify[j][6]);
 		this.lights[num_omni + j].setPosition(this.graph.spot_ify[j][7],this.graph.spot_ify[j][8],this.graph.spot_ify[j][9],1);
+		this.lights[num_omni + j].setSpotDirection(this.graph.spot_ify[j][4] - this.graph.spot_ify[j][7],this.graph.spot_ify[j][5] - this.graph.spot_ify[j][8],this.graph.spot_ify[j][6] - this.graph.spot_ify[j][9]);
 		this.lights[num_omni + j].setAmbient(this.graph.spot_ify[j][10],this.graph.spot_ify[j][11],this.graph.spot_ify[j][12],this.graph.spot_ify[j][13]);
 		this.lights[num_omni + j].setDiffuse(this.graph.spot_ify[j][14],this.graph.spot_ify[j][15],this.graph.spot_ify[j][16],this.graph.spot_ify[j][17]);
 		this.lights[num_omni + j].setSpecular(this.graph.spot_ify[j][18],this.graph.spot_ify[j][19],this.graph.spot_ify[j][20],this.graph.spot_ify[j][21]);
@@ -163,38 +163,23 @@ XMLscene.prototype.createTextures = function() {
     }
 }
 
-//funncao que faz display das primitivas.
-//o array primitive contem informacao acerca de um determinado tipo de primitiva
-//que e' determinado pela var info. O scale serve para alterar as coordenadas da textura, caso seja true.
-//se tal acontecer, este vai buscar informacao da textura, ao ultimo elemento adicionado no array text_param
+//funcao responsavel por alterar as coordenadas da textura de uma primitiva, caso o scale seja true.
+//apenas altera do retangulo e do triangulo
 XMLscene.prototype.displayPrimitives = function (primitive, info, scale) {
-    var prim;
     switch(info){
         case "rect":
-            prim = new MyRectangle(this, primitive[1], primitive[2], primitive[3], primitive[4]);
             if(scale) {
                 var param_text = this.text_param[this.text_queue[this.text_queue.length -1]];
-                prim.changeTextCoords(param_text.left, param_text.right);
+                primitive.changeTextCoords(param_text.left, param_text.right);
             }
             break;
         case "tri":
-            prim = new MyTriangle(this, primitive[1], primitive[2], primitive[3], primitive[4], primitive[5], primitive[6], primitive[7], primitive[8], primitive[9]);
             if(scale) {
                 var param_text = this.text_param[this.text_queue[this.text_queue.length -1]];
-                prim.changeTextCoords(param_text.left, param_text.right);
+                primitive.changeTextCoords(param_text.left, param_text.right);
             }
             break;
-        case "cyl":
-            prim = new MyCylinder(this, primitive[1], primitive[2], primitive[3], primitive[4], primitive[5]);
-            break;
-        case "sph":
-            prim = new MySphere(this, primitive[1], primitive[2], primitive[3]);
-            break;
-        case "don":
-            prim = new MyTorus(this, primitive[1],primitive[2], primitive[3], primitive[4]);
-            break;
     }
-    prim.display();
 }
 
 //funcao responsavel por determinar qual material correspondente ao vertice(componente)(vertex) que esta a ser percorrido
@@ -271,7 +256,8 @@ XMLscene.prototype.profundidade_rec = function (vertex) {
     var needs_scale = false;
     if(this.param_text != null)needs_scale = ((pushed_text == true || vertex.component.texture == "inherit") && (this.param_text.left != 1 || this.param_text.right != 1));
     for(var i = 0; i < vertex.primitives.length; i++){
-        this.displayPrimitives(vertex.primitives[i],vertex.primitive_types[i],needs_scale);
+        this.displayPrimitives(vertex.component.primitivess[i],vertex.primitive_types[i],needs_scale);
+        vertex.component.primitivess[i].display();
     }
     for(var i = 0; i < vertex.derivates.length; i++){
         this.profundidade_rec(vertex.derivates[i]);
