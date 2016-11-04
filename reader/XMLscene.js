@@ -41,12 +41,12 @@ XMLscene.prototype.setDefaultAppearance = function () {
     this.setAmbient(0, 0, 0, 1.0); //testando 0.2 0.4 0.8
     this.setDiffuse(0.2, 0.4, 0.8, 1.0);
     this.setSpecular(0.2, 0.4, 0.8, 1.0);
-    this.setShininess(10.0);	
+    this.setShininess(10.0);
 };
 
-// Handler called when the graph is finally loaded. 
+// Handler called when the graph is finally loaded.
 // As loading is asynchronous, this may be called already after the application has started the run loop
-XMLscene.prototype.onGraphLoaded = function () 
+XMLscene.prototype.onGraphLoaded = function ()
 {
 	this.SetInitialStatus();
 	this.SetViews();
@@ -59,7 +59,7 @@ XMLscene.prototype.onGraphLoaded = function ()
 XMLscene.prototype.SetInitialStatus = function (){
 	this.gl.clearColor(this.graph.background_rgb[0],this.graph.background_rgb[1],this.graph.background_rgb[2],this.graph.background_rgb[3]);
 	this.setAmbient(this.graph.ambient_rgb[0],this.graph.ambient_rgb[1],this.graph.ambient_rgb[2],this.graph.ambient_rgb[3]);
-	
+
 	this.axis = new CGFaxis(this,this.graph.axis_length);//0.2 e' o default
 };
 
@@ -99,10 +99,10 @@ XMLscene.prototype.createLights = function () {
 			this.lights[i].disable();
         this.lightStatus[i] = this.graph.omni_cenas[i][1];
         this.lightNames.push(this.graph.omni_cenas[i][0]);
-	}	
-	
+	}
+
 	for(var j=0; j < num_spot; j++){
-		
+
 		this.lights[num_omni + j].setPosition(this.graph.spot_ify[j][7],this.graph.spot_ify[j][8],this.graph.spot_ify[j][9],1);
 		this.lights[num_omni + j].setSpotDirection(this.graph.spot_ify[j][4] - this.graph.spot_ify[j][7],this.graph.spot_ify[j][5] - this.graph.spot_ify[j][8],this.graph.spot_ify[j][6] - this.graph.spot_ify[j][9]);
 		this.lights[num_omni + j].setAmbient(this.graph.spot_ify[j][10],this.graph.spot_ify[j][11],this.graph.spot_ify[j][12],this.graph.spot_ify[j][13]);
@@ -287,7 +287,7 @@ XMLscene.prototype.updateLight = function(index){
 
 XMLscene.prototype.display = function () {
 	// ---- BEGIN Background, camera and axis setup
-	
+
 	// Clear image and depth buffer everytime we update the scene
     this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
@@ -302,20 +302,22 @@ XMLscene.prototype.display = function () {
 	// Draw axis
 	this.axis.display();
 
-	this.setDefaultAppearance();
-	
+	//this.setDefaultAppearance();
+
 	// ---- END Background, camera and axis setup
 
 	// it is important that things depending on the proper loading of the graph
 	// only get executed after the graph has loaded correctly.
 	// This is one possible way to do it
 
-	if (this.graph.loadedOk)
+	var point = new Point(1,2,3);
+	console.log("x=" + point.x + " y=" + point.y + " z=" + point.z);
+
+/*	if (this.graph.loadedOk)
 	{
-        this.displaySceneGraph();
+        //this.displaySceneGraph();
 		for(var i = 0;i < this.total_lights; i++){
 			this.updateLight(i);
 		}
-	};
+	};*/
 };
-
