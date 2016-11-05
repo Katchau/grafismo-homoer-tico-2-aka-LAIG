@@ -96,6 +96,14 @@ MySceneGraph.prototype.getNewCoords = function(transf){
     return comp;
 }
 
+MySceneGraph.prototype.getControlPoint = function(transf){
+    var x = this.reader.getFloat(transf,"xx",true);
+    var y = this.reader.getFloat(transf,"yy",true);
+    var z = this.reader.getFloat(transf,"zz",true);
+    var point = new Point(x,y,z);
+    return point;
+}
+
 /* Funcao para ler a cor em rgba do .dsx */
 MySceneGraph.prototype.readRGBA = function(comp, transf){
     var r = transf.attributes.getNamedItem("r").value;
@@ -129,7 +137,8 @@ MySceneGraph.prototype.testOrder = function(rootElement){
 
     if (elems[0].nodeName != "scene" || elems[1].nodeName != "views" || elems[2].nodeName != "illumination" ||
         elems[3].nodeName != "lights" || elems[4].nodeName != "textures" || elems[5].nodeName != "materials" ||
-        elems[6].nodeName != "transformations" || elems[7].nodeName != "primitives" || elems[8].nodeName != "components")
+        elems[6].nodeName != "transformations" || elems[8].nodeName != "primitives" || elems[9].nodeName != "components" ||
+        elems[7].nodeName != "animations")
         console.warn("Ordem incorreta das tags!");
 
     return 	this.parseScene(rootElement);
@@ -363,6 +372,40 @@ MySceneGraph.prototype.parseTransformations = function(rootElement){
     return 	this.parsePrimitives(rootElement);
 }
 
+MySceneGraph.prototype.parseAnimations = function(rootElement){
+    var elems = rootElement.getElementsByTagName('animations');
+    var size = elems[0].children.length;
+    this.animations = [];
+    this.anim_ids = [];
+    for(var i = 0; i < size; i++){
+        var e = elems[0].children[i];
+        var id = this.reader.getString(e,"id",true);
+        if(this.anim_ids.indexOf(id) != -1) return "ids repetidos nas animaçoes!";
+        this.anim_ids.push(id);
+
+        var time = this.reader.getFloat(e,"span",true);
+        var type = this.reader.getString(e,"type",true);
+        if(type == "linear"){
+            var control_points = [];
+            for(var j = 0; j<e.children.length; j++){
+                var child = e.children[j];
+                control_points.push(this.getControlPoint(child));
+            }
+            this.animations.push(new LinearAnimation(id, time, control_points));
+        }
+        else if(type == "circular"){
+            var center = e.attributes.getNamedItem("center");
+            var radius = this.reader.getFloat(e,"radius",true);
+            var startang = this.reader.getFloat(e,"startang",true);
+            startang = this.deg2rad(startang);
+            var rotang = this.reader.getFloat(e,"rotang",true);
+            rotang = this.deg2rad(rotang);
+            this.animations.push(new CircularAnimation(id,time,center,radius,startang,rotang));
+        }
+        else return "unknown animation type";
+    }
+
+}
 
 /* Funcao que le as primitivas do .dsx */
 MySceneGraph.prototype.readPrimitives = function (e, j, obj, all_ids){
