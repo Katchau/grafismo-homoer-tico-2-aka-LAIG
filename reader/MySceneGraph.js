@@ -369,9 +369,9 @@ MySceneGraph.prototype.parseTransformations = function(rootElement){
 
 	}
 
-    return 	this.parsePrimitives(rootElement);
+    return this.parseAnimations(rootElement);
 }
-
+/* Funcao que faz parse das animacoes do dsx */
 MySceneGraph.prototype.parseAnimations = function(rootElement){
     var elems = rootElement.getElementsByTagName('animations');
     var size = elems[0].children.length;
@@ -405,6 +405,7 @@ MySceneGraph.prototype.parseAnimations = function(rootElement){
         else return "unknown animation type";
     }
 
+    return 	this.parsePrimitives(rootElement);
 }
 
 /* Funcao que le as primitivas do .dsx */
@@ -584,6 +585,22 @@ MySceneGraph.prototype.parseComponents = function(rootElement){
                         if(comp.matrix == -1) return "nao encontrou transformacao!" + comp.transformation_ref;
 					}
 				}
+
+				if(child.nodeName == "animation"){
+                    var anim_id = this.anim_ids.indexOf(this.reader.getString(transf, "id",true));
+                    if(anim_id == -1) return "Nao existe o id  da animation";
+                    var anime_konichiwa = this.animations[anim_id];
+                    //calculate distance to first point
+                    if(anime_konichiwa instanceof LinearAnimation){
+                        var vect_origin = vec3.fromValues(0,0,0);
+                        vec3.transformMat4(vect_origin,vec3.fromValues(0,0,0), comp.matrix);
+                        var first_point = anime_konichiwa.cPoints[0];
+                        anime_konichiwa.distance += vec3.distance(vec3.fromValues(first_point.x,first_point.y,first_point.z), vect_origin);
+                        anime_konichiwa.speed = anime_konichiwa.distance/anime_konichiwa.time;
+                    }
+
+                    comp.animations.push(anime_konichiwa);
+                }
 
 				if(child.nodeName == "materials"){
 					if(child.children.length < 1)

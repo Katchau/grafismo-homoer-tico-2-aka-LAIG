@@ -7,6 +7,12 @@ function XMLscene(myInterface) {
 XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
 
+XMLscene.prototype.update = function(currTime){
+    for(var i = 0; i < this.anim_component.length; i++){
+        this.anim_component[i].update(currTime);
+    }
+}
+
 XMLscene.prototype.init = function (application) {
     CGFscene.prototype.init.call(this, application);
 
@@ -22,6 +28,10 @@ XMLscene.prototype.init = function (application) {
     this.gl.depthFunc(this.gl.LEQUAL);
 
     this.enableTextures(true);
+
+    this.setUpdatePeriod(1);
+
+    this.anim_component = [];
 
 	this.axis=new CGFaxis(this);
 };
@@ -310,14 +320,11 @@ XMLscene.prototype.display = function () {
 	// only get executed after the graph has loaded correctly.
 	// This is one possible way to do it
 
-	var point = new Point(1,2,3);
-	console.log("x=" + point.x + " y=" + point.y + " z=" + point.z);
-
-/*	if (this.graph.loadedOk)
+	if (this.graph.loadedOk)
 	{
-        //this.displaySceneGraph();
+        this.displaySceneGraph();
 		for(var i = 0;i < this.total_lights; i++){
 			this.updateLight(i);
 		}
-	};*/
+	};
 };
