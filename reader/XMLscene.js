@@ -8,8 +8,23 @@ XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
 
 XMLscene.prototype.update = function(currTime){
-    for(var i = 0; i < this.anim_component.length; i++){
-        this.anim_component[i].update(currTime);
+
+    this.tempovar = (currTime - this.tempo)/1000;
+    if(this.tempo == 0){
+        this.tempovar = 0;
+    }
+    this.tempo = currTime;
+    this.tempo_dec += this.tempovar;
+
+    if(this.tempo_dec > 1 && this.init_anim == 0) {
+        this.init_anim = 2;
+        this.tempo_dec = 0;
+        this.tempo = 0;
+    }
+    if(this.init_anim == 2){
+        for(var i = 0; i < this.anim_component.length; i++){
+            this.anim_component[i].update(this.tempovar, this.tempo_dec);
+        }
     }
 }
 
@@ -28,6 +43,11 @@ XMLscene.prototype.init = function (application) {
     this.gl.depthFunc(this.gl.LEQUAL);
 
     this.enableTextures(true);
+
+    this.tempovar = 0;
+    this.tempo = 0;
+    this.tempo_dec  = 0;
+    this.init_anim = 0;
 
     this.setUpdatePeriod(1);
 
