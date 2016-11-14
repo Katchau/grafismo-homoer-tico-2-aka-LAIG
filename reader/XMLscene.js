@@ -286,7 +286,10 @@ XMLscene.prototype.profundidade_rec = function (vertex) {
         for(var i = 0;i < vertex.component.animations.length; i++){
             var anim = vertex.component.animations[i];
             if(anim instanceof LinearAnimation){
-                this.translate(anim.translate.x, anim.translate.y, anim.translate.z);
+                this.translate(anim.translate.x,anim.translate.y,anim.translate.z);
+                this.translate(anim.origin.x,anim.origin.y,anim.origin.z);
+                this.rotate(anim.rotate,0,1,0);
+                this.translate(-anim.origin.x,-anim.origin.y,-anim.origin.z);
             }
         }
     }

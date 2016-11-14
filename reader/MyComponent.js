@@ -33,14 +33,20 @@ MyComponent.prototype.update = function(tempovar, tempo_dec){
         for(var i = 0; i < this.animations.length; i++){
             var anime = this.animations[i];
 
-            if(anime instanceof LinearAnimation){
-                for(var j =0; j< anime.cPoints.length;j++){
-                    if(anime.times[j] > tempo_dec && anime.next_anim[j]){
-                        anime.translate.x += anime.walk_d[j][0] * tempovar;
-                        anime.translate.y += anime.walk_d[j][1] * tempovar;
-                        anime.translate.z += anime.walk_d[j][2] * tempovar;
+            if(!anime.completed || i == 0){
+                if(anime instanceof LinearAnimation){
+                    for(var j =0; j< anime.cPoints.length;j++){
+                        if(anime.times[j] > tempo_dec && anime.next_anim[j]){
+                            anime.translate.x += anime.walk_d[j][0] * tempovar;
+                            anime.translate.y += anime.walk_d[j][1] * tempovar;
+                            anime.translate.z += anime.walk_d[j][2] * tempovar;
+                        }
+                        else if(anime.times[j] <= tempo_dec){
+                            anime.next_anim[j+1]= true;
+                            if(j+1 != anime.cPoints.length)anime.rotate = anime.angles[j+1];
+                            else anime.completed = true;
+                        }
                     }
-                    else if(anime.times[j] <= tempo_dec) anime.next_anim[j+1]= true;
                 }
             }
         }

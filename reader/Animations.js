@@ -2,6 +2,7 @@ class Animation{
     constructor(id, time){
         this.id = id;
         this.time = time;
+        this.completed = false;
     }
 }
 
@@ -16,7 +17,9 @@ class LinearAnimation extends Animation{
       this.walk_d = [];
       this.times = [];
       this.distances = [];
+      this.angles = [];
       this.translate = new Point(0,0,0);
+      this.rotate = 0;
 
       for(var i = 1; i < this.cPoints.length; i++){
           var point = this.cPoints[i];
@@ -30,12 +33,23 @@ class LinearAnimation extends Animation{
       this.next_anim.push(false);
   }
 
+  get_angle(x, z, vector_z){
+      var vet4angle = vec3.fromValues(x,0,z);
+      var cosx = vec3.dot(vet4angle, vector_z) / Math.sqrt(x*x + z*z);
+      var angle = Math.acos(cosx);
+      if(z < 0){
+          angle = Math.PI*2-angle;
+      }
+      this.angles.push(angle);
+  }
+
   calc_time(matrix){
       var vect_origin = vec3.fromValues(0,0,0);
       vec3.transformMat4(vect_origin,vec3.fromValues(0,0,0), matrix);
       var v0 = vec3.fromValues(1, 0, 0);
       var v1 = vec3.fromValues(0, 1, 0);
       var v2 = vec3.fromValues(0, 0, 1);
+      this.origin = new Point(vec3.dot(vect_origin,v0),vec3.dot(vect_origin,v1),vec3.dot(vect_origin,v2))
       var time = 0;
       for(var i = 0;i < this.cPoints.length;i++){
           var point = this.cPoints[i];
@@ -52,7 +66,10 @@ class LinearAnimation extends Animation{
           var walk = [(x/temp_time), (y/temp_time), (z/temp_time)];
           this.walk_d.push(walk);
           vect_origin = vec3.fromValues(point.x,point.y,point.z);
+          this.get_angle(x, z, v2);
       }
+      this.rotate = this.angles[0];
+
   }
 
 
@@ -61,9 +78,7 @@ class LinearAnimation extends Animation{
 class CircularAnimation extends Animation{
   constructor(id, time, centerx, centery, centerz, radius, iAngle, rAngle){
       super(id, time);
-      this.centerx = centerx;
-      this.centery = centery;
-      this.centerz = centerz;
+      this.center = new Point(centerx, centery, centerz);
       this.radius = radius;
       this.iAngle = iAngle;
       this.rAngle = rAngle;
