@@ -16,7 +16,7 @@ XMLscene.prototype.update = function(currTime){
     this.tempo = currTime;
     this.tempo_dec += this.tempovar;
 
-    if(this.tempo_dec > 1 && this.init_anim == 0) {
+    if(this.tempo_dec > this.tempo_wait && this.init_anim == 0) {
         this.init_anim = 2;
         this.tempo_dec = 0;
         this.tempo = 0;
@@ -47,6 +47,7 @@ XMLscene.prototype.init = function (application) {
     this.tempovar = 0;
     this.tempo = 0;
     this.tempo_dec  = 0;
+    this.tempo_wait = 1;
     this.init_anim = 0;
 
     this.setUpdatePeriod(1);
@@ -283,14 +284,14 @@ XMLscene.prototype.profundidade_rec = function (vertex) {
     var pushed_mat = this.displayMaterial(vertex);
     var pushed_text = this.displayTexture(vertex);
     if(vertex.component.animations.length != 0){
-        for(var i = 0;i < vertex.component.animations.length; i++){
-            var anim = vertex.component.animations[i];
-            if(anim instanceof LinearAnimation){
-                this.translate(anim.translate.x,anim.translate.y,anim.translate.z);
-                this.translate(anim.origin.x,anim.origin.y,anim.origin.z);
-                this.rotate(anim.rotate,0,1,0);
-                this.translate(-anim.origin.x,-anim.origin.y,-anim.origin.z);
-            }
+        var indice = vertex.component.curr_anim;
+        if(indice == vertex.component.animations.length) indice--;
+        var anim = vertex.component.animations[indice];
+        if(anim instanceof LinearAnimation){
+            this.translate(anim.translate.x,anim.translate.y,anim.translate.z);
+            this.translate(anim.origin.x,anim.origin.y,anim.origin.z);
+            this.rotate(anim.rotate,0,1,0);
+            this.translate(-anim.origin.x,-anim.origin.y,-anim.origin.z);
         }
     }
     this.multMatrix(vertex.component.matrix);

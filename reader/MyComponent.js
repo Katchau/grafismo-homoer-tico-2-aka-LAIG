@@ -17,6 +17,7 @@ function MyComponent() {
 	this.materials = [];
 	this.texture = "";
 	this.animations = [];
+    this.curr_anim = 0;
 
 	this.primitivess = [];
 	this.children_comp = [];
@@ -30,9 +31,9 @@ MyComponent.prototype.update = function(tempovar, tempo_dec){
 
     if(this.animations.length != 0){
 
-        for(var i = 0; i < this.animations.length; i++){
+        if(this.curr_anim < this.animations.length){
+            var i = this.curr_anim;
             var anime = this.animations[i];
-
             if(!anime.completed || i == 0){
                 if(anime instanceof LinearAnimation){
                     for(var j =0; j< anime.cPoints.length;j++){
@@ -44,7 +45,7 @@ MyComponent.prototype.update = function(tempovar, tempo_dec){
                         else if(anime.times[j] <= tempo_dec){
                             anime.next_anim[j+1]= true;
                             if(j+1 != anime.cPoints.length)anime.rotate = anime.angles[j+1];
-                            else anime.completed = true;
+                            else this.curr_anim++;
                         }
                     }
                 }

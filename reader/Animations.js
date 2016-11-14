@@ -2,7 +2,6 @@ class Animation{
     constructor(id, time){
         this.id = id;
         this.time = time;
-        this.completed = false;
     }
 }
 
@@ -44,12 +43,11 @@ class LinearAnimation extends Animation{
   }
 
   calc_time(matrix){
-      var vect_origin = vec3.fromValues(0,0,0);
-      vec3.transformMat4(vect_origin,vec3.fromValues(0,0,0), matrix);
+      var vect_origin = matrix;
       var v0 = vec3.fromValues(1, 0, 0);
       var v1 = vec3.fromValues(0, 1, 0);
       var v2 = vec3.fromValues(0, 0, 1);
-      this.origin = new Point(vec3.dot(vect_origin,v0),vec3.dot(vect_origin,v1),vec3.dot(vect_origin,v2))
+      this.origin = new Point(vec3.dot(vect_origin,v0),vec3.dot(vect_origin,v1),vec3.dot(vect_origin,v2));
       var time = 0;
       for(var i = 0;i < this.cPoints.length;i++){
           var point = this.cPoints[i];

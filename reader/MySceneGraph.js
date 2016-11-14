@@ -593,12 +593,21 @@ MySceneGraph.prototype.parseComponents = function(rootElement){
                     var anime_konichiwa = this.animations[anim_id];
                     //calculate distance to first point
                     if(anime_konichiwa instanceof LinearAnimation){
-                        var vect_origin = vec3.fromValues(0,0,0);
-                        vec3.transformMat4(vect_origin,vec3.fromValues(0,0,0), comp.matrix);
-                        var first_point = anime_konichiwa.cPoints[0];
-                        anime_konichiwa.distance += vec3.distance(vec3.fromValues(first_point.x,first_point.y,first_point.z), vect_origin);
-                        anime_konichiwa.speed = anime_konichiwa.distance/anime_konichiwa.time;
-                        anime_konichiwa.calc_time(comp.matrix);
+                        if(comp.animations.length < 1){
+                            var vect_origin = vec3.fromValues(0,0,0);
+                            vec3.transformMat4(vect_origin,vec3.fromValues(0,0,0), comp.matrix);
+                            var first_point = anime_konichiwa.cPoints[0];
+                            anime_konichiwa.distance += vec3.distance(vec3.fromValues(first_point.x,first_point.y,first_point.z), vect_origin);
+                            anime_konichiwa.speed = anime_konichiwa.distance/anime_konichiwa.time;
+                            anime_konichiwa.calc_time(vect_origin);
+                        }
+                        else{
+                            var vect_origin = comp.animations[comp.animations.length-1].origin;
+                            var first_point = anime_konichiwa.cPoints[0];
+                            anime_konichiwa.distance += vec3.distance(vec3.fromValues(first_point.x,first_point.y,first_point.z), vect_origin);
+                            anime_konichiwa.speed = anime_konichiwa.distance/anime_konichiwa.time;
+                            anime_konichiwa.calc_time(vect_origin);
+                        }
                     }
 
                     comp.animations.push(anime_konichiwa);
