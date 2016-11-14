@@ -262,6 +262,14 @@ XMLscene.prototype.profundidade_rec = function (vertex) {
     this.pushMatrix();
     var pushed_mat = this.displayMaterial(vertex);
     var pushed_text = this.displayTexture(vertex);
+    if(vertex.component.animations.length != 0){
+        for(var i = 0;i < vertex.component.animations.length; i++){
+            var anim = vertex.component.animations[i];
+            if(anim instanceof LinearAnimation){
+                this.translate(anim.translate.x, anim.translate.y, anim.translate.z);
+            }
+        }
+    }
     this.multMatrix(vertex.component.matrix);
     var needs_scale = false;
     if(this.param_text != null)needs_scale = ((pushed_text == true || vertex.component.texture == "inherit") && (this.param_text.left != 1 || this.param_text.right != 1));

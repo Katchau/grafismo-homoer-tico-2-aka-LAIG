@@ -499,7 +499,6 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement){
 		}
 
 	}
-
 	return   this.parseComponents(rootElement);
 
 }
@@ -597,6 +596,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement){
                         var first_point = anime_konichiwa.cPoints[0];
                         anime_konichiwa.distance += vec3.distance(vec3.fromValues(first_point.x,first_point.y,first_point.z), vect_origin);
                         anime_konichiwa.speed = anime_konichiwa.distance/anime_konichiwa.time;
+                        anime_konichiwa.calc_time(comp.matrix);
                     }
 
                     comp.animations.push(anime_konichiwa);
