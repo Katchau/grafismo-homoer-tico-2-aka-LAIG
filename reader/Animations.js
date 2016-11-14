@@ -17,7 +17,7 @@ class LinearAnimation extends Animation{
       this.times = [];
       this.distances = [];
       this.translate = new Point(0,0,0);
-      
+
       for(var i = 1; i < this.cPoints.length; i++){
           var point = this.cPoints[i];
           var point_before = this.cPoints[i-1];
@@ -59,9 +59,11 @@ class LinearAnimation extends Animation{
 }
 
 class CircularAnimation extends Animation{
-  constructor(id, time, center, radius, iAngle, rAngle){
+  constructor(id, time, centerx, centery, centerz, radius, iAngle, rAngle){
       super(id, time);
-      this.center = center;
+      this.centerx = centerx;
+      this.centery = centery;
+      this.centerz = centerz;
       this.radius = radius;
       this.iAngle = iAngle;
       this.rAngle = rAngle;

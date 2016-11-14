@@ -17,8 +17,8 @@
      <!-- deve definir-se um objeto para raiz do grafo , assim -->
     <!-- como o comprimento dos tres eixos (cilindros) -->
     <scene root="Raiz" axis_length="10" />
-    
-    
+
+
     <views default="V5" >
         <perspective id="V1" near="0.1" far="500" angle="45">
             <from x="16" y="16" z="16" />
@@ -40,19 +40,19 @@
             <from x="16" y="0" z="16" />
             <to x="0" y="0" z="0" />
         </perspective>
-        
+
     </views>
-    
+
     <illumination doublesided="0" local="1" >
-    
+
         <ambient r="0.2" g="0.4" b="0.8" a="1" />
         <background r="0" g="0" b="0" a="1" />
-        
+
     </illumination>
-    
-	
-	
-    
+
+
+
+
     <lights>
         <omni id="Light1" enabled="1" >
             <location x="8" y="8" z="8" w="1" />
@@ -81,19 +81,19 @@
             <specular r="1" g="0" b="0" a="1" />
         </spot>
     </lights>
-    
-    
+
+
     <textures>
 
         <texture id="sky" file="scenes//textures//sky.jpg" length_s="1" length_t="1" />
         <texture id="fire" file="scenes//textures//fire.jpg" length_s="1" length_t="1" />
         <texture id="snow" file="scenes//textures//snow.jpg" length_s="3" length_t="3" />
-        
+
     </textures>
 
-    
+
     <materials>
-    
+
         <!-- Deve existir um ou mais blocos "material" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
         <material id="whiteMat" >
@@ -166,10 +166,10 @@
             <specular r="1" g="1" b="1" a="1" />
             <shininess value="10" />
         </material>
-		
+
     </materials>
-    
-    
+
+
     <transformations>
         <transformation id="tree_base transf">
             <rotate axis="y" angle="-90" />
@@ -189,8 +189,8 @@
             <translate x="0" y="2.5" z="0" />
 		   <rotate axis="x" angle="-90" />
         </transformation>
-		
-		
+
+
 		<transformation id="SMHead">
            <translate x="0" y="5.6" z="0" />
         </transformation>
@@ -230,7 +230,7 @@
             <translate x="0" y="6.3" z="0" />
            <scale x="1.2" y="0.02" z="1.2" />
         </transformation>
-		
+
 		<transformation id="sky2 transf">
             <translate x="0" y="0" z="1" />
 		   <rotate axis="y" angle="90" />
@@ -258,9 +258,9 @@
            <scale x="0.5" y="2" z="0.5" />
            <rotate axis="y" angle="90" />
         </transformation>
-		
-		
-        
+
+
+
     </transformations>
 
     <!-- novo bloco de animacao -->
@@ -275,32 +275,33 @@
             <controlpoint xx="3.0" yy="5.0" zz="1.0" />
             <controlpoint xx="5.0" yy="0.66" zz="1.0" />
         </animation>
-        <animation id="girating" span="5" type="circular" center="1.0 1.0 1.0"
+        <animation id="girating" span="5" type="circular"
+                   centerx="1.0" centery="1.0" centerz="1.0"
                    radius="1.0" startang="0.0" rotang="90.0" />
     </animations>
-    
+
     <primitives>
 
 		<primitive id="moon">
 			<cylinder base="1" top="1" height="0.01" slices="20" stacks="1" />
 		</primitive>
-		
+
 		<primitive id="SMbola">
             <sphere radius="1" slices="40" stacks="40" />
         </primitive>
-		
+
 		<primitive id="SMaba">
             <sphere radius="1" slices="40" stacks="40" />
         </primitive>
-		
+
 		<primitive id="SMnose">
 			<cylinder base="0.2" top="0" height="0.8" slices="10" stacks="10" />
 		</primitive>
-		
+
 		<primitive id="SMarm">
 			<cylinder base = "0.05" top = "0.05" height="2.5" slices="10" stacks="10" />
 		</primitive>
-		
+
 		<primitive id="ringLord">
 			<torus inner="0.5" outer="2" slices="10" loops="10" />
         </primitive>
@@ -308,212 +309,212 @@
         <primitive id="SMeye">
             <torus inner="1" outer="2" slices="5" loops="5" />
         </primitive>
-		
+
 		<primitive id="SMhat">
 			<cylinder base="0.75" top="0.75" height="1.2" slices="10" stacks="10" />
 		</primitive>
-		
+
 		<primitive id="TBase">
 			<cylinder base="1" top="1" height="0.75" slices="4" stacks="5" />
 		</primitive>
-		
+
 		<primitive id="TBody">
 			<cylinder base="1" top="0.5" height="1" slices="10" stacks="5" />
 		</primitive>
-		
+
 		<primitive id="Ttop">
 			<cylinder base="0.5" top="0" height="1" slices="10" stacks="5" />
 		</primitive>
-		
+
 		<primitive id="rectangle">
 			<rectangle x1="0" y1="0" x2="1" y2="1" />
 		</primitive>
-		
+
 		<primitive id="triangle">
 			<triangle x1="0" y1="0" z1="0" x2="0.33" y2="0" z2="0" x3="0.165" y3="0.5" z3="0" />
 		</primitive>
-		
+
     </primitives>
-    
-    
+
+
     <components>
-        
+
         <component id="SMHead">
-        
-            <transformation>            
+
+            <transformation>
                 <transformationref id="SMHead" />
             </transformation>
-       
+
             <materials>
                 <material id="inherit" />
             </materials>
-                         
+
             <texture id="none" />
-            
+
             <children>
-                <primitiveref id="SMbola" />                
+                <primitiveref id="SMbola" />
             </children>
 		</component>
-		
+
 		<component id="SMBody">
-        
-            <transformation>            
+
+            <transformation>
                 <transformationref id="SMBody" />
             </transformation>
-       
+
             <materials>
                 <material id="inherit" />
             </materials>
-                         
+
             <texture id="none" />
-            
+
             <children>
-                <primitiveref id="SMbola" />                
+                <primitiveref id="SMbola" />
             </children>
 		</component>
-		
+
 		<component id="SMLegs">
-        
-            <transformation>            
+
+            <transformation>
                 <transformationref id="SMLegs" />
             </transformation>
-       
+
             <materials>
                 <material id="inherit" />
             </materials>
-                         
+
             <texture id="none" />
-            
+
             <children>
-                <primitiveref id="SMbola" />                
+                <primitiveref id="SMbola" />
             </children>
 		</component>
-		
+
 		<component id="SMNose">
-        
-            <transformation>            
+
+            <transformation>
                 <transformationref id="SMNose" />
             </transformation>
-       
+
             <materials>
                 <material id="orangeMat" />
             </materials>
-                         
+
             <texture id="none" />
-            
+
             <children>
-                <primitiveref id="SMnose" />                
+                <primitiveref id="SMnose" />
             </children>
 		</component>
-		
+
 		<component id="SMLArm">
-        
-            <transformation>            
+
+            <transformation>
                 <transformationref id="SMLArm" />
             </transformation>
-       
+
             <materials>
                 <material id="brownMat" />
             </materials>
-                         
+
             <texture id="none" />
-            
+
             <children>
-                <primitiveref id="SMarm" />                
+                <primitiveref id="SMarm" />
             </children>
 		</component>
-		
+
 		<component id="SMRArm">
-        
-            <transformation>            
+
+            <transformation>
                 <transformationref id="SMRArm" />
             </transformation>
-       
+
             <materials>
                 <material id="brownMat" />
             </materials>
-                         
+
             <texture id="none" />
-            
+
             <children>
-                <primitiveref id="SMarm" />                
+                <primitiveref id="SMarm" />
             </children>
 		</component>
-		
+
 		<component id="SMLEye">
-        
-            <transformation>            
+
+            <transformation>
                 <transformationref id="SMLEye" />
             </transformation>
-       
+
             <materials>
                 <material id="blackMat" />
                 <material id="redMat" />
             </materials>
-                         
+
             <texture id="none" />
-            
+
             <children>
-                <primitiveref id="SMeye" />                
+                <primitiveref id="SMeye" />
             </children>
 		</component>
-		
+
 		<component id="SMREye">
-        
-            <transformation>            
+
+            <transformation>
                 <transformationref id="SMREye" />
             </transformation>
-       
+
             <materials>
                 <material id="blackMat" />
                 <material id="redMat" />
             </materials>
-                         
+
             <texture id="none" />
-            
+
             <children>
-                <primitiveref id="SMeye" />                
+                <primitiveref id="SMeye" />
             </children>
 		</component>
-		
+
 		<component id="SMAba">
-        
-            <transformation>            
+
+            <transformation>
                 <transformationref id="SMAba" />
             </transformation>
-       
+
             <materials>
                 <material id="blackMat" />
                 <material id="redMat" />
             </materials>
-                         
+
             <texture id="none" />
-            
+
             <children>
-                <primitiveref id="SMaba" />                
+                <primitiveref id="SMaba" />
             </children>
 		</component>
-		
+
 		<component id="SMHat">
-        
-            <transformation>            
+
+            <transformation>
                 <transformationref id="SMHat" />
             </transformation>
-       
+
             <materials>
                 <material id="blackMat" />
                 <material id="redMat" />
             </materials>
-                         
+
             <texture id="none" />
-            
+
             <children>
-                <primitiveref id="SMhat" />                
+                <primitiveref id="SMhat" />
             </children>
 		</component>
-		
+
 		<component id="SnowMan">
-        
+
             <transformation>
                 <translate x = "8" y = "0" z = "8"/>
 				<scale x= "0.3" y = "0.3" z = "0.3"/>
@@ -528,9 +529,9 @@
                 <material id="whiteMat" />
                 <material id="blackMat" />
             </materials>
-                         
+
             <texture id="none" />
-            
+
             <children>
                 <componentref id="SMLEye" />
 				<componentref id="SMREye" />
@@ -544,180 +545,180 @@
 				<componentref id="SMLArm" />
             </children>
 		</component>
-		
+
 		<component id="TBase">
-        
-            <transformation>            
+
+            <transformation>
                 <transformationref id="tree_base transf" />
             </transformation>
-       
+
             <materials>
                 <material id="brownMat" />
             </materials>
-                         
+
             <texture id="none" />
-            
+
             <children>
-                <primitiveref id="TBase" />                
+                <primitiveref id="TBase" />
             </children>
 		</component>
-		
+
 		<component id="TBody lower">
-        
-            <transformation>            
+
+            <transformation>
                 <transformationref id="tree_body_lower transf" />
             </transformation>
-       
+
             <materials>
                 <material id="inherit" />
             </materials>
-                         
+
             <texture id="none" />
-            
+
             <children>
-                <primitiveref id="TBody" />                
+                <primitiveref id="TBody" />
             </children>
 		</component>
-		
+
 		<component id="TBody top">
-        
-            <transformation>            
+
+            <transformation>
                 <transformationref id="tree_body_top transf" />
             </transformation>
-       
+
             <materials>
                 <material id="inherit" />
             </materials>
-                         
+
             <texture id="none" />
-            
+
             <children>
-                <primitiveref id="TBody" />                
+                <primitiveref id="TBody" />
             </children>
 		</component>
-		
+
 		<component id="Ttop">
-        
-            <transformation>            
+
+            <transformation>
                 <transformationref id="tree_top transf" />
             </transformation>
-       
+
             <materials>
                 <material id="inherit" />
             </materials>
-                         
+
             <texture id="none" />
-            
+
             <children>
-                <primitiveref id="Ttop" />                
+                <primitiveref id="Ttop" />
             </children>
 		</component>
-		
+
 		<component id="Tree 0">
-        
-            <transformation>            
+
+            <transformation>
 				<scale x="1.5" y="1.5" z="1.5"/>
             </transformation>
-			
+
 			<materials>
                 <material id="greenMat" />
             </materials>
-                         
+
             <texture id="none" />
-			
+
             <children>
-                <componentref id="TBase" /> 
-                <componentref id="TBody lower"/>             
-                <componentref id="TBody top"/>             
-                <componentref id="Ttop"/>                       
+                <componentref id="TBase" />
+                <componentref id="TBody lower"/>
+                <componentref id="TBody top"/>
+                <componentref id="Ttop"/>
             </children>
 		</component>
-		
+
 		<component id="Tree 1">
-        
-            <transformation>            
-                
-				<translate x="3" y="0" z="13"/> 
+
+            <transformation>
+
+				<translate x="3" y="0" z="13"/>
             </transformation>
-			
+
 			<materials>
                 <material id="greenMat" />
             </materials>
-                         
+
             <texture id="none" />
-			
+
             <children>
-                <componentref id="Tree 0"/>                    
+                <componentref id="Tree 0"/>
             </children>
 		</component>
-		
+
 		<component id="Tree 2">
-        
-            <transformation>            
-               
+
+            <transformation>
+
 				<translate x="3" y="0" z="3"/>
             </transformation>
-			
+
 			<materials>
                 <material id="greenMat" />
             </materials>
-                         
+
             <texture id="none" />
 			<children>
-                <componentref id="Tree 0"/>                    
+                <componentref id="Tree 0"/>
             </children>
-			
+
 		</component>
-		
+
 		<component id="Tree 3">
-        
-            <transformation>            
-                
-				<translate x="13" y="0" z="3"/> 
+
+            <transformation>
+
+				<translate x="13" y="0" z="3"/>
             </transformation>
-			
+
             <materials>
                 <material id="greenMat" />
             </materials>
-                         
+
             <texture id="none" />
 			<children>
-                <componentref id="Tree 0"/>                     
+                <componentref id="Tree 0"/>
             </children>
 		</component>
-		
+
 		<component id="Tree 4">
-        
-            <transformation>            
-				
-				<translate x="13" y="0" z="13"/> 
+
+            <transformation>
+
+				<translate x="13" y="0" z="13"/>
             </transformation>
-			
+
             <materials>
                 <material id="greenMat" />
             </materials>
-                         
+
             <texture id="none" />
 			<children>
-                <componentref id="Tree 0"/>                    
+                <componentref id="Tree 0"/>
             </children>
 		</component>
-		
+
 		<component id="Moon">
-        
-            <transformation>            
+
+            <transformation>
                 <transformationref id="moon transf" />
             </transformation>
-       
+
             <materials>
                 <material id="yellowMat" />
                 <material id="redMat" />
             </materials>
-                         
+
             <texture id="none" />
-            
+
             <children>
-                <primitiveref id="moon" />                
+                <primitiveref id="moon" />
             </children>
 		</component>
 
@@ -740,99 +741,99 @@
        </component>
 
 		<component id="Left Wall">
-        
-            <transformation>            
+
+            <transformation>
                 <transformationref id="sky2 transf" />
             </transformation>
-       
+
             <materials>
                 <material id="inherit" />
             </materials>
-                         
+
             <texture id="inherit" />
-            
+
             <children>
-                <primitiveref id="rectangle" />                
+                <primitiveref id="rectangle" />
             </children>
 		</component>
-		
+
 		<component id="Floor">
-        
-            <transformation>            
+
+            <transformation>
                 <transformationref id="floor transf" />
             </transformation>
-       
+
             <materials>
                 <material id="snowMat" />
             </materials>
-                         
+
             <texture id="snow" />
-            
+
             <children>
-                <primitiveref id="rectangle" />                
+                <primitiveref id="rectangle" />
             </children>
 		</component>
-		
+
 		<component id="Triangle 1">
-        
-            <transformation>            
+
+            <transformation>
                 <transformationref id="triangle_1 transf" />
             </transformation>
-       
+
             <materials>
                 <material id="whiteMat" />
             </materials>
-                         
+
             <texture id="none" />
-            
+
             <children>
-                <primitiveref id="triangle" />                
+                <primitiveref id="triangle" />
             </children>
 		</component>
 		<component id="Triangle 2">
-        
-            <transformation>            
+
+            <transformation>
                 <transformationref id="triangle_2 transf" />
             </transformation>
-       
+
             <materials>
                 <material id="whiteMat" />
             </materials>
-                         
+
             <texture id="none" />
-            
+
             <children>
-                <primitiveref id="triangle" />                
+                <primitiveref id="triangle" />
             </children>
 		</component>
 		<component id="Triangle 3">
-        
-            <transformation>            
+
+            <transformation>
                 <transformationref id="triangle_3 transf" />
             </transformation>
-       
+
             <materials>
                 <material id="whiteMat" />
             </materials>
-                         
+
             <texture id="none" />
-            
+
             <children>
-                <primitiveref id="triangle" />                
+                <primitiveref id="triangle" />
             </children>
 		</component>
 		<component id="Background">
-        
-            <transformation>            
+
+            <transformation>
                 <scale x="16" y = "16" z = "16" />
             </transformation>
-       
+
             <materials>
                 <material id="skyMat" />
             </materials>
-                         
+
             <texture id="sky" />
-            
+
             <children>
                 <primitiveref id="rectangle" />
 				<componentref id="Triangle 1" />
@@ -842,19 +843,19 @@
 				<componentref id="Left Wall" />
             </children>
 		</component>
-		
+
 		<component id="Raiz">
-        
-            <transformation>            
+
+            <transformation>
                 <translate x="0" y = "0" z = "0" />
             </transformation>
 
             <materials>
                 <material id="whiteMat" />
             </materials>
-                         
+
             <texture id="none" />
-            
+
             <children>
 				<componentref id="Background" />
 				<componentref id="Moon" />
@@ -866,7 +867,7 @@
 				<componentref id="Tree 4" />
             </children>
 		</component>
-		
+
     </components>
 
 

@@ -394,13 +394,15 @@ MySceneGraph.prototype.parseAnimations = function(rootElement){
             this.animations.push(new LinearAnimation(id, time, control_points));
         }
         else if(type == "circular"){
-            var center = e.attributes.getNamedItem("center");
+            var centerx = this.reader.getFloat("centerx");
+						var centery = this.reader.getFloat("centery");
+						var centerz = this.reader.getFloat("centerz");
             var radius = this.reader.getFloat(e,"radius",true);
             var startang = this.reader.getFloat(e,"startang",true);
             startang = this.deg2rad(startang);
             var rotang = this.reader.getFloat(e,"rotang",true);
             rotang = this.deg2rad(rotang);
-            this.animations.push(new CircularAnimation(id,time,center,radius,startang,rotang));
+            this.animations.push(new CircularAnimation(id,time,centerx,centery,centerz,radius,startang,rotang));
         }
         else return "unknown animation type";
     }
