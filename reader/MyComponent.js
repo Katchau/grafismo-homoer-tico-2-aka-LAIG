@@ -49,8 +49,13 @@ MyComponent.prototype.update = function(tempovar, tempo_dec){
                         }
                     }
                 }
+								else{
+										if(anime.time > tempo_dec){
+													anime.ang_ant = anime.angle_temp;
+													anime.angle_temp += (anime.angle_per_it * tempo_dec ) /1000 ;
+										}
+								}
             }
         }
-
     }
 }

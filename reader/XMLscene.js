@@ -47,7 +47,7 @@ XMLscene.prototype.init = function (application) {
     this.tempovar = 0;
     this.tempo = 0;
     this.tempo_dec  = 0;
-    this.tempo_wait = 1;
+    this.tempo_wait = 2;
     this.init_anim = 0;
 
     this.setUpdatePeriod(1);
@@ -292,7 +292,23 @@ XMLscene.prototype.profundidade_rec = function (vertex) {
             this.translate(anim.origin.x,anim.origin.y,anim.origin.z);
             this.rotate(anim.rotate,0,1,0);
             this.translate(-anim.origin.x,-anim.origin.y,-anim.origin.z);
-        }
+        }else{
+					var x = anim.center.x;
+					var y = anim.center.y;
+					var z = anim.center.z;
+					var nx = anim.center.x + Math.sin(anim.ang_ant * Math.PI / 180) * anim.radius;
+					var nz = anim.center.z + Math.cos(anim.ang_ant * Math.PI / 180) * anim.radius;
+					console.log("ang: " + anim.ang_ant);
+					console.log("nx: " + nx);
+					console.log("nz	: " + nz);
+					this.translate(x,y,z);
+					this.rotate(anim.angle_temp,0,1,0);
+					this.rotate(anim.ang_ant,0,-1,0);
+					this.translate(-x,-y,-z);
+					/*this.translate(nx,y,nz);
+					this.rotate(Math.PI/2 + anim.angle_temp,0,1,0);
+					this.translate(-nx,-y,-nz);*/
+				}
     }
     this.multMatrix(vertex.component.matrix);
     var needs_scale = false;
