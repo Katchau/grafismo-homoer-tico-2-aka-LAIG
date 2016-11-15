@@ -543,6 +543,15 @@ MySceneGraph.prototype.getTransformation = function(id){
     return this.transf_matrix[indice];
 }
 
+MySceneGraph.prototype.calculate_origin = function(comp){
+    var vect_origin = vec3.fromValues(0,0,0);
+    var v0 = vec3.fromValues(1, 0, 0);
+    var v1 = vec3.fromValues(0, 1, 0);
+    var v2 = vec3.fromValues(0, 0, 1);
+    vec3.transformMat4(vect_origin,vec3.fromValues(0,0,0), comp.matrix);
+    comp.origin = new Point(vec3.dot(vect_origin,v0),vec3.dot(vect_origin,v1),vec3.dot(vect_origin,v2));
+}
+
 /* Funcao que faz parse dos components do .dsx */
 MySceneGraph.prototype.parseComponents = function(rootElement){
 	var elems = rootElement.getElementsByTagName('components');
@@ -590,20 +599,23 @@ MySceneGraph.prototype.parseComponents = function(rootElement){
 				if(child.nodeName == "animation"){
                     var anim_id = this.anim_ids.indexOf(this.reader.getString(transf, "id",true));
                     if(anim_id == -1) return "Nao existe o id  da animation";
-                    var anime_konichiwa = this.animations[anim_id];
+                    var anime_konichiwa = this.animations[anim_id].clone();
                     //calculate distance to first point
                     if(anime_konichiwa instanceof LinearAnimation){
+                        var vect_origin;
+                        var first_point;
                         if(comp.animations.length < 1){
-                            var vect_origin = vec3.fromValues(0,0,0);
-                            vec3.transformMat4(vect_origin,vec3.fromValues(0,0,0), comp.matrix);
-                            var first_point = anime_konichiwa.cPoints[0];
+                            this.calculate_origin(comp);
+                            vect_origin = vec3.fromValues(comp.origin.x,comp.origin.y,comp.origin.z);
+                            first_point = anime_konichiwa.cPoints[0];
                             anime_konichiwa.distance += vec3.distance(vec3.fromValues(first_point.x,first_point.y,first_point.z), vect_origin);
                             anime_konichiwa.speed = anime_konichiwa.distance/anime_konichiwa.time;
                             anime_konichiwa.calc_time(vect_origin);
                         }
                         else{
-                            var vect_origin = comp.animations[comp.animations.length-1].origin;
-                            var first_point = anime_konichiwa.cPoints[0];
+                            var points = comp.animations[comp.animations.length-1].cPoints;
+                            vect_origin = vec3.fromValues(points[points.length-1].x,points[points.length-1].y,points[points.length-1].z);
+                            first_point = anime_konichiwa.cPoints[0];
                             anime_konichiwa.distance += vec3.distance(vec3.fromValues(first_point.x,first_point.y,first_point.z), vect_origin);
                             anime_konichiwa.speed = anime_konichiwa.distance/anime_konichiwa.time;
                             anime_konichiwa.calc_time(vect_origin);

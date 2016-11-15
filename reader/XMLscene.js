@@ -23,7 +23,7 @@ XMLscene.prototype.update = function(currTime){
     }
     if(this.init_anim == 2){
         for(var i = 0; i < this.anim_component.length; i++){
-            this.anim_component[i].update(this.tempovar, this.tempo_dec);
+            this.anim_component[i].update(this.tempovar);
         }
     }
 }
@@ -47,7 +47,7 @@ XMLscene.prototype.init = function (application) {
     this.tempovar = 0;
     this.tempo = 0;
     this.tempo_dec  = 0;
-    this.tempo_wait = 2;
+    this.tempo_wait = 1;
     this.init_anim = 0;
 
     this.setUpdatePeriod(1);
@@ -284,32 +284,35 @@ XMLscene.prototype.profundidade_rec = function (vertex) {
     var pushed_mat = this.displayMaterial(vertex);
     var pushed_text = this.displayTexture(vertex);
     if(vertex.component.animations.length != 0){
+        var origi = vertex.component.origin;
         var indice = vertex.component.curr_anim;
         if(indice == vertex.component.animations.length) indice--;
         var anim = vertex.component.animations[indice];
         if(anim instanceof LinearAnimation){
             this.translate(anim.translate.x,anim.translate.y,anim.translate.z);
-            this.translate(anim.origin.x,anim.origin.y,anim.origin.z);
+            this.translate(origi.x,origi.y,origi.z);
             this.rotate(anim.rotate,0,1,0);
-            this.translate(-anim.origin.x,-anim.origin.y,-anim.origin.z);
-        }else{
-					var x = anim.center.x;
-					var y = anim.center.y;
-					var z = anim.center.z;
-					var nx = anim.center.x + Math.sin(anim.ang_ant * Math.PI / 180) * anim.radius;
-					var nz = anim.center.z + Math.cos(anim.ang_ant * Math.PI / 180) * anim.radius;
-					console.log("ang: " + anim.ang_ant);
-					console.log("nx: " + nx);
-					console.log("nz	: " + nz);
-					this.translate(x,y,z);
-					this.rotate(anim.angle_temp,0,1,0);
-					this.rotate(anim.ang_ant,0,-1,0);
-					this.translate(-x,-y,-z);
-					/*this.translate(nx,y,nz);
-					this.rotate(Math.PI/2 + anim.angle_temp,0,1,0);
-					this.translate(-nx,-y,-nz);*/
-				}
+            this.translate(-origi.x,-origi.y,-origi.z);
+        }
+        else if(anim instanceof CircularAnimation){
+            var x = anim.center.x;
+            var y = anim.center.y;
+            var z = anim.center.z;
+            var nx = anim.center.x + Math.sin(anim.ang_ant * Math.PI / 180) * anim.radius;
+            var nz = anim.center.z + Math.cos(anim.ang_ant * Math.PI / 180) * anim.radius;
+            console.log("ang: " + anim.ang_ant);
+            console.log("nx: " + nx);
+            console.log("nz	: " + nz);
+            this.translate(x,y,z);
+            this.rotate(anim.angle_temp,0,1,0);
+            this.rotate(anim.ang_ant,0,-1,0);
+            this.translate(-x,-y,-z);
+            /*this.translate(nx,y,nz);
+             this.rotate(Math.PI/2 + anim.angle_temp,0,1,0);
+             this.translate(-nx,-y,-nz);*/
+        }
     }
+
     this.multMatrix(vertex.component.matrix);
     var needs_scale = false;
     if(this.param_text != null)needs_scale = ((pushed_text == true || vertex.component.texture == "inherit") && (this.param_text.left != 1 || this.param_text.right != 1));

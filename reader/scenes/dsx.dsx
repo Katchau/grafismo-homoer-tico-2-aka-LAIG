@@ -270,10 +270,15 @@
         <!-- demorar. Nesta versão do formato DSX, type pode ter -->
         <!-- o valor "linear" ou "circular"; na animacao circular -->
         <!-- os angulos sao expressos em graus  -->
-        <animation id="jumpy" span="9" type="linear">
+        <animation id="jumpy" span="3" type="linear">
             <controlpoint xx="1.0" yy="0.66" zz="1.0" />
             <controlpoint xx="3.0" yy="5.0" zz="1.0" />
             <controlpoint xx="5.0" yy="0.66" zz="1.0" />
+        </animation>
+        <animation id="jumpy2" span="3" type="linear">
+            <controlpoint xx="7.0" yy="0.66" zz="1.0" />
+            <controlpoint xx="10.0" yy="5.0" zz="1.0" />
+            <controlpoint xx="13.0" yy="0.66" zz="1.0" />
         </animation>
         <animation id="girating" span="5" type="circular"
                    centerx="1.0" centery="1.0" centerz="1.0"
@@ -523,6 +528,7 @@
 
             <animation>
                 <animationref id="jumpy" />
+                <animationref id="jumpy2" />
             </animation>
 
             <materials>
@@ -640,6 +646,10 @@
 
 				<translate x="3" y="0" z="13"/>
             </transformation>
+
+            <animation>
+                <animationref id="jumpy" />
+            </animation>
 
 			<materials>
                 <material id="greenMat" />
