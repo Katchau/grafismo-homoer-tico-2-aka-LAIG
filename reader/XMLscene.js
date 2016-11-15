@@ -295,17 +295,12 @@ XMLscene.prototype.profundidade_rec = function (vertex) {
             this.translate(-origi.x,-origi.y,-origi.z);
         }
         else if(anim instanceof CircularAnimation){
-            var x = anim.center.x;
-            var y = anim.center.y;
-            var z = anim.center.z;
-            var nx = origi.x;
-            var nz = origi.z;
-            this.translate(x,y,z);
+
+            this.translate(anim.center.x,anim.center.y,anim.center.z);
             this.rotate(anim.angle_temp,0,1,0);
-            this.translate(-x,-y,-z);
-            this.translate(nx,y,nz);
+            this.translate(anim.xi,anim.yi,anim.zi);
             this.rotate(Math.PI/2 + anim.angle_temp,0,1,0);
-            this.translate(-nx,-y,-nz);
+            this.translate(-origi.x,-origi.y,-origi.z);
         }
     }
 

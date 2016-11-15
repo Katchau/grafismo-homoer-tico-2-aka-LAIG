@@ -624,9 +624,6 @@ MySceneGraph.prototype.parseComponents = function(rootElement){
                             anime_konichiwa.calc_time(vect_origin);
                         }
                     }
-                    else if(anime_konichiwa instanceof CircularAnimation){
-                        anime_konichiwa.calc_final_point(comp.origin);
-                    }
                     comp.animations.push(anime_konichiwa);
                 }
 

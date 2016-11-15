@@ -8,7 +8,7 @@ class Animation{
         var vet4angle = vec3.fromValues(x,0,z);
         var cosx = vec3.dot(vet4angle, vector_z) / Math.sqrt(x*x + z*z);
         var angle = Math.acos(cosx);
-        if(z < 0){
+        if(x < 0){
             angle = Math.PI*2-angle;
         }
         return angle;
@@ -86,20 +86,22 @@ class CircularAnimation extends Animation{
       this.iAngle = iAngle;
       this.rAngle = rAngle;
 
-      this.angle_per_it = this.rAngle / time;
-      this.intial_point = new Point(centerx + Math.sin(iAngle) * this.radius, centery, centerz + Math.cos(iAngle) * this.radius);
+      this.angle_per_it = this.rAngle   / time;
       this.ang_ant = 0;
       this.angle_temp = 0;
       this.cPoints = [];
-      this.cPoints.push(this.intial_point);
       this.final_point = new Point(0,0,0);
+      this.calc_final_point();
   }
-  calc_final_point(origin){
-      var control_vector = vec3.fromValues(0, 0, 1)
-      var angle = this.get_angle(origin.x,origin.z,control_vector);
-      var x = this.center.x + Math.cos(angle-this.rAngle-this.iAngle) * this.radius;
-      var z = this.center.z + Math.sin(angle-this.rAngle-this.iAngle) * this.radius;
-      this.final_point = new Point(x,origin.y, z);
+  calc_final_point(){
+
+      this.xi = Math.cos(this.iAngle) * this.radius;
+      this.yi = 0;
+      this.zi = Math.sin(this.iAngle) * this.radius;
+
+      var x = this.center.x + Math.cos(this.rAngle+this.iAngle) * this.radius;
+      var z = this.center.z + Math.sin(-this.rAngle+this.iAngle) * this.radius;
+      this.final_point = new Point(x,this.center.y, z);
       this.cPoints.push(this.final_point);
   }
   clone(){
