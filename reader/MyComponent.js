@@ -58,7 +58,7 @@ MyComponent.prototype.update = function(tempovar){
             else if(anime instanceof CircularAnimation){
                 if(anime.time > this.tempo_dec){
                     anime.ang_ant = anime.angle_temp;
-                    anime.angle_temp += (anime.angle_per_it * this.tempo_dec);
+                    anime.angle_temp += (anime.angle_per_it) * tempovar;
 										console.log(anime.angle_temp);
                 }
                 else {
