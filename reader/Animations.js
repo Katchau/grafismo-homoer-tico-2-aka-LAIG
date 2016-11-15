@@ -3,6 +3,16 @@ class Animation{
         this.id = id;
         this.time = time;
     }
+
+    get_angle(x, z, vector_z){
+        var vet4angle = vec3.fromValues(x,0,z);
+        var cosx = vec3.dot(vet4angle, vector_z) / Math.sqrt(x*x + z*z);
+        var angle = Math.acos(cosx);
+        if(z < 0){
+            angle = Math.PI*2-angle;
+        }
+        return angle;
+    }
 }
 
 class LinearAnimation extends Animation{
@@ -37,16 +47,6 @@ class LinearAnimation extends Animation{
       return ret;
   }
 
-  get_angle(x, z, vector_z){
-      var vet4angle = vec3.fromValues(x,0,z);
-      var cosx = vec3.dot(vet4angle, vector_z) / Math.sqrt(x*x + z*z);
-      var angle = Math.acos(cosx);
-      if(z < 0){
-          angle = Math.PI*2-angle;
-      }
-      this.angles.push(angle);
-  }
-
   calc_time(matrix){
       var vect_origin = matrix;
       var v0 = vec3.fromValues(1, 0, 0);
@@ -68,7 +68,8 @@ class LinearAnimation extends Animation{
           var walk = [(x/temp_time), (y/temp_time), (z/temp_time)];
           this.walk_d.push(walk);
           vect_origin = vec3.fromValues(point.x,point.y,point.z);
-          this.get_angle(x, z, v2);
+          var angle = this.get_angle(x, z, v2);
+          this.angles.push(angle);
       }
       this.rotate = this.angles[0];
 
@@ -89,6 +90,17 @@ class CircularAnimation extends Animation{
       this.intial_point = new Point(centerx + Math.sin(iAngle) * this.radius, centery, centerz + Math.cos(iAngle) * this.radius);
       this.ang_ant = 0;
       this.angle_temp = 0;
+      this.cPoints = [];
+      this.cPoints.push(this.intial_point);
+      this.final_point = new Point(0,0,0);
+  }
+  calc_final_point(origin){
+      var control_vector = vec3.fromValues(0, 0, 1)
+      var angle = this.get_angle(origin.x,origin.z,control_vector);
+      var x = this.center.x + Math.cos(angle-this.rAngle-this.iAngle) * this.radius;
+      var z = this.center.z + Math.sin(angle-this.rAngle-this.iAngle) * this.radius;
+      this.final_point = new Point(x,origin.y, z);
+      this.cPoints.push(this.final_point);
   }
   clone(){
       var ret = new CircularAnimation(this.id, this.time, this.center.x, this.center.y, this.center.z, this.radius, this.iAngle, this.rAngle);

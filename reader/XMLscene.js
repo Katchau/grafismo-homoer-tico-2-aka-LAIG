@@ -300,13 +300,12 @@ XMLscene.prototype.profundidade_rec = function (vertex) {
             var z = anim.center.z;
             var nx = origi.x;
             var nz = origi.z;
-
-						this.translate(x,y,z);
+            this.translate(x,y,z);
             this.rotate(anim.angle_temp,0,1,0);
             this.translate(-x,-y,-z);
-						this.translate(nx,y,nz);
-						this.rotate(Math.PI/2 + anim.angle_temp,0,1,0);
-						this.translate(-nx,-y,-nz);
+            this.translate(nx,y,nz);
+            this.rotate(Math.PI/2 + anim.angle_temp,0,1,0);
+            this.translate(-nx,-y,-nz);
         }
     }
 

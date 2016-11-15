@@ -601,11 +601,14 @@ MySceneGraph.prototype.parseComponents = function(rootElement){
                     if(anim_id == -1) return "Nao existe o id  da animation";
                     var anime_konichiwa = this.animations[anim_id].clone();
                     //calculate distance to first point
+                    if(comp.animations.length < 1){
+                        this.calculate_origin(comp);
+                    }
                     if(anime_konichiwa instanceof LinearAnimation){
                         var vect_origin;
                         var first_point;
                         if(comp.animations.length < 1){
-                            this.calculate_origin(comp);
+
                             vect_origin = vec3.fromValues(comp.origin.x,comp.origin.y,comp.origin.z);
                             first_point = anime_konichiwa.cPoints[0];
                             anime_konichiwa.distance += vec3.distance(vec3.fromValues(first_point.x,first_point.y,first_point.z), vect_origin);
@@ -621,11 +624,9 @@ MySceneGraph.prototype.parseComponents = function(rootElement){
                             anime_konichiwa.calc_time(vect_origin);
                         }
                     }
-										if(anime_konichiwa instanceof CircularAnimation){
-											if(comp.animations.length < 1){
-												this.calculate_origin(comp);
-											}
-										}
+                    else if(anime_konichiwa instanceof CircularAnimation){
+                        anime_konichiwa.calc_final_point(comp.origin);
+                    }
                     comp.animations.push(anime_konichiwa);
                 }
 

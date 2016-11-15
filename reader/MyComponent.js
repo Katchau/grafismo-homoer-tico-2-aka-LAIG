@@ -50,7 +50,7 @@ MyComponent.prototype.update = function(tempovar){
                             this.curr_anim++;
                             this.tempo_dec = 0;
                             if(this.curr_anim < this.animations.length)
-                                this.animations[i+1].translate = anime.translate;
+                                if(this.animations[i+1] instanceof LinearAnimation)this.animations[i+1].translate = anime.translate;
                         }
                     }
                 }
@@ -59,12 +59,14 @@ MyComponent.prototype.update = function(tempovar){
                 if(anime.time > this.tempo_dec){
                     anime.ang_ant = anime.angle_temp;
                     anime.angle_temp += (anime.angle_per_it) * tempovar;
-										console.log(anime.angle_temp);
                 }
                 else {
-									this.curr_anim++;
-									this.tempo_dec = 0;
-								}
+					this.curr_anim++;
+                    this.tempo_dec = 0;
+                    if(this.curr_anim < this.animations.length)
+                        if(this.animations[i+1] instanceof LinearAnimation)
+                            this.animations[i+1].translate = new Point(anime.final_point.x-this.origin.x, anime.final_point.y-this.origin.y, anime.final_point.z-this.origin.z);
+				}
             }
 
         }
