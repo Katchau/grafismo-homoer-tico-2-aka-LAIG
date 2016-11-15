@@ -276,6 +276,25 @@ XMLscene.prototype.displayTexture = function (vertex) {
     return false;
 }
 
+XMLscene.prototype.animation = function(vertex){
+    var origi = vertex.component.origin;
+    var indice = vertex.component.curr_anim;
+    if(indice == vertex.component.animations.length) indice--;
+    var anim = vertex.component.animations[indice];
+    if(anim instanceof LinearAnimation){
+        this.translate(anim.translate.x,anim.translate.y,anim.translate.z);
+        this.translate(origi.x,origi.y,origi.z);
+        this.rotate(anim.rotate,0,1,0);
+        this.translate(-origi.x,-origi.y,-origi.z);
+    }
+    else if(anim instanceof CircularAnimation){
+        this.translate(anim.center.x,anim.center.y,anim.center.z);
+        this.rotate(anim.angle_temp,0,1,0);
+        this.translate(anim.xi,anim.yi,anim.zi);
+        this.rotate(Math.PI/2 + anim.angle_temp,0,1,0);
+        this.translate(-origi.x,-origi.y,-origi.z);
+    }
+}
 
 //funcao que vai percorrer recursivamente (pesquisa em profundidade)todo o grafo, efetuando display das primitivas do vertice, alterando a matrix de transformacao do vertice atual
 //bem fazendo display de materiais e texturas associadas ao vertex.
@@ -284,24 +303,7 @@ XMLscene.prototype.profundidade_rec = function (vertex) {
     var pushed_mat = this.displayMaterial(vertex);
     var pushed_text = this.displayTexture(vertex);
     if(vertex.component.animations.length != 0){
-        var origi = vertex.component.origin;
-        var indice = vertex.component.curr_anim;
-        if(indice == vertex.component.animations.length) indice--;
-        var anim = vertex.component.animations[indice];
-        if(anim instanceof LinearAnimation){
-            this.translate(anim.translate.x,anim.translate.y,anim.translate.z);
-            this.translate(origi.x,origi.y,origi.z);
-            this.rotate(anim.rotate,0,1,0);
-            this.translate(-origi.x,-origi.y,-origi.z);
-        }
-        else if(anim instanceof CircularAnimation){
-
-            this.translate(anim.center.x,anim.center.y,anim.center.z);
-            this.rotate(anim.angle_temp,0,1,0);
-            this.translate(anim.xi,anim.yi,anim.zi);
-            this.rotate(Math.PI/2 + anim.angle_temp,0,1,0);
-            this.translate(-origi.x,-origi.y,-origi.z);
-        }
+        this.animation(vertex);
     }
 
     this.multMatrix(vertex.component.matrix);
