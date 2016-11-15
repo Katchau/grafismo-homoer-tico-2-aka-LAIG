@@ -85,9 +85,13 @@ class CircularAnimation extends Animation{
       this.iAngle = iAngle;
       this.rAngle = rAngle;
 
-      this.angle_per_it = this.rAngle / time * 1000;
-      this.intial_point = new Point(centerx + Math.cos(iAngle), centery + Math.sin(iAngle), centerz);
+      this.angle_per_it = this.rAngle / time;
+      this.intial_point = new Point(centerx + Math.sin(iAngle), centery, centerz + Math.cos(iAngle));
       this.ang_ant = 0;
       this.angle_temp = 0;
+  }
+  clone(){
+      var ret = new CircularAnimation(this.id, this.time, this.center.x, this.center.y, this.center.z, this.radius, this.iAngle, this.rAngle);
+      return ret;
   }
 }

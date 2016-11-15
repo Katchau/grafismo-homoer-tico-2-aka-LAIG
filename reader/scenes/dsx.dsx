@@ -20,6 +20,7 @@
 
 
     <views default="V5" >
+                        }
         <perspective id="V1" near="0.1" far="500" angle="45">
             <from x="16" y="16" z="16" />
             <to x="0" y="0" z="0" />
@@ -281,8 +282,8 @@
             <controlpoint xx="13.0" yy="0.66" zz="1.0" />
         </animation>
         <animation id="girating" span="5" type="circular"
-                   centerx="1.0" centery="1.0" centerz="1.0"
-                   radius="1.0" startang="0.0" rotang="90.0" />
+                   centerx="0.0" centery="0.0" centerz="0.0"
+                   radius="11.3" startang="0.0" rotang="90.0" />
     </animations>
 
     <primitives>
@@ -297,7 +298,7 @@
 
 		<primitive id="SMaba">
             <sphere radius="1" slices="40" stacks="40" />
-        </primitive>
+        </primitive>girating
 
 		<primitive id="SMnose">
 			<cylinder base="0.2" top="0" height="0.8" slices="10" stacks="10" />
@@ -527,8 +528,7 @@
             </transformation>
 
             <animation>
-                <animationref id="jumpy" />
-                <animationref id="jumpy2" />
+                <animationref id="girating" />
             </animation>
 
             <materials>
@@ -647,9 +647,6 @@
 				<translate x="3" y="0" z="13"/>
             </transformation>
 
-            <animation>
-                <animationref id="jumpy" />
-            </animation>
 
 			<materials>
                 <material id="greenMat" />
