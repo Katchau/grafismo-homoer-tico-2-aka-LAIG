@@ -3,7 +3,7 @@
 //o outro array contem todos os vertices da cena.
 function MyGraph() {
 	CGFscene.call(this);
-	
+
 	this.vertexIDs = [];
 	this.vertexSet = [];
 }
@@ -45,13 +45,13 @@ MyGraph.prototype.getPrimitives = function (vertex,primitive, info) {
             prim = new MySphere(this.scene, primitive[1], primitive[2], primitive[3]);
             break;
         case "don":
-            prim = new MyTorus(this.scene, primitive[1],primitive[2], primitive[3], primitive[4]);
+            prim = new MyTorus(this.scene, primitive[1], primitive[2], primitive[3], primitive[4]);
             break;
         case "pla":
-            //
+          	prim = new MyPlane(this.scene, primitive[1], primitive[2], primitive[3], primitive[4]);
             break;
         case "pat":
-            //
+            prim = new MyPatch(this.scene, primitive[1], primitive[2], primitive[3], primitive[4], primitive[5]);
             break;
     }
     vertex.component.primitivess.push(prim);
@@ -82,6 +82,5 @@ MyGraph.prototype.pesquisa_profundidade = function(vertexID, scene){
 	    this.vertexSet[i].visited = false;
 
     this.initiatePrimitives(this.vertexSet[indice]);
-	
-}
 
+}

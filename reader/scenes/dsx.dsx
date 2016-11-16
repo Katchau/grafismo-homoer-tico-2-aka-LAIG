@@ -16,7 +16,7 @@
 
      <!-- deve definir-se um objeto para raiz do grafo , assim -->
     <!-- como o comprimento dos tres eixos (cilindros) -->
-    <scene root="Raiz" axis_length="10" />
+    <scene root="bananas" axis_length="10" />
 
 
     <views default="V5" >
@@ -360,6 +360,23 @@
 
 
     <components>
+
+        <component id="bananas">
+
+            <transformation>
+            </transformation>
+
+            <materials>
+                <material id="greenMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="cenas" />
+                <!-- <primitiveref id="patch" /> -->
+            </children>
+        </component>
 
         <component id="SMHead">
 
