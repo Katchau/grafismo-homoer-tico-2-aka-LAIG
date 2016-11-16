@@ -63,7 +63,7 @@ MySceneGraph.prototype.getMatrix = function (e) {
         }
     }
     return matrix;
-}
+};
 
 /* Funcao para convorter graus para radianos */
 MySceneGraph.prototype.deg2rad = function(degrees) {
@@ -87,14 +87,14 @@ MySceneGraph.prototype.readAngle = function(comp, transf){
     angle = this.deg2rad(angle);
     comp.push(axis);
     comp.push(angle);
-}
+};
 
 /* Guarda num array as coordenadas x, y e z */
 MySceneGraph.prototype.getNewCoords = function(transf){
     var comp = [];
     this.readCoord(comp, transf);
     return comp;
-}
+};
 
 MySceneGraph.prototype.getControlPoint = function(transf){
     var x = this.reader.getFloat(transf,"xx",true);
@@ -102,7 +102,7 @@ MySceneGraph.prototype.getControlPoint = function(transf){
     var z = this.reader.getFloat(transf,"zz",true);
     var point = new Point(x,y,z);
     return point;
-}
+};
 
 /* Funcao para ler a cor em rgba do .dsx */
 MySceneGraph.prototype.readRGBA = function(comp, transf){
@@ -114,7 +114,7 @@ MySceneGraph.prototype.readRGBA = function(comp, transf){
     comp.push(g);
     comp.push(b);
     comp.push(aaa);
-}
+};
 
 /* Funcao que inicia o parse do .dsx */
 MySceneGraph.prototype.parseFunction = function(rootElement) {
@@ -124,7 +124,7 @@ MySceneGraph.prototype.parseFunction = function(rootElement) {
         return false;
     }
     else return true;
-}
+};
 
 /* Funcao que verifica a ordem .dsx */
 MySceneGraph.prototype.testOrder = function(rootElement){
@@ -142,7 +142,7 @@ MySceneGraph.prototype.testOrder = function(rootElement){
         console.warn("Ordem incorreta das tags!");
 
     return 	this.parseScene(rootElement);
-}
+};
 
 /* Funcao que comeca o parse da cena */
 MySceneGraph.prototype.parseScene = function(rootElement){ //done
@@ -159,7 +159,7 @@ MySceneGraph.prototype.parseScene = function(rootElement){ //done
 	this.axis_length = this.reader.getFloat(elems[0],'axis_length',true);
 
     return 	this.parseViews(rootElement);
-}
+};
 
 /* Funcao que faz parse das views do .dsx */
 MySceneGraph.prototype.parseViews = function(rootElement) {
@@ -197,7 +197,7 @@ MySceneGraph.prototype.parseViews = function(rootElement) {
     this.first_view = ids.indexOf(def_view);
     if(this.first_view == -1)return "nao existe vista por defeito!";
     return this.parseIllumination(rootElement);
-}
+};
 
 /* Funcao que faz parse da iluminacao do .dsx */
 MySceneGraph.prototype.parseIllumination = function(rootElement){
@@ -227,7 +227,7 @@ MySceneGraph.prototype.parseIllumination = function(rootElement){
 	}
 
 	return 	this.parseLights(rootElement);
-}
+};
 
 /* Funcao que faz parse das luzes do .dsx */
 MySceneGraph.prototype.parseLights = function(rootElement){
@@ -290,7 +290,7 @@ MySceneGraph.prototype.parseLights = function(rootElement){
         return "So' pode haver 8 luzes no maximo!";
 
     return this.parseTextures(rootElement);
-}
+};
 
 /* Funcao que faz parse das texturas do .dsx */
 MySceneGraph.prototype.parseTextures = function(rootElement) {
@@ -317,7 +317,7 @@ MySceneGraph.prototype.parseTextures = function(rootElement) {
     }
 
     return 	this.parseMaterials(rootElement);
-}
+};
 
 /* Funcao que faz parse dos materiais do .dsx */
 MySceneGraph.prototype.parseMaterials = function(rootElement){
@@ -346,7 +346,7 @@ MySceneGraph.prototype.parseMaterials = function(rootElement){
 	}
 
 	return this.parseTransformations(rootElement);
-}
+};
 
 /* Funcao que faz parse das transformacoes do .dsx */
 MySceneGraph.prototype.parseTransformations = function(rootElement){
@@ -370,7 +370,8 @@ MySceneGraph.prototype.parseTransformations = function(rootElement){
 	}
 
     return this.parseAnimations(rootElement);
-}
+};
+
 /* Funcao que faz parse das animacoes do dsx */
 MySceneGraph.prototype.parseAnimations = function(rootElement){
     var elems = rootElement.getElementsByTagName('animations');
@@ -408,7 +409,7 @@ MySceneGraph.prototype.parseAnimations = function(rootElement){
     }
 
     return 	this.parsePrimitives(rootElement);
-}
+};
 
 /* Funcao que le as primitivas do .dsx */
 MySceneGraph.prototype.readPrimitives = function (e, j, obj, all_ids){
@@ -485,7 +486,7 @@ MySceneGraph.prototype.readPrimitives = function (e, j, obj, all_ids){
             this.patches[obj.size_patch][2] = this.reader.getFloat(e.children[j],'orderV',true);
             this.patches[obj.size_patch][3] = this.reader.getFloat(e.children[j],'partsU',true);
             this.patches[obj.size_patch][4] = this.reader.getFloat(e.children[j],'partsV',true);
-            var temp = []
+            var temp = [];
             for(var i = 0; i < e.children[j].children.length;i++){
                 var child = e.children[j].children[i];
                 this.temp_arr = [];
@@ -497,7 +498,7 @@ MySceneGraph.prototype.readPrimitives = function (e, j, obj, all_ids){
             break;
 	}
 
-}
+};
 
 /* Funcao que faz parse das primitivas do .dsx */
 MySceneGraph.prototype.parsePrimitives = function(rootElement){
@@ -533,7 +534,7 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement){
 	}
 	return   this.parseComponents(rootElement);
 
-}
+};
 
 /* Funcao que junta as primitivas de cada objeto complexo com a referência para as mesmas no vertice, se não tiver nenhuma, retorna null */
 MySceneGraph.prototype.isPrimitive = function(object, id, vertex, tipo){
@@ -549,7 +550,7 @@ MySceneGraph.prototype.isPrimitive = function(object, id, vertex, tipo){
     }
     if(state_machine == 1) return "finish pushing primitives";
     return null;
-}
+};
 
 /* Funcao que verifica se o tipo de primitiva e valida */
 MySceneGraph.prototype.getPrimitive = function(vertex, objects, id){
@@ -566,14 +567,14 @@ MySceneGraph.prototype.getPrimitive = function(vertex, objects, id){
 
     console.log("Work " + bananas);
 
-}
+};
 
 /* Funcao que retorna a matriz de transformacao de uma transformacao que foi efetuada antes */
 MySceneGraph.prototype.getTransformation = function(id){
     var indice = this.transf_ids.indexOf(id);
     if(indice == -1) return -1;
     return this.transf_matrix[indice];
-}
+};
 
 MySceneGraph.prototype.calculate_origin = function(comp){
     var vect_origin = vec3.fromValues(0,0,0);
@@ -582,7 +583,7 @@ MySceneGraph.prototype.calculate_origin = function(comp){
     var v2 = vec3.fromValues(0, 0, 1);
     vec3.transformMat4(vect_origin,vec3.fromValues(0,0,0), comp.matrix);
     comp.origin = new Point(vec3.dot(vect_origin,v0),vec3.dot(vect_origin,v1),vec3.dot(vect_origin,v2));
-}
+};
 
 /* Funcao que faz parse dos components do .dsx */
 MySceneGraph.prototype.parseComponents = function(rootElement){
@@ -690,7 +691,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement){
 	this.graph.vertexIDs = this.components;
 	if(this.graph.addEdges() == -1) return "error at scene graph";
 	if(this.graph.pesquisa_profundidade(this.rootObj,this.scene) == -1)return "error on the root element";
-}
+};
 
 /*
  * Callback to be executed on any read error
