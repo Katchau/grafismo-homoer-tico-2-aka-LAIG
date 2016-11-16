@@ -364,9 +364,34 @@ XMLscene.prototype.display = function () {
 	// only get executed after the graph has loaded correctly.
 	// This is one possible way to do it
 
+	/*var p1= new Point (-1.5, -1.5, 0.0);
+	var p2= new Point (-1.5,  1.5, 0.0);
+	var p3= new Point (0, -1.5, 3.0);
+	var p4= new Point (0,  1.5, 3.0);
+	var p5= new Point (1.5, -1.5, 0.0);
+	var p6= new Point (1.5,  1.5, 0.0);
+
+	var a = [p1, p2, p3, p4, p5, p6];
+
+	var s = new Patch(2, 1, 3, 2, a);
+
+	for(var i = 0; i < s.superficie_points.length; i++){
+		for(var j = 0; j < s.superficie_points[i].length; j++){
+			console.log("xs:" + s.superficie_points[i][j][0] + " ys:" + s.superficie_points[i][j][1] + " zs:" + s.superficie_points[i][j][2]);
+		}
+	}
+
+	var f = new Plane(4, 2, 1, 1);
+
+	for(var w = 0; w < f.superficie_points.length; w++){
+		for(var t = 0; t < f.superficie_points[w].length; t++){
+			console.log("xf:" + f.superficie_points[w][t][0] + " yf:" + f.superficie_points[w][t][1] + " zf:" + f.superficie_points[w][t][2]);
+		}
+	}*/
+
 	if (this.graph.loadedOk)
 	{
-        this.displaySceneGraph();
+      this.displaySceneGraph();
 		for(var i = 0;i < this.total_lights; i++){
 			this.updateLight(i);
 		}
