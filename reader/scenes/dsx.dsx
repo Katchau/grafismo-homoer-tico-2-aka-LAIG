@@ -340,6 +340,22 @@
 			<triangle x1="0" y1="0" z1="0" x2="0.33" y2="0" z2="0" x3="0.165" y3="0.5" z3="0" />
 		</primitive>
 
+                <primitive id="cenas">
+                    <plane dimX="3" dimY="2" partsX="10" partsY="7"/>
+                </primitive>
+
+        <primitive id="patch">
+            <patch orderU="2" orderV="1" partsU="20" partsV="20" >
+                <controlpoint x="-2.0" y="-2.0" z="0.0" />
+                <controlpoint x="-2.0" y="2.0" z="0.0" />
+                <controlpoint x="0.0" y="-2.0" z="3.0" />
+                <controlpoint x="0.0" y="2.0" z="3.0" />
+                <controlpoint x="2.0" y="-2.0" z="0.0" />
+                <controlpoint x="2.0" y="2.0" z="0.0" />
+            </patch>
+        </primitive>
+
+
     </primitives>
 
 

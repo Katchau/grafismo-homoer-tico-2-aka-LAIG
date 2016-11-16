@@ -469,6 +469,32 @@ MySceneGraph.prototype.readPrimitives = function (e, j, obj, all_ids){
 			this.donuts[obj.size_d][4] = this.reader.getFloat(e.children[j],'loops',true);
 			obj.size_d+=1;
 			break;
+        case "plane":
+            this.planes[obj.size_p] = [];
+            this.planes[obj.size_p][0] = id;
+            this.planes[obj.size_p][1] = this.reader.getFloat(e.children[j],'dimX',true);
+            this.planes[obj.size_p][2] = this.reader.getFloat(e.children[j],'dimY',true);
+            this.planes[obj.size_p][3] = this.reader.getFloat(e.children[j],'partsX',true);
+            this.planes[obj.size_p][4] = this.reader.getFloat(e.children[j],'partsY',true);
+            obj.size_p+=1;
+            break;
+        case "patch":
+            this.patches[obj.size_patch] = [];
+            this.patches[obj.size_patch][0] = id;
+            this.patches[obj.size_patch][1] = this.reader.getFloat(e.children[j],'orderU',true);
+            this.patches[obj.size_patch][2] = this.reader.getFloat(e.children[j],'orderV',true);
+            this.patches[obj.size_patch][3] = this.reader.getFloat(e.children[j],'partsU',true);
+            this.patches[obj.size_patch][4] = this.reader.getFloat(e.children[j],'partsV',true);
+            var temp = []
+            for(var i = 0; i < e.children[j].children.length;i++){
+                var child = e.children[j].children[i];
+                this.temp_arr = [];
+                this.readCoord(this.temp_arr,child);
+                temp[i] = new Point(this.temp_arr[0],this.temp_arr[1],this.temp_arr[2]);
+            }
+            this.patches[obj.size_patch].push(temp);
+            obj.size_patch+=1;
+            break;
 	}
 
 }
@@ -486,9 +512,13 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement){
 	this.cylinders = [];
 	this.spheres = [];
 	this.donuts = [];
+    this.planes = [];
+    this.patches = [];
+    this.vehicles = [];
+    this.chesses = [];
 
 	var obj = {
-		size_r : 0, size_t : 0, size_c : 0, size_s : 0, size_d : 0
+		size_r : 0, size_t : 0, size_c : 0, size_s : 0, size_d : 0, size_p : 0, size_patch : 0, size_v : 0, size_chess : 0
 	};
 
 	var all_ids = [];
@@ -530,7 +560,9 @@ MySceneGraph.prototype.getPrimitive = function(vertex, objects, id){
             if((bananas = this.isPrimitive(objects[2], id, vertex, "cyl")) == null)
                 if((bananas = this.isPrimitive(objects[3], id, vertex, "sph")) == null)
                     if((bananas = this.isPrimitive(objects[4], id, vertex, "don")) == null)
-                        return "primitive type not found";
+                        if((bananas = this.isPrimitive(objects[5], id, vertex, "pla")) == null)
+                            if((bananas = this.isPrimitive(objects[6], id, vertex, "pat")) == null)
+                                return "primitive type not found";
 
     console.log("Work " + bananas);
 
@@ -562,6 +594,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement){
 
     var objects = [];
     objects.push(this.rectangles); objects.push(this.triangles); objects.push(this.cylinders); objects.push(this.spheres); objects.push(this.donuts);
+    objects.push(this.planes); objects.push(this.patches);
 
 	for(var i = 0;i < size; i++){
 		var e = elems[0].children[i];

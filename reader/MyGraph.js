@@ -47,6 +47,12 @@ MyGraph.prototype.getPrimitives = function (vertex,primitive, info) {
         case "don":
             prim = new MyTorus(this.scene, primitive[1],primitive[2], primitive[3], primitive[4]);
             break;
+        case "pla":
+            //
+            break;
+        case "pat":
+            //
+            break;
     }
     vertex.component.primitivess.push(prim);
 }
