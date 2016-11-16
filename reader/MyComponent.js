@@ -29,7 +29,11 @@ function MyComponent() {
 
 MyComponent.prototype = Object.create(CGFscene.prototype);
 MyComponent.prototype.constructor = MyComponent;
-
+/*
+    função responsável por dar update da posição/angulo que um determinado objeto tem de realizar, dependendo do tipo de animação atual.
+    Esta é invocada a cada intervalo de tempo indicado pelo set update period;
+    à medida que o tempo decorrido vai aumentando, a função vai atualizar qual a animação a executar
+ */
 MyComponent.prototype.update = function(tempovar){
     this.tempo_dec += tempovar;
     if(this.animations.length != 0){

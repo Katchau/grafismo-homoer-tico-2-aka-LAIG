@@ -275,7 +275,9 @@ XMLscene.prototype.displayTexture = function (vertex) {
     this.materials[material_ind].apply();
     return false;
 }
-
+/*
+    função responsável por executar as alterações de , executadas na função update
+ */
 XMLscene.prototype.animation = function(vertex){
     var origi = vertex.component.origin;
     var indice = vertex.component.curr_anim;

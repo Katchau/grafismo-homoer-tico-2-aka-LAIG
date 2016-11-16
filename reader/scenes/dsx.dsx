@@ -374,7 +374,6 @@
 
             <children>
                 <primitiveref id="cenas" />
-                <!-- <primitiveref id="patch" /> -->
             </children>
         </component>
 

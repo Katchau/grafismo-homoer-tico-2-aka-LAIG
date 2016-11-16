@@ -11,7 +11,7 @@ class Plane {
         this.point_ini_x = (this.dim_x/2);
         this.point_ini_y = (this.dim_y/2);
 
-        this.superficie;
+        this.superficie = null;
 
         var p1 = [-this.point_ini_x,  this.point_ini_y, 0.0, 1];
         var p2 = [ this.point_ini_x,  this.point_ini_y, 0.0, 1];
@@ -29,7 +29,7 @@ class Plane {
 
 function MyPlane(scene, dimX, dimY, partsX, partsY) {
     CGFobject.call(this, scene);
-
+    this.scene = scene;
     this.plane = new Plane(dimX, dimY, partsX, partsY);
     this.plane.superficie = this.makeSurface(1, 1, this.plane.superficie_points);
 }
@@ -69,7 +69,7 @@ class Patch{
 
 function MyPatch(scene, orderU, orderV, partsU, partsV, control_points) {
     CGFobject.call(this, scene);
-
+    this.scene = scene;
     this.patch = new Patch(orderU, orderV, partsU, partsV, control_points);
     this.patch.superficie = this.makeSurface(this.patch.parts_u, this.patch.parts_v, this.patch.superficie_points);
 }
@@ -93,17 +93,17 @@ MyPlane.prototype.getKnotsVector = function(degree) { // TODO (CGF 0.19.3): add 
 	return v;
 }
 
-MyPlane.prototype.makeSurface = function (degree1, degree2, controlvertexes) {
+MyPlane.prototype.makeSurface = function ( degree1, degree2, controlvertexes) {
 
 	var knots1 = this.getKnotsVector(degree1); // to be built inside webCGF in later versions ()
 	var knots2 = this.getKnotsVector(degree2); // to be built inside webCGF in later versions
-  console.log(degree1 + " " + degree2 + " " + knots1 + " " + knots2 + " " + controlvertexes);
+    console.log(degree1 + " " + degree2 + " " + knots1 + " " + knots2 + " " + controlvertexes);
 	var nurbsSurface = new CGFnurbsSurface(degree1, degree2, knots1, knots2, controlvertexes); // TODO  (CGF 0.19.3): remove knots1 and knots2 from CGFnurbsSurface method call. Calculate inside method.
 	getSurfacePoint = function(u, v) {
 		return nurbsSurface.getPoint(u, v);
 	};
 
-  var obj = new CGFnurbsObject(this, getSurfacePoint, 20, 20 );
+  var obj = new CGFnurbsObject(this.scene, getSurfacePoint, 20, 20 );
   return obj;
 }
 
@@ -130,6 +130,6 @@ MyPatch.prototype.makeSurface = function (degree1, degree2, controlvertexes) {
 		return nurbsSurface.getPoint(u, v);
 	};
 
-  var obj = new CGFnurbsObject(this, getSurfacePoint, 20, 20 );
+  var obj = new CGFnurbsObject(this.scene, getSurfacePoint, 20, 20 );
   return obj;
 }
