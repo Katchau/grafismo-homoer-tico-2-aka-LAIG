@@ -44,8 +44,8 @@ MyPlane.prototype.display = function() {
 
 class Patch{
   constructor(orderU, orderV, partsU, partsV, control_points){
-    this.order_u = orderU + 1;
-    this.order_v = orderV + 1;
+    this.order_u = orderU;
+    this.order_v = orderV;
     this.parts_u = partsU;
     this.parts_v = partsV;
     this.control_points = control_points;
@@ -55,15 +55,15 @@ class Patch{
     this.superficie;
 
     var n = 0;
-
-    for(var i = 0; i < this.order_v; i++){
+    for(var i = 0; i <= this.order_u; i++){
       var temp = [];
-      for(var j = 0; j < this.order_u; j++){
+      for(var j = 0; j <= this.order_v; j++){
         temp.push([this.control_points[n].x, this.control_points[n].y, this.control_points[n].z, 1]);
         n++;
       }
       this.superficie_points.push(temp);
     }
+    //this.superficie_points.push(cenas);
   }
 }
 
@@ -71,7 +71,7 @@ function MyPatch(scene, orderU, orderV, partsU, partsV, control_points) {
     CGFobject.call(this, scene);
     this.scene = scene;
     this.patch = new Patch(orderU, orderV, partsU, partsV, control_points);
-    this.patch.superficie = this.makeSurface(this.patch.parts_u, this.patch.parts_v, this.patch.superficie_points);
+    this.patch.superficie = this.makeSurface(orderU, orderV, this.patch.superficie_points);
 }
 
 MyPatch.prototype = Object.create(CGFobject.prototype);
@@ -97,7 +97,6 @@ MyPlane.prototype.makeSurface = function ( degree1, degree2, controlvertexes) {
 
 	var knots1 = this.getKnotsVector(degree1); // to be built inside webCGF in later versions ()
 	var knots2 = this.getKnotsVector(degree2); // to be built inside webCGF in later versions
-    console.log(degree1 + " " + degree2 + " " + knots1 + " " + knots2 + " " + controlvertexes);
 	var nurbsSurface = new CGFnurbsSurface(degree1, degree2, knots1, knots2, controlvertexes); // TODO  (CGF 0.19.3): remove knots1 and knots2 from CGFnurbsSurface method call. Calculate inside method.
 	getSurfacePoint = function(u, v) {
 		return nurbsSurface.getPoint(u, v);
@@ -124,7 +123,6 @@ MyPatch.prototype.makeSurface = function (degree1, degree2, controlvertexes) {
 
 	var knots1 = this.getKnotsVector(degree1); // to be built inside webCGF in later versions ()
 	var knots2 = this.getKnotsVector(degree2); // to be built inside webCGF in later versions
-  console.log(degree1 + " " + degree2 + " " + knots1 + " " + knots2 + " " + controlvertexes);
 	var nurbsSurface = new CGFnurbsSurface(degree1, degree2, knots1, knots2, controlvertexes); // TODO  (CGF 0.19.3): remove knots1 and knots2 from CGFnurbsSurface method call. Calculate inside method.
 	getSurfacePoint = function(u, v) {
 		return nurbsSurface.getPoint(u, v);

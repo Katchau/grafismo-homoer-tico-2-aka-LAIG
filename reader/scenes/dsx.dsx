@@ -346,12 +346,12 @@
 
         <primitive id="patch">
             <patch orderU="2" orderV="1" partsU="20" partsV="20" >
-                <controlpoint x="-2.0" y="-2.0" z="0.0" />
-                <controlpoint x="-2.0" y="2.0" z="0.0" />
-                <controlpoint x="0.0" y="-2.0" z="3.0" />
-                <controlpoint x="0.0" y="2.0" z="3.0" />
-                <controlpoint x="2.0" y="-2.0" z="0.0" />
-                <controlpoint x="2.0" y="2.0" z="0.0" />
+                <controlpoint x="-1.5" y="-1.5" z="0.0" />
+                <controlpoint x="-1.5" y="1.5" z="0.0" />
+                <controlpoint x="0.0" y="-1.5" z="3.0" />
+                <controlpoint x="0.0" y="1.5" z="3.0" />
+                <controlpoint x="1.5" y="-1.5" z="0.0" />
+                <controlpoint x="1.5" y="1.5" z="0.0" />
             </patch>
         </primitive>
 
@@ -373,7 +373,7 @@
             <texture id="none" />
 
             <children>
-                <primitiveref id="cenas" />
+                <primitiveref id="patch" />
             </children>
         </component>
 
