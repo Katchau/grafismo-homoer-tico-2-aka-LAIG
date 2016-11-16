@@ -102,7 +102,7 @@ MyPlane.prototype.makeSurface = function ( degree1, degree2, controlvertexes) {
 		return nurbsSurface.getPoint(u, v);
 	};
 
-  var obj = new CGFnurbsObject(this.scene, getSurfacePoint, 20, 20 );
+  var obj = new CGFnurbsObject(this.scene, getSurfacePoint, this.plane.parts_x, this.plane.parts_y );
   return obj;
 }
 
@@ -128,6 +128,6 @@ MyPatch.prototype.makeSurface = function (degree1, degree2, controlvertexes) {
 		return nurbsSurface.getPoint(u, v);
 	};
 
-  var obj = new CGFnurbsObject(this.scene, getSurfacePoint, 20, 20 );
+  var obj = new CGFnurbsObject(this.scene, getSurfacePoint, this.patch.parts_u, this.patch.parts_v );
   return obj;
 }
