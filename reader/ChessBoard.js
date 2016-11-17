@@ -16,13 +16,13 @@ function ChessBoard(scene, du, dv, textureref, su, sv, c1, c2, cM) {
     this.plane = new MyPlane(this.scene, 1, 1, this.du, this.dv);
     /*
     this.shader.setUniformValues({ uSample : 0,
-                                   color1 : this.color1,
-                                   color2 : this.color2,
-                                   colorMark : this.colorMark,
-                                   divU : parseInt(this.du)*1.0,
-                                   divV: parseInt(this.dv)*1.0,
-                                   sU: parseInt(this.su)*1.0,
-                                   sV: parseInt(this.sv)*1.0
+                                   c1 : this.color1,
+                                   c2 : this.color2,
+                                   cM : this.colorMark,
+                                   div_u : parseInt(this.du)*1.0,
+                                   div_v: parseInt(this.dv)*1.0,
+                                   s_u: parseInt(this.su)*1.0,
+                                   s_v: parseInt(this.sv)*1.0
                                    });*/
 }
 
