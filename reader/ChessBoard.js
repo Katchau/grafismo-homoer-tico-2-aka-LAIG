@@ -12,9 +12,9 @@ function ChessBoard(scene, du, dv, textureref, su, sv, c1, c2, cM) {
     this.colorMark = cM;
 
     this.texture = null;
-    this.shader = new CGFshader(this.scene.gl, "shaders/shader.vert", "shaders/shader.frag");
-    this.plane = new Plane(this.scene, 1, 1, this.du, this.dv);
-
+    //this.shader = new CGFshader(this.scene.gl, "shaders/shader.vert", "shaders/shader.frag");
+    this.plane = new MyPlane(this.scene, 1, 1, this.du, this.dv);
+    /*
     this.shader.setUniformValues({ uSample : 0,
                                    color1 : this.color1,
                                    color2 : this.color2,
@@ -23,7 +23,7 @@ function ChessBoard(scene, du, dv, textureref, su, sv, c1, c2, cM) {
                                    divV: parseInt(this.dv)*1.0,
                                    sU: parseInt(this.su)*1.0,
                                    sV: parseInt(this.sv)*1.0
-                                   });
+                                   });*/
 }
 
 ChessBoard.prototype = Object.create(CGFobject.prototype);
@@ -31,10 +31,10 @@ ChessBoard.prototype.constructor = ChessBoard;
 
 ChessBoard.prototype.display = function(){
     this.scene.pushMatrix();
-    this.texture.bind(0);
+    //this.texture.bind(0);
     this.scene.rotate(Math.PI/2,-1,0,0);
-    this.scene.setActiveShader(this.shader);
+    //this.scene.setActiveShader(this.shader);
     this.plane.display();
-    this.scene.setActiveShader(this.scene.defaultShader);
+    //this.scene.setActiveShader(this.scene.defaultShader);
     this.scene.popMatrix();
 }

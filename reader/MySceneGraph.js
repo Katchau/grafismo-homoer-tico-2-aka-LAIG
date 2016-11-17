@@ -475,17 +475,17 @@ MySceneGraph.prototype.readPrimitives = function (e, j, obj, all_ids){
             this.planes[obj.size_p][0] = id;
             this.planes[obj.size_p][1] = this.reader.getFloat(e.children[j],'dimX',true);
             this.planes[obj.size_p][2] = this.reader.getFloat(e.children[j],'dimY',true);
-            this.planes[obj.size_p][3] = this.reader.getFloat(e.children[j],'partsX',true);
-            this.planes[obj.size_p][4] = this.reader.getFloat(e.children[j],'partsY',true);
+            this.planes[obj.size_p][3] = this.reader.getInteger(e.children[j],'partsX',true);
+            this.planes[obj.size_p][4] = this.reader.getInteger(e.children[j],'partsY',true);
             obj.size_p+=1;
             break;
         case "patch":
             this.patches[obj.size_patch] = [];
             this.patches[obj.size_patch][0] = id;
-            this.patches[obj.size_patch][1] = this.reader.getFloat(e.children[j],'orderU',true);
-            this.patches[obj.size_patch][2] = this.reader.getFloat(e.children[j],'orderV',true);
-            this.patches[obj.size_patch][3] = this.reader.getFloat(e.children[j],'partsU',true);
-            this.patches[obj.size_patch][4] = this.reader.getFloat(e.children[j],'partsV',true);
+            this.patches[obj.size_patch][1] = this.reader.getInteger(e.children[j],'orderU',true);
+            this.patches[obj.size_patch][2] = this.reader.getInteger(e.children[j],'orderV',true);
+            this.patches[obj.size_patch][3] = this.reader.getInteger(e.children[j],'partsU',true);
+            this.patches[obj.size_patch][4] = this.reader.getInteger(e.children[j],'partsV',true);
             var temp = [];
             for(var i = 0; i < e.children[j].children.length;i++){
                 var child = e.children[j].children[i];
@@ -496,6 +496,27 @@ MySceneGraph.prototype.readPrimitives = function (e, j, obj, all_ids){
             this.patches[obj.size_patch].push(temp);
             obj.size_patch+=1;
             break;
+        case "vehicles":
+            this.vehicles[obj.size_v] = [];
+            this.vehicles[obj.size_v][0] = id;
+            obj.size_v+=1;
+            break;
+        case "chessboard":
+            this.chesses[obj.size_chess] = [];
+            this.chesses[obj.size_chess][0] = id;
+            this.chesses[obj.size_chess][1] = this.reader.getInteger(e.children[j],'du',true);
+            this.chesses[obj.size_chess][2] = this.reader.getInteger(e.children[j],'dv',true);
+            this.chesses[obj.size_chess][3] = this.reader.getString(e.children[j],'textureref',true);
+            this.chesses[obj.size_chess][4] = this.reader.getInteger(e.children[j],'su',true);
+            this.chesses[obj.size_chess][5] = this.reader.getInteger(e.children[j],'sv',true);
+            for(var i = 0;i < e.children[j].children.length;i++){
+                this.temp_arr = [];
+                this.readRGBA(this.temp_arr,e.children[j].children[i]);
+                this.chesses[obj.size_chess].push(this.temp_arr);
+            }
+            obj.size_chess+=1;
+            break;
+
 	}
 
 };
@@ -563,7 +584,9 @@ MySceneGraph.prototype.getPrimitive = function(vertex, objects, id){
                     if((bananas = this.isPrimitive(objects[4], id, vertex, "don")) == null)
                         if((bananas = this.isPrimitive(objects[5], id, vertex, "pla")) == null)
                             if((bananas = this.isPrimitive(objects[6], id, vertex, "pat")) == null)
-                                return "primitive type not found";
+                                if((bananas = this.isPrimitive(objects[7], id, vertex, "car")) == null)
+                                    if((bananas = this.isPrimitive(objects[8], id, vertex, "chess")) == null)
+                                        return "primitive type not found";
 
     console.log("Work " + bananas);
 
@@ -595,7 +618,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement){
 
     var objects = [];
     objects.push(this.rectangles); objects.push(this.triangles); objects.push(this.cylinders); objects.push(this.spheres); objects.push(this.donuts);
-    objects.push(this.planes); objects.push(this.patches);
+    objects.push(this.planes); objects.push(this.patches); objects.push(this.vehicles); objects.push(this.chesses);
 
 	for(var i = 0;i < size; i++){
 		var e = elems[0].children[i];
