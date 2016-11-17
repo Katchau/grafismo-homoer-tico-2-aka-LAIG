@@ -512,7 +512,8 @@ MySceneGraph.prototype.readPrimitives = function (e, j, obj, all_ids){
             for(var i = 0;i < e.children[j].children.length;i++){
                 this.temp_arr = [];
                 this.readRGBA(this.temp_arr,e.children[j].children[i]);
-                this.chesses[obj.size_chess].push(this.temp_arr);
+                var vect = vec4.fromValues(this.temp_arr[0],this.temp_arr[1],this.temp_arr[2],this.temp_arr[3]);
+                this.chesses[obj.size_chess].push(vect);
             }
             obj.size_chess+=1;
             break;
