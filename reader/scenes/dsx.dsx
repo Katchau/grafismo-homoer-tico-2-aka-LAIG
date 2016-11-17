@@ -16,7 +16,7 @@
 
      <!-- deve definir-se um objeto para raiz do grafo , assim -->
     <!-- como o comprimento dos tres eixos (cilindros) -->
-    <scene root="bananas" axis_length="10" />
+    <scene root="Raiz" axis_length="10" />
 
 
     <views default="V5" >
@@ -356,10 +356,10 @@
         </primitive>
 
                 <primitive id="chessy">
-                    <chessboard du="10" dv="10" textureref="none" su="0" sv="0">
-                       <c1 r="1.0" g="0" b="0" a="1" />
-                       <c2 r="1.0" g="0" b="0" a="1" />
-                       <cs r="1.0" g="0" b="0" a="1" />
+                    <chessboard du="4" dv="4" textureref="snow" su="0.1" sv="0.1">
+                       <c1 r="0.0" g="0.0" b="0.0" a="1" />
+                       <c2 r="1.0" g="1.0" b="1.0" a="1" />
+                       <cs r="1.0" g="0.0" b="0.0" a="1" />
                       </chessboard>
                 </primitive>
 
@@ -374,7 +374,7 @@
             </transformation>
 
             <materials>
-                <material id="greenMat" />
+                <material id="whiteMat" />
             </materials>
 
             <texture id="none" />

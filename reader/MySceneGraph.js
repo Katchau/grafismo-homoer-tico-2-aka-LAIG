@@ -506,7 +506,12 @@ MySceneGraph.prototype.readPrimitives = function (e, j, obj, all_ids){
             this.chesses[obj.size_chess][0] = id;
             this.chesses[obj.size_chess][1] = this.reader.getInteger(e.children[j],'du',true);
             this.chesses[obj.size_chess][2] = this.reader.getInteger(e.children[j],'dv',true);
-            this.chesses[obj.size_chess][3] = this.reader.getString(e.children[j],'textureref',true);
+
+            var texture  = this.reader.getString(e.children[j],'textureref',true);
+            var ind_t = this.text_ids.indexOf(texture);
+            if(ind_t == -1 ) return "no texture found on the chess!";
+            this.chesses[obj.size_chess][3] = this.txturs[ind_t][0];
+
             this.chesses[obj.size_chess][4] = this.reader.getInteger(e.children[j],'su',true);
             this.chesses[obj.size_chess][5] = this.reader.getInteger(e.children[j],'sv',true);
             for(var i = 0;i < e.children[j].children.length;i++){
