@@ -496,9 +496,16 @@ MySceneGraph.prototype.readPrimitives = function (e, j, obj, all_ids){
             this.patches[obj.size_patch].push(temp);
             obj.size_patch+=1;
             break;
-        case "vehicles":
+        case "vehicle":
             this.vehicles[obj.size_v] = [];
             this.vehicles[obj.size_v][0] = id;
+            var carParts = [];
+            for(var i = 0; i < this.patches.length;i++){
+                if(this.patches[i][0] == "car1"){
+                    carParts.push(this.patches[i]);
+                }
+            }
+            this.vehicles[obj.size_v][1] = carParts;
             obj.size_v+=1;
             break;
         case "chessboard":

@@ -16,7 +16,7 @@
 
      <!-- deve definir-se um objeto para raiz do grafo , assim -->
     <!-- como o comprimento dos tres eixos (cilindros) -->
-    <scene root="Raiz" axis_length="10" />
+    <scene root="bananas2" axis_length="10" />
 
 
     <views default="V5" >
@@ -355,6 +355,46 @@
             </patch>
         </primitive>
 
+                <primitive id="car1">
+                    <patch orderU="4" orderV="3" partsU="20" partsV="20" >
+                        <controlpoint x="-1.078" y="-2.000" z="-0.037" />
+                        <controlpoint x="-1.141" y="-0.665" z="0.475" />
+                        <controlpoint x="-1.097" y="0.791" z="-0.537" />
+                        <controlpoint x="-1.134" y="2.000" z="-0.028" />
+                        <controlpoint x="-0.812" y="-1.447" z="2.599" />
+                        <controlpoint x="-0.890" y="-0.391" z="3.077" />
+                        <controlpoint x="-0.741" y="0.980" z="2.253" />
+                        <controlpoint x="-1.110" y="2.889" z="-0.031" />
+                        <controlpoint x="0.125" y="-2.049" z="0.245" />
+                        <controlpoint x="0.098" y="-0.829" z="-0.664" />
+                        <controlpoint x="0.119" y="0.816" z="1.270" />
+                        <controlpoint x="0.104" y="2.891" z="-0.017" />
+                        <controlpoint x="1.004" y="-1.447" z="2.608" />
+                        <controlpoint x="1.026" y="-0.382" z="3.076" />
+                        <controlpoint x="0.989" y="0.982" z="2.266" />
+                        <controlpoint x="1.324" y="2.883" z="-0.044" />
+                        <controlpoint x="1.438" y="-2.037" z="-0.049" />
+                        <controlpoint x="1.414" y="-0.638" z="0.473" />
+                        <controlpoint x="1.411" y="0.784" z="-0.506" />
+                        <controlpoint x="1.410" y="2.000" z="-0.009" />
+                    </patch>
+                </primitive>
+
+                <primitive id="car2">
+                    <patch orderU="2" orderV="1" partsU="20" partsV="20" >
+                        <controlpoint x="-1.5" y="-1.5" z="0.0" />
+                        <controlpoint x="-1.5" y="1.5" z="0.0" />
+                        <controlpoint x="0.0" y="-1.5" z="3.0" />
+                        <controlpoint x="0.0" y="1.5" z="3.0" />
+                        <controlpoint x="1.5" y="-1.5" z="0.0" />
+                        <controlpoint x="1.5" y="1.5" z="0.0" />
+                    </patch>
+                </primitive>
+
+                <primitive id="katchau">
+                    <vehicle> </vehicle>
+                </primitive>
+
                 <primitive id="chessy">
                     <chessboard du="4" dv="4" textureref="snow" su="0.1" sv="0.1">
                        <c1 r="0.0" g="0.0" b="0.0" a="1" />
@@ -368,9 +408,11 @@
 
     <components>
 
-        <component id="bananas">
+        <component id="bananas2">
 
             <transformation>
+                <translate x="6" y="1" z = "6" />
+                <rotate axis="x" angle="-90" />
             </transformation>
 
             <materials>
@@ -380,7 +422,25 @@
             <texture id="none" />
 
             <children>
-                <primitiveref id="chessy" />
+                <primitiveref id="katchau" />
+            </children>
+        </component>
+
+        <component id="bananas">
+
+            <transformation>
+                <translate x="6" y="1" z = "6" />
+                <rotate axis="z" angle="-180" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="car2" />
             </children>
         </component>
 
