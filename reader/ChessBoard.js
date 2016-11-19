@@ -1,3 +1,6 @@
+/*
+    Construtor para a primitiva ChessBoard
+*/
 function ChessBoard(scene, du, dv, textureref, su, sv, c1, c2, cM) {
     CGFobject.call(this, scene);
 
@@ -28,6 +31,9 @@ function ChessBoard(scene, du, dv, textureref, su, sv, c1, c2, cM) {
 ChessBoard.prototype = Object.create(CGFobject.prototype);
 ChessBoard.prototype.constructor = ChessBoard;
 
+/*
+  Função de display da primitiva complexa ChessBoard
+*/
 ChessBoard.prototype.display = function(){
     this.scene.pushMatrix();
     this.texture.bind(0);

@@ -1,3 +1,6 @@
+/*
+  Classe que representa um ponto com coordenadas x, y, z
+*/
 class Point{
   constructor(x, y, z){
     this.x = x;

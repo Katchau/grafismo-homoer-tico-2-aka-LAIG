@@ -1,3 +1,6 @@
+/*
+    Construtor para a primitiva Vehicle
+*/
 function MyVehicle(scene, patches) {
     CGFobject.call(this, scene);
     this.scene = scene;
@@ -10,6 +13,9 @@ function MyVehicle(scene, patches) {
 MyVehicle.prototype = Object.create(CGFobject.prototype);
 MyVehicle.prototype.constructor = MyVehicle;
 
+/*
+  Função de display da primitiva complexa Vehicle
+*/
 MyVehicle.prototype.display = function(){
   for(var i = 0; i < this.patches.length; i++)
     this.patches[i].display();

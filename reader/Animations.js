@@ -1,10 +1,14 @@
-
+/*
+  Classe mãe dasamimações
+*/
 class Animation{
+    //Construtor da classe Animation
     constructor(id, time){
         this.id = id;
         this.time = time;
     }
 
+    // Calcula o angulo entre dois vetores
     get_angle(x, z, vector_z){
         var vet4angle = vec3.fromValues(x,0,z);
         var cosx = vec3.dot(vet4angle, vector_z) / Math.sqrt(x*x + z*z);
@@ -16,7 +20,11 @@ class Animation{
     }
 }
 
+/*
+  Classe da animação linear, filha da classe animação
+*/
 class LinearAnimation extends Animation{
+  //Construtor da classe LinearAnimation
   constructor(id, time, cPoints){
       super(id, time);
       this.cPoints = cPoints;
@@ -43,11 +51,13 @@ class LinearAnimation extends Animation{
       this.next_anim.push(false);
   }
 
+  //Função que serve para instanciar uma nova LinearAnimation com os mesmo valores que a atual
   clone(){
       var ret = new LinearAnimation(this.id, this.time, this.cPoints);
       return ret;
   }
 
+  //Função que define as condições e valores para a realização da animação linear
   calc_time(matrix){
       var vect_origin = matrix;
       var v0 = vec3.fromValues(1, 0, 0);
@@ -79,7 +89,12 @@ class LinearAnimation extends Animation{
 
 }
 
+/*
+  Classe da animação circular, filha da classe animação
+*/
 class CircularAnimation extends Animation{
+
+  //Construtor da classe CircularAnimation
   constructor(id, time, centerx, centery, centerz, radius, iAngle, rAngle){
       super(id, time);
       this.center = new Point(centerx, centery, centerz);
@@ -94,6 +109,8 @@ class CircularAnimation extends Animation{
       this.final_point = new Point(0,0,0);
       this.calc_final_point();
   }
+
+  //Função para calcular o ponto onde acaba a animação linear
   calc_final_point(){
 
       this.xi = Math.cos(this.iAngle) * this.radius;
@@ -105,6 +122,8 @@ class CircularAnimation extends Animation{
       this.final_point = new Point(x,this.center.y, z);
       this.cPoints.push(this.final_point);
   }
+
+  //Função que serve para instanciar uma nova CircularAnimation com os mesmo valores que a atual
   clone(){
       var ret = new CircularAnimation(this.id, this.time, this.center.x, this.center.y, this.center.z, this.radius, this.iAngle, this.rAngle);
       return ret;
