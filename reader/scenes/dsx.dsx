@@ -16,7 +16,7 @@
 
      <!-- deve definir-se um objeto para raiz do grafo , assim -->
     <!-- como o comprimento dos tres eixos (cilindros) -->
-    <scene root="bananas2" axis_length="10" />
+    <scene root="Raiz" axis_length="10" />
 
 
     <views default="V5" >
@@ -340,176 +340,10 @@
 			<triangle x1="0" y1="0" z1="0" x2="0.33" y2="0" z2="0" x3="0.165" y3="0.5" z3="0" />
 		</primitive>
 
-                <primitive id="cenas">
-                    <plane dimX="3" dimY="2" partsX="10" partsY="7"/>
-                </primitive>
-
-        <primitive id="patch">
-            <patch orderU="2" orderV="1" partsU="20" partsV="20" >
-                <controlpoint x="-1.5" y="-1.5" z="0.0" />
-                <controlpoint x="-1.5" y="1.5" z="0.0" />
-                <controlpoint x="0.0" y="-1.5" z="3.0" />
-                <controlpoint x="0.0" y="1.5" z="3.0" />
-                <controlpoint x="1.5" y="-1.5" z="0.0" />
-                <controlpoint x="1.5" y="1.5" z="0.0" />
-            </patch>
-        </primitive>
-
-                <primitive id="car3">
-                    <patch orderU="1" orderV="4" partsU="20" partsV="20" >
-                        <controlpoint x="-1.122" y="0.955" z="-0.028" />
-                        <controlpoint x="-1.110" y="2.889" z="-0.031" />
-                        <controlpoint x="0.096" y="0.936" z="-0.013" />
-                        <controlpoint x="1.324" y="2.883" z="-0.044" />
-                        <controlpoint x="1.481" y="0.946" z="-0.009" />
-                        <controlpoint x="-1.134" y="2.000" z="-0.028" />
-                        <controlpoint x="-1.110" y="2.889" z="-0.031" />
-                        <controlpoint x="0.104" y="2.891" z="-0.017" />
-                        <controlpoint x="1.324" y="2.883" z="-0.044" />
-                        <controlpoint x="1.410" y="2.000" z="-0.009" />
-                    </patch>
-                </primitive>
-
-                <primitive id="car2">
-                    <patch orderU="4" orderV="3" partsU="20" partsV="20" >
-                        <controlpoint x="-1.078" y="-2.000" z="-0.037" />
-                        <controlpoint x="-1.141" y="-0.665" z="0.475" />
-                        <controlpoint x="-1.097" y="0.791" z="-0.537" />
-                        <controlpoint x="-1.134" y="2.000" z="-0.028" />
-                        <controlpoint x="-0.812" y="-1.447" z="2.599" />
-                        <controlpoint x="-0.890" y="-0.391" z="3.077" />
-                        <controlpoint x="-0.741" y="0.980" z="2.253" />
-                        <controlpoint x="-1.110" y="2.889" z="-0.031" />
-                        <controlpoint x="0.125" y="-2.049" z="0.245" />
-                        <controlpoint x="0.098" y="-0.829" z="-0.664" />
-                        <controlpoint x="0.119" y="0.816" z="1.270" />
-                        <controlpoint x="0.104" y="2.891" z="-0.017" />
-                        <controlpoint x="1.004" y="-1.447" z="2.608" />
-                        <controlpoint x="1.026" y="-0.382" z="3.076" />
-                        <controlpoint x="0.989" y="0.982" z="2.266" />
-                        <controlpoint x="1.324" y="2.883" z="-0.044" />
-                        <controlpoint x="1.438" y="-2.037" z="-0.049" />
-                        <controlpoint x="1.414" y="-0.638" z="0.473" />
-                        <controlpoint x="1.411" y="0.784" z="-0.506" />
-                        <controlpoint x="1.410" y="2.000" z="-0.009" />
-                    </patch>
-                </primitive>
-
-                <primitive id="car1">
-                    <patch orderU="4" orderV="11" partsU="20" partsV="20" >
-                        <controlpoint x="-1.320" y="-1.480" z="-0.180" />
-                        <controlpoint x="-1.270" y="-1.100" z="0.700" />
-                        <controlpoint x="-1.500" y="-0.500" z="0.666" />
-                        <controlpoint x="-1.608" y="-0.300" z="-0.713" />
-                        <controlpoint x="-1.380" y="0.310" z="-0.120" />
-                        <controlpoint x="-1.410" y="1.320" z="-0.200" />
-                        <controlpoint x="-1.410" y="1.320" z="-0.200" />
-                        <controlpoint x="-1.380" y="2.310" z="-0.120" />
-                        <controlpoint x="-1.608" y="2.900" z="-0.713" />
-                        <controlpoint x="-1.500" y="3.100" z="0.666" />
-                        <controlpoint x="-1.270" y="3.700" z="0.700" />
-                        <controlpoint x="-1.320" y="4.080" z="-0.180" />
-                        <controlpoint x="-0.785" y="-2.270" z="-0.220" />
-                        <controlpoint x="-0.790" y="-1.241" z="2.705" />
-                        <controlpoint x="-0.665" y="-0.455" z="2.165" />
-                        <controlpoint x="-0.829" y="0.108" z="2.705" />
-                        <controlpoint x="-0.794" y="0.620" z="2.676" />
-                        <controlpoint x="-0.525" y="1.315" z="1.514" />
-                        <controlpoint x="-0.525" y="1.315" z="1.514" />
-                        <controlpoint x="-0.794" y="2.000" z="2.676" />
-                        <controlpoint x="-0.829" y="2.500" z="2.705" />
-                        <controlpoint x="-0.665" y="3.000" z="2.165" />
-                        <controlpoint x="-0.790" y="3.800" z="2.705" />
-                        <controlpoint x="-0.785" y="4.800" z="-0.220" />
-                        <controlpoint x="0.070" y="-2.300" z="-0.200" />
-                        <controlpoint x="0.078" y="-1.407" z="1.126" />
-                        <controlpoint x="0.076" y="-0.740" z="2.050" />
-                        <controlpoint x="0.059" y="-1.148" z="-1.385" />
-                        <controlpoint x="0.130" y="0.150" z="0.460" />
-                        <controlpoint x="0.100" y="1.314" z="1.488" />
-                        <controlpoint x="0.100" y="1.314" z="1.488" />
-                        <controlpoint x="0.130" y="2.450" z="0.460" />
-                        <controlpoint x="0.059" y="3.450" z="-1.385" />
-                        <controlpoint x="0.076" y="3.850" z="2.050" />
-                        <controlpoint x="0.078" y="4.500" z="1.126" />
-                        <controlpoint x="0.090" y="4.964" z="-0.215" />
-                        <controlpoint x="1.040" y="-2.290" z="-0.190" />
-                        <controlpoint x="1.029" y="-1.240" z="2.715" />
-                        <controlpoint x="0.865" y="-0.467" z="2.142" />
-                        <controlpoint x="1.024" y="0.140" z="2.710" />
-                        <controlpoint x="1.028" y="0.635" z="2.694" />
-                        <controlpoint x="0.750" y="1.320" z="1.520" />
-                        <controlpoint x="0.750" y="1.320" z="1.520" />
-                        <controlpoint x="1.037" y="2.027" z="2.706" />
-                        <controlpoint x="1.033" y="2.527" z="2.722" />
-                        <controlpoint x="0.865" y="3.674" z="2.141" />
-                        <controlpoint x="0.884" y="3.959" z="2.691" />
-                        <controlpoint x="0.973" y="4.845" z="-0.215" />
-                        <controlpoint x="1.440" y="-1.500" z="-0.200" />
-                        <controlpoint x="1.385" y="-1.100" z="0.690" />
-                        <controlpoint x="1.575" y="-0.480" z="0.680" />
-                        <controlpoint x="1.720" y="-0.400" z="-0.715" />
-                        <controlpoint x="1.590" y="0.310" z="-0.120" />
-                        <controlpoint x="1.465" y="1.320" z="-0.200" />
-                        <controlpoint x="1.465" y="1.320" z="-0.200" />
-                        <controlpoint x="1.590" y="2.300" z="-0.120" />
-                        <controlpoint x="1.720" y="3.000" z="-0.715" />
-                        <controlpoint x="1.575" y="3.080" z="0.680" />
-                        <controlpoint x="1.385" y="3.700" z="0.690" />
-                        <controlpoint x="1.440" y="4.100" z="-0.200" />
-                    </patch>
-                </primitive>
-
-                <primitive id="katchau">
-                    <vehicle> </vehicle>
-                </primitive>
-
-                <primitive id="chessy">
-                    <chessboard du="4" dv="4" textureref="snow" su="0.1" sv="0.1">
-                       <c1 r="0.0" g="0.0" b="0.0" a="1" />
-                       <c2 r="1.0" g="1.0" b="1.0" a="1" />
-                       <cs r="1.0" g="0.0" b="0.0" a="1" />
-                      </chessboard>
-                </primitive>
-
     </primitives>
 
 
     <components>
-
-        <component id="bananas2">
-
-            <transformation>
-                <translate x="6" y="1" z = "6" />
-            </transformation>
-
-            <materials>
-                <material id="whiteMat" />
-            </materials>
-
-            <texture id="none" />
-
-            <children>
-                <primitiveref id="katchau" />
-            </children>
-        </component>
-
-        <component id="bananas">
-
-            <transformation>
-                <translate x="6" y="1" z = "6" />
-            </transformation>
-
-            <materials>
-                <material id="whiteMat" />
-            </materials>
-
-            <texture id="none" />
-
-            <children>
-                <primitiveref id="car2" />
-            </children>
-        </component>
 
         <component id="SMHead">
 

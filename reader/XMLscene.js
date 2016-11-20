@@ -276,7 +276,7 @@ XMLscene.prototype.displayTexture = function (vertex) {
     return false;
 }
 /*
-    função responsável por executar as alterações de , executadas na função update
+    função responsável por executar as alterações de movimento e rotação executadas na função update
  */
 XMLscene.prototype.animation = function(vertex){
     var origi = vertex.component.origin;

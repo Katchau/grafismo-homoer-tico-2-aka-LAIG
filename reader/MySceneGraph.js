@@ -611,7 +611,9 @@ MySceneGraph.prototype.getTransformation = function(id){
     if(indice == -1) return -1;
     return this.transf_matrix[indice];
 };
-
+/*
+   Funcao cujo objetivo é de, atravéz da matriz transformação de uma componente comp, esta permite calcular o valor da origem da sua posição
+ */
 MySceneGraph.prototype.calculate_origin = function(comp){
     var vect_origin = vec3.fromValues(0,0,0);
     var v0 = vec3.fromValues(1, 0, 0);
