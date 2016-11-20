@@ -115,7 +115,7 @@ class CircularAnimation extends Animation{
 
       this.xi = Math.cos(this.iAngle) * this.radius;
       this.yi = 0;
-      this.zi = Math.sin(this.iAngle) * this.radius;
+      this.zi = Math.sin(-this.iAngle) * this.radius;
 
       var x = this.center.x + Math.cos(this.rAngle+this.iAngle) * this.radius;
       var z = this.center.z + Math.sin(-this.rAngle+this.iAngle) * this.radius;

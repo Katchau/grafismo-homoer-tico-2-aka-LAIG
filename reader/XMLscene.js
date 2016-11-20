@@ -293,7 +293,7 @@ XMLscene.prototype.animation = function(vertex){
         this.translate(anim.center.x,anim.center.y,anim.center.z);
         this.rotate(anim.angle_temp,0,1,0);
         this.translate(anim.xi,anim.yi,anim.zi);
-        this.rotate(Math.PI/2 + anim.angle_temp,0,1,0);
+        this.rotate(Math.PI/2 + anim.angle_temp,0,1,0); //todo falta só ver isto
         this.translate(-origi.x,-origi.y,-origi.z);
     }
 }

@@ -279,7 +279,14 @@
         </animation>
         <animation id="first curve" span="2" type="circular"
                    centerx="20.0" centery="0.0" centerz="9.0"
-                   radius="5.0" startang="-90.0" rotang="-180" />
+                   radius="5.0" startang="90.0" rotang="-90" />
+        <animation id="second movement" span="3" type="linear">
+                    <controlpoint xx="25.0" yy="0.0" zz="9.0" />
+                    <controlpoint xx="25.0" yy="0.0" zz="25.0" />
+        </animation>
+        <animation id="test" span="2" type="circular"
+                   centerx="0.0" centery="0.0" centerz="0.0"
+                   radius="5.0" startang="90.0" rotang="-180" />
     </animations>
 
     <primitives>
@@ -482,6 +489,7 @@
             <animation>
                 <animationref id="first movement" />
                 <animationref id="first curve" />
+                <animationref id="second movement" />
             </animation>
 
             <materials>

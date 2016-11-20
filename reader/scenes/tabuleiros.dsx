@@ -353,7 +353,7 @@
         </primitive>
 
                 <primitive id="chessy">
-                    <chessboard du="4" dv="4" textureref="snow" su="3" sv="0.1">
+                    <chessboard du="4" dv="4" textureref="snow" su="3" sv="1">
                        <c1 r="0.0" g="0.0" b="0.0" a="1" />
                        <c2 r="1.0" g="1.0" b="1.0" a="1" />
                        <cs r="1.0" g="0.0" b="0.0" a="1" />
@@ -361,7 +361,7 @@
                 </primitive>
 
                 <primitive id="board of doom">
-                    <chessboard du="8" dv="4" textureref="fire" su="1" sv="0.2">
+                    <chessboard du="8" dv="4" textureref="fire" su="1" sv="2">
                        <c1 r="1.0" g="0.0" b="0.0" a="1" />
                        <c2 r="1.0" g="1.0" b="0.0" a="1" />
                        <cs r="0.0" g="0.5" b="1.0" a="1" />
@@ -369,7 +369,7 @@
                 </primitive>
 
                 <primitive id="meme board">
-                    <chessboard du="10" dv="10" textureref="dank mem" su="1" sv="0.2">
+                    <chessboard du="10" dv="10" textureref="dank mem" su="4" sv="4">
                        <c1 r="0.9" g="0.0" b="0.5" a="1" />
                        <c2 r="0.0" g="1.0" b="0.5" a="1" />
                        <cs r="1.0" g="1.0" b="1.0" a="1" />
