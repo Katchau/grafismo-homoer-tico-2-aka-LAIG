@@ -16,12 +16,7 @@ XMLscene.prototype.update = function(currTime){
     this.tempo = currTime;
     this.tempo_dec += this.tempovar;
 
-    if(this.tempo_dec > this.tempo_wait && this.init_anim == 0) {
-        this.init_anim = 2;
-        this.tempo_dec = 0;
-        this.tempo = 0;
-    }
-    if(this.init_anim == 2){
+    if(this.init_anim){
         for(var i = 0; i < this.anim_component.length; i++){
             this.anim_component[i].update(this.tempovar);
         }
@@ -48,7 +43,7 @@ XMLscene.prototype.init = function (application) {
     this.tempo = 0;
     this.tempo_dec  = 0;
     this.tempo_wait = 1;
-    this.init_anim = 0;
+    this.init_anim = false;
 
     this.setUpdatePeriod(1);
 
@@ -293,7 +288,7 @@ XMLscene.prototype.animation = function(vertex){
         this.translate(anim.center.x,anim.center.y,anim.center.z);
         this.rotate(anim.angle_temp,0,1,0);
         this.translate(anim.xi,anim.yi,anim.zi);
-        this.rotate(Math.PI/2 + anim.angle_temp,0,1,0); //todo falta só ver isto
+        this.rotate(anim.iAngle,0,1,0);
         this.translate(-origi.x,-origi.y,-origi.z);
     }
 }

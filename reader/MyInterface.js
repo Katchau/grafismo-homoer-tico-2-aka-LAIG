@@ -60,6 +60,10 @@ MyInterface.prototype.changeView = function () {
     console.log("Key pressed V");
 }
 
+MyInterface.prototype.stopAnimation = function () {
+    this.scene.init_anim = (this.scene.init_anim) ? false : true;
+}
+
 /**
  * processKeyboard
  * @param event {Event}
@@ -85,6 +89,12 @@ MyInterface.prototype.processKeyboard = function(event) {
             break;
         case 109:
             this.changeMat();
+            break;
+        case 65:
+            this.stopAnimation();
+            break;
+        case 97:
+            this.stopAnimation();
             break;
 	};
 };
