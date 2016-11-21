@@ -277,16 +277,25 @@
             <controlpoint xx="15.0" yy="0.5" zz="7.0" />
             <controlpoint xx="20.0" yy="0.5" zz="4.0" />
         </animation>
-        <animation id="first curve" span="2" type="circular"
+        <animation id="first curve" span="1" type="circular"
                    centerx="20.0" centery="0.5" centerz="9.0"
                    radius="5.0" startang="90.0" rotang="-90" />
-        <animation id="second movement" span="3" type="linear">
+        <animation id="second movement" span="1" type="linear">
                     <controlpoint xx="25.0" yy="0.5" zz="9.0" />
                     <controlpoint xx="25.0" yy="0.5" zz="25.0" />
         </animation>
-        <animation id="test" span="2" type="circular"
-                   centerx="0.0" centery="0.5" centerz="0.0"
-                   radius="5.0" startang="0.0" rotang="-180" />
+        <animation id="firsti movement" span="4" type="linear">
+            <controlpoint xx="5.0" yy="0.5" zz="4.0" />
+            <controlpoint xx="20.0" yy="0.5" zz="4.0" />
+        </animation>
+        <animation id="firsti curve" span="1" type="circular"
+                   centerx="20.0" centery="0.5" centerz="9.0"
+                   radius="5.0" startang="90.0" rotang="-90" />
+        <animation id="secondi movement" span="1" type="linear">
+                    <controlpoint xx="25.0" yy="0.5" zz="9.0" />
+                    <controlpoint xx="25.0" yy="0.5" zz="15.0" />
+                    <controlpoint xx="15.0" yy="0.5" zz="25.0" />
+        </animation>
     </animations>
 
     <primitives>
@@ -475,19 +484,123 @@
                       </chessboard>
                 </primitive>
 
+            <primitive id="wall">
+                <patch orderU="2" orderV="1" partsU="20" partsV="20" >
+                    <controlpoint x="-1.5" y="-0.5" z="0.0" />
+                    <controlpoint x="-1.5" y="0.5" z="0.0" />
+                    <controlpoint x="0" y="-0.5" z="1.5" />
+                    <controlpoint x="0" y="0.5" z="1.5" />
+                    <controlpoint x="1.5" y="-0.5" z="0.0" />
+                    <controlpoint x="1.5" y="0.5" z="0.0" />
+                </patch>
+            </primitive>
+
     </primitives>
 
 
     <components>
 
-        <component id="Katchau">
+        <component id="Wall 1">
 
             <transformation>
-                <translate x="3" y="0.5" z = "6" />
+                <translate x="0" y="0" z = "0" />
+            </transformation>
+
+            <materials>
+                <material id="blackMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="wall" />
+            </children>
+        </component>
+
+        <component id="Wall 2">
+
+            <transformation>
+                <translate x="1.5" y="0" z = "-1.5" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="blackMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="wall" />
+            </children>
+        </component>
+
+        <component id="Wall 3">
+
+            <transformation>
+                <translate x="0" y="0" z = "-3.0" />
+                <rotate axis="y" angle="180" />
+            </transformation>
+
+            <materials>
+                <material id="redMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="wall" />
+            </children>
+        </component>
+
+        <component id="Wall 4">
+
+            <transformation>
+                <translate x="-1.5" y="0.0" z = "-1.5" />
+                <rotate axis="y" angle="270" />
+            </transformation>
+
+            <materials>
+                <material id="redMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="wall" />
+            </children>
+        </component>
+
+		<component id="Walls">
+
+            <transformation>
+                <translate x="17" y="0.5" z = "17.0" />
+                <scale x="2" y="2" z = "2" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+				<componentref id="Wall 1" />
+				<componentref id="Wall 2" />
+				<componentref id="Wall 3" />
+				<componentref id="Wall 4" />
+            </children>
+		</component>
+        <component id="Katchau2">
+
+            <transformation>
+                <translate x="3" y="0.5" z = "26" />
             </transformation>
 
             <animation>
-                <animationref id="test" />
+                <animationref id="firsti movement" />
+                <animationref id="firsti curve" />
+                <animationref id="secondi movement" />
             </animation>
 
             <materials>
@@ -500,7 +613,28 @@
                 <primitiveref id="katchau" />
             </children>
         </component>
+        <component id="Katchau">
 
+            <transformation>
+                <translate x="3" y="0.5" z = "6" />
+            </transformation>
+
+            <animation>
+                <animationref id="first movement" />
+                <animationref id="first curve" />
+                <animationref id="second movement" />
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="katchau" />
+            </children>
+        </component>
 		<component id="Moon">
 
             <transformation>
@@ -640,7 +774,6 @@
 				<componentref id="Left Wall" />
             </children>
 		</component>
-
 		<component id="Raiz">
 
             <transformation>
@@ -658,6 +791,8 @@
 				<componentref id="Moon" />
 				<componentref id="RingLord" />
 				<componentref id="Katchau" />
+				<componentref id="Katchau2" />
+				<componentref id="Walls" />
             </children>
 		</component>
 
