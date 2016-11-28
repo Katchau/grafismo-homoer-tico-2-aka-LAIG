@@ -91,3 +91,19 @@ player_play(Board, NewBoard, Boardsize, Num, Piece):-  repeat,
 													 )
 												 )
 											).
+											
+laig_player(Board, NewBoard, Boardsize, Num, Piece,X, Y, Xf, Yf):-  
+checkRightPiece(Board, X, Y, Num, Piece),
+validate_destination(X, Y, Xf, Yf),
+(
+	replace_element(Board, CleanBoard, X, Y, v) ,check_ortho_adjacency(CleanBoard, Piece, Xf, Yf),
+	check_restriction(Board, X, Y, Xf, Yf),
+	(
+		 (
+			 check_center_move(Boardsize, X, Y, Xf, Yf);
+			 check_mov_adjoining(Board, Xf, Yf)
+		 ),
+		 move_piece(Board, NewBoard, X, Y, Xf, Yf, Piece)
+	)
+).
+											

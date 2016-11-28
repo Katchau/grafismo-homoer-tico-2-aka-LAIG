@@ -1,6 +1,7 @@
 :-use_module(library(sockets)).
 :-use_module(library(lists)).
 :-use_module(library(codesio)).
+:-include('proj1/player.pl').
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%                                        Server                                                   %%%%
@@ -102,10 +103,29 @@ print_header_line(_).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Require your Prolog Files here
+cenas([NextBoard, Xd, Yd], NextBoard, Xd, Yd).
 
 parse_input(handshake, handshake).
 parse_input(macaco,gosta-de-banana).
 parse_input(test(C,N), Res) :- test(C,Res,N).
+
+parse_input(canPlay(Board, Piece), Res):- nextPossiblePlays(Board, Piece, Plays),
+verify_no_play(Plays), Res = 0 ; Res = 1 .
+
+parse_input(jump(Board, Piece, X, Y, Xf, Yf), NewBoard):- 
+( 
+  jump(Board, NextBoard, Piece, X, Y, Xf, Yf, Xd, Yd), can_reJump(NextBoard, Piece, Xd, Yd), 
+  cenas(NewBoard, NextBoard, Xd, Yd);
+  jump(Board, NewBoard, Piece, X, Y, Xf, Yf);
+  NewBoard = 'could not jump'
+).
+
+parse_input(move(Board, Piece, Num, X, Y, Xf, Yf) , NewBoard):- 
+laig_player(Board, NewBoard, 10, Num, Piece,X, Y, Xf, Yf); 
+NewBoard = 'could not move' .
+
+parse_input(gg(Board, Piece), Res):- game_over(Piece, Board, _), Res = 1; Res = 0 . 
+
 parse_input(quit, goodbye).
 
 test(_,[],N) :- N =< 0.
