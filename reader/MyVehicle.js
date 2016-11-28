@@ -13,7 +13,7 @@ function MyVehicle(scene, patches) {
     this.texture1 = new CGFtexture(this.scene,"scenes//textures//katchau2.png");
     this.texture2 = new CGFtexture(this.scene,"scenes//textures//eyes.jpg");
     this.texture3 = new CGFtexture(this.scene,"scenes//textures//top.jpg");
-    this.texture4 = new CGFtexture(this.scene,"scenes//textures//wheel.png")
+    this.texture4 = new CGFtexture(this.scene,"scenes//textures//wheel.png");
     //this.weed = every_day; easter egg 1-4
     for(var i = 0; i < patches.length; i++){
         if(patches[i][0] == "car1")
