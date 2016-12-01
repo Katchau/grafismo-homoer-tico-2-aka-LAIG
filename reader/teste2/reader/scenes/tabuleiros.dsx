@@ -1,0 +1,603 @@
+<!-- Os comentarios devem ter espacos no inicio e no fim, a -->
+<!-- separar dos hifens -->
+<!-- Nao devem ser usados caracteres especiais (p.ex. acentos) -->
+<!-- Todas as tags e atributos sao obrigatorios, exceto onde for -->
+<!-- referido o contrario -->
+
+<!-- Na descricao abaixo, os simbolos utilizados tem o seguinte significado: -->
+    <!-- ii: integer value -->
+    <!-- ff: float value -->
+    <!-- ss: string value -->
+    <!-- cc: character "x" or "y" or "z" -->
+  <!-- tt: "0" or "1"  ith Boolean significance -->
+
+<dsx>
+
+
+     <!-- deve definir-se um objeto para raiz do grafo , assim -->
+    <!-- como o comprimento dos tres eixos (cilindros) -->
+    <scene root="Raiz" axis_length="10" />
+
+
+    <views default="V5" >
+
+        <perspective id="V1" near="0.1" far="500" angle="45">
+            <from x="16" y="16" z="16" />
+            <to x="0" y="0" z="0" />
+        </perspective>
+        <perspective id="V5" near="0.1" far="500" angle="90">
+            <from x="16" y="16" z="16" />
+            <to x="0" y="0" z="0" />
+        </perspective>
+		<perspective id="V2" near="0.1" far="500" angle="45">
+            <from x="16" y="16" z="0" />
+            <to x="0" y="0" z="16" />
+        </perspective>
+        <perspective id="V3" near="0.1" far="500" angle="45">
+            <from x="16" y="48" z="0" />
+            <to x="0" y="0" z="0" />
+        </perspective>
+        <perspective id="V4" near="0.1" far="500" angle="45">
+            <from x="16" y="0" z="16" />
+            <to x="0" y="0" z="0" />
+        </perspective>
+
+    </views>
+
+    <illumination doublesided="0" local="1" >
+
+        <ambient r="0.2" g="0.4" b="0.8" a="1" />
+        <background r="0" g="0" b="0" a="1" />
+
+    </illumination>
+
+
+
+
+    <lights>
+        <omni id="Light1" enabled="1" >
+            <location x="8" y="8" z="8" w="1" />
+            <ambient r="0" g="0" b="0" a="1" />
+            <diffuse r="0.9" g="0.9" b="0.9" a="1" />
+            <specular r="0.1" g="0.1" b="0.1" a="1" />
+        </omni>
+        <omni id="Light4" enabled="0" >
+            <location x="8" y="12" z="12" w="1" />
+            <ambient r="0" g="0" b="0" a="1" />
+            <diffuse r="1" g="1" b="1" a="1" />
+            <specular r="0.1" g="0.1" b="0.1" a="1" />
+        </omni>
+        <spot id="Light2" enabled="0" angle="25" exponent="10">
+            <target x="8" y="0" z="8" />
+            <location x="10" y="12" z="0.01" />
+            <ambient r="1" g="1" b="0" a="1" />
+            <diffuse r="1" g="1" b="0" a="1" />
+            <specular r="1" g="1" b="0" a="1" />
+        </spot>
+        <spot id="Light3" enabled="0" angle="25" exponent="0">
+            <target x="8" y="0" z="8" />
+            <location x="0.01" y="12" z="10" />
+            <ambient r="1" g="0" b="0" a="1" />
+            <diffuse r="1" g="0" b="0" a="1" />
+            <specular r="1" g="0" b="0" a="1" />
+        </spot>
+    </lights>
+
+
+    <textures>
+
+        <texture id="sky" file="scenes//textures//sky.jpg" length_s="1" length_t="1" />
+        <texture id="fire" file="scenes//textures//fire.jpg" length_s="1" length_t="1" />
+        <texture id="dank mem" file="scenes//textures//a69.png" length_s="1" length_t="1" />
+        <texture id="snow" file="scenes//textures//snow.jpg" length_s="3" length_t="3" />
+
+    </textures>
+
+
+    <materials>
+
+        <!-- Deve existir um ou mais blocos "material" -->
+        <!-- Os identificadores "id" nao podem ser repetidos -->
+        <material id="whiteMat" >
+            <emission r="0" g="0" b="0" a="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="1" g="1" b="1" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="10" />
+        </material>
+        <material id="redMat" >
+            <emission r="0" g="0" b="0" a="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="1" g="0" b="0" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="10" />
+        </material>
+        <material id="pinkMat" >
+            <emission r="0" g="0" b="0" a="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="1" g="0" b="0.5" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="10" />
+        </material>
+        <material id="greenMat" >
+            <emission r="0" g="0" b="0" a="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="0" g="0.32" b="0.13" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="10" />
+        </material>
+		<material id="orangeMat" >
+            <emission r="0" g="0" b="0" a="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="0.9" g="0.32" b="0" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="10" />
+        </material>
+		<material id="blackMat" >
+            <emission r="0" g="0" b="0" a="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="0" g="0" b="0" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="10" />
+        </material>
+		<material id="brownMat" >
+            <emission r="0" g="0" b="0" a="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="0.38" g="0.1" b="0.04" a="0" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="10" />
+        </material>
+		<material id="yellowMat" >
+            <emission r="1" g="1" b="0" a="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="1" g="1" b="0" a="1" />
+            <specular r="1" g="1" b="0" a="1" />
+            <shininess value="100" />
+        </material>
+		<material id="skyMat" >
+            <emission r="0" g="0" b="0" a="1" />
+            <ambient r="1" g="1" b="1" a="1" />
+            <diffuse r="1" g="1" b="1" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="10" />
+        </material>
+		<material id="snowMat" >
+            <emission r="0" g="0" b="0" a="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="1" g="1" b="1" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="10" />
+        </material>
+
+    </materials>
+
+
+    <transformations>
+        <transformation id="tree_base transf">
+            <rotate axis="y" angle="-90" />
+		   <rotate axis="x" angle="-90" />
+            <scale x="0.5" y="0.5" z="1" />
+        </transformation>
+		<transformation id="tree_body_lower transf">
+            <translate x="0" y="0.75" z="0" />
+		   <rotate axis="x" angle="-90" />
+        </transformation>
+		<transformation id="tree_body_top transf">
+            <translate x="0" y="1.75" z="0" />
+		   <rotate axis="x" angle="-90" />
+            <scale x="0.75" y="0.75" z="0.75" />
+        </transformation>
+		<transformation id="tree_top transf">
+            <translate x="0" y="2.5" z="0" />
+		   <rotate axis="x" angle="-90" />
+        </transformation>
+
+
+		<transformation id="SMHead">
+           <translate x="0" y="5.6" z="0" />
+        </transformation>
+		<transformation id="SMBody">
+            <translate x="0" y="3.4" z="0" />
+		   <scale x="1.7" y ="1.7" z="1.7"/>
+        </transformation>
+		<transformation id="SMLegs">
+		   <scale x="2.2" y ="2.2" z="2.2"/>
+        </transformation>
+		<transformation id="SMNose">
+           <translate x="0" y="5.6" z="0.8" />
+        </transformation>
+		<transformation id="SMRArm">
+            <translate x="1.6" y="3.9" z="0" />
+		   <rotate axis="z" angle="45" />
+            <rotate axis="y" angle="90" />
+        </transformation>
+		<transformation id="SMLArm">
+            <translate x="-1.6" y="3.9" z="0" />
+		   <rotate axis="z" angle="-45" />
+            <rotate axis="y" angle="-90" />
+        </transformation>
+		<transformation id="SMREye">
+            <translate x="0.71" y="5.8" z="0.71" />
+           <scale x="0.05" y="0.05" z="0.05" />
+        </transformation>
+		<transformation id="SMLEye">
+            <translate x="-0.71" y="5.8" z="0.71" />
+           <scale x="0.05" y="0.05" z="0.05" />
+        </transformation>
+		<transformation id="SMHat">
+            <translate x="0" y="6" z="0" />
+		   <rotate axis="x" angle="-90" />
+        </transformation>
+		<transformation id="SMAba">
+            <translate x="0" y="6.3" z="0" />
+           <scale x="1.2" y="0.02" z="1.2" />
+        </transformation>
+
+		<transformation id="sky2 transf">
+            <translate x="0" y="0" z="1" />
+		   <rotate axis="y" angle="90" />
+        </transformation>
+		<transformation id="floor transf">
+            <translate x="0" y="0" z="1" />
+		   <rotate axis="x" angle="-90" />
+        </transformation>
+		<transformation id="triangle_1 transf">
+		   <translate x="0" y="0" z="0.01" />
+        </transformation>
+		<transformation id="triangle_2 transf">
+		   <translate x="0.67" y="0" z="0.01" />
+        </transformation>
+		<transformation id="triangle_3 transf">
+            <translate x="0.165" y="0" z="0.02" />
+           <scale x="2" y="1.8" z="2" />
+        </transformation>
+		<transformation id="moon transf">
+            <translate x="18" y="12" z="0.01" />
+           <scale x="10" y="10" z="10" />
+        </transformation>
+        <transformation id="ring transf">
+           <translate x="0.5" y="12" z="15" />
+           <scale x="1" y="4" z="1" />
+           <rotate axis="y" angle="90" />
+        </transformation>
+
+
+
+    </transformations>
+
+    <!-- novo bloco de animacao -->
+    <animations>
+        <!-- podem existir zero ou mais nós "animation" -->
+        <!-- span é o tempo, em segundos, que a animação deve -->
+        <!-- demorar. Nesta versão do formato DSX, type pode ter -->
+        <!-- o valor "linear" ou "circular"; na animacao circular -->
+        <!-- os angulos sao expressos em graus  -->
+        <animation id="first movement" span="3" type="linear">
+            <controlpoint xx="5.0" yy="0.0" zz="4.0" />
+            <controlpoint xx="10.0" yy="0.0" zz="6.0" />
+            <controlpoint xx="15.0" yy="0.0" zz="7.0" />
+            <controlpoint xx="20.0" yy="0.0" zz="4.0" />
+        </animation>
+        <animation id="first curve" span="2" type="circular"
+                   centerx="20.0" centery="0.0" centerz="9.0"
+                   radius="5.0" startang="-90.0" rotang="-180" />
+    </animations>
+
+    <primitives>
+
+		<primitive id="moon">
+			<cylinder base="1" top="1" height="0.01" slices="20" stacks="1" />
+		</primitive>
+
+		<primitive id="SMbola">
+            <sphere radius="1" slices="40" stacks="40" />
+        </primitive>
+
+		<primitive id="SMaba">
+            <sphere radius="1" slices="40" stacks="40" />
+        </primitive>girating
+
+		<primitive id="SMnose">
+			<cylinder base="0.2" top="0" height="0.8" slices="10" stacks="10" />
+		</primitive>
+
+		<primitive id="SMarm">
+			<cylinder base = "0.05" top = "0.05" height="2.5" slices="10" stacks="10" />
+		</primitive>
+
+		<primitive id="ringLord">
+			<torus inner="0.5" outer="2" slices="10" loops="10" />
+        </primitive>
+
+        <primitive id="SMeye">
+            <torus inner="1" outer="2" slices="5" loops="5" />
+        </primitive>
+
+		<primitive id="SMhat">
+			<cylinder base="0.75" top="0.75" height="1.2" slices="10" stacks="10" />
+		</primitive>
+
+		<primitive id="TBase">
+			<cylinder base="1" top="1" height="0.75" slices="4" stacks="5" />
+		</primitive>
+
+		<primitive id="TBody">
+			<cylinder base="1" top="0.5" height="1" slices="10" stacks="5" />
+		</primitive>
+
+		<primitive id="Ttop">
+			<cylinder base="0.5" top="0" height="1" slices="10" stacks="5" />
+		</primitive>
+
+		<primitive id="rectangle">
+			<rectangle x1="0" y1="0" x2="1" y2="1" />
+		</primitive>
+
+		<primitive id="triangle">
+			<triangle x1="0" y1="0" z1="0" x2="0.33" y2="0" z2="0" x3="0.165" y3="0.5" z3="0" />
+		</primitive>
+
+                <primitive id="cenas">
+                    <plane dimX="3" dimY="2" partsX="10" partsY="7"/>
+                </primitive>
+
+        <primitive id="patch">
+            <patch orderU="2" orderV="1" partsU="20" partsV="20" >
+                <controlpoint x="-1.5" y="-1.5" z="0.0" />
+                <controlpoint x="-1.5" y="1.5" z="0.0" />
+                <controlpoint x="0.0" y="-1.5" z="3.0" />
+                <controlpoint x="0.0" y="1.5" z="3.0" />
+                <controlpoint x="1.5" y="-1.5" z="0.0" />
+                <controlpoint x="1.5" y="1.5" z="0.0" />
+            </patch>
+        </primitive>
+
+                <primitive id="chessy">
+                    <chessboard du="4" dv="4" textureref="snow" su="3" sv="1">
+                       <c1 r="0.0" g="0.0" b="0.0" a="1" />
+                       <c2 r="1.0" g="1.0" b="1.0" a="1" />
+                       <cs r="1.0" g="0.0" b="0.0" a="1" />
+                      </chessboard>
+                </primitive>
+
+                <primitive id="board of doom">
+                    <chessboard du="8" dv="4" textureref="fire" su="1" sv="2">
+                       <c1 r="1.0" g="0.0" b="0.0" a="1" />
+                       <c2 r="1.0" g="1.0" b="0.0" a="1" />
+                       <cs r="0.0" g="0.5" b="1.0" a="1" />
+                      </chessboard>
+                </primitive>
+
+                <primitive id="meme board">
+                    <chessboard du="10" dv="10" textureref="dank mem" su="4" sv="4">
+                       <c1 r="0.9" g="0.0" b="0.5" a="1" />
+                       <c2 r="0.0" g="1.0" b="0.5" a="1" />
+                       <cs r="1.0" g="1.0" b="1.0" a="1" />
+                      </chessboard>
+                </primitive>
+
+    </primitives>
+
+
+    <components>
+
+        <component id="Chess 1">
+
+            <transformation>
+                <translate x="3" y="1" z = "3" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="chessy" />
+            </children>
+        </component>
+
+        <component id="Chess 2">
+
+            <transformation>
+                <translate x="6" y="1" z = "3" />
+                <scale x="2" y="1" z = "2" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="board of doom" />
+            </children>
+        </component>
+
+        <component id="Chess 3">
+
+                <transformation>
+                    <translate x="12" y="1" z = "3" />
+                    <scale x="4" y="1" z = "4" />
+                </transformation>
+
+                <materials>
+                    <material id="whiteMat" />
+                </materials>
+
+                <texture id="none" />
+
+                <children>
+                    <primitiveref id="meme board" />
+                </children>
+            </component>
+
+		<component id="Moon">
+
+            <transformation>
+                <transformationref id="moon transf" />
+            </transformation>
+
+            <materials>
+                <material id="yellowMat" />
+                <material id="redMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="moon" />
+            </children>
+		</component>
+
+		<component id="RingLord">
+
+            <transformation>
+                <transformationref id="ring transf" />
+            </transformation>
+
+            <materials>
+                <material id="yellowMat" />
+                <material id="redMat" />
+            </materials>
+
+            <texture id="fire" />
+
+            <children>
+                <primitiveref id="ringLord" />
+            </children>
+       </component>
+
+		<component id="Left Wall">
+
+            <transformation>
+                <transformationref id="sky2 transf" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+		</component>
+
+		<component id="Floor">
+
+            <transformation>
+                <transformationref id="floor transf" />
+            </transformation>
+
+            <materials>
+                <material id="snowMat" />
+            </materials>
+
+            <texture id="snow" />
+
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+		</component>
+
+		<component id="Triangle 1">
+
+            <transformation>
+                <transformationref id="triangle_1 transf" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="triangle" />
+            </children>
+		</component>
+		<component id="Triangle 2">
+
+            <transformation>
+                <transformationref id="triangle_2 transf" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="triangle" />
+            </children>
+		</component>
+		<component id="Triangle 3">
+
+            <transformation>
+                <transformationref id="triangle_3 transf" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="triangle" />
+            </children>
+		</component>
+		<component id="Background">
+
+            <transformation>
+                <scale x="30" y = "30" z = "30" />
+            </transformation>
+
+            <materials>
+                <material id="skyMat" />
+            </materials>
+
+            <texture id="sky" />
+
+            <children>
+                <primitiveref id="rectangle" />
+				<componentref id="Triangle 1" />
+				<componentref id="Triangle 2" />
+				<componentref id="Triangle 3" />
+				<componentref id="Floor" />
+				<componentref id="Left Wall" />
+            </children>
+		</component>
+
+		<component id="Raiz">
+
+            <transformation>
+                <translate x="0" y = "0" z = "0" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+				<componentref id="Background" />
+				<componentref id="Moon" />
+				<componentref id="RingLord" />
+				<componentref id="Chess 1" />
+				<componentref id="Chess 2" />
+				<componentref id="Chess 3" />
+            </children>
+		</component>
+
+    </components>
+
+
+
+</dsx>
