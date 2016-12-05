@@ -49,6 +49,18 @@ XMLscene.prototype.init = function (application) {
 
     this.anim_component = [];
 
+		this.setPickEnabled(true);
+
+		this.planes = [];
+
+		for(var i = 0; i < 10; i++){
+			var p = [];
+			for(var j = 0; j < 10; j++){
+				p.push(new CGFplane(this, 1, 1, 10, 10));
+			}
+			this.planes.push(p);
+		}
+
 	this.axis=new CGFaxis(this);
 };
 
@@ -327,16 +339,38 @@ XMLscene.prototype.displaySceneGraph = function () {
     this.mat_queue = [];
     this.text_queue = [];
     this.profundidade_rec(graphScene.vertexSet[indice]);
-}
+};
 
 //faz update das luzes, e verifica o estado destas, desligando ou ligando consoante o estado na interface
 XMLscene.prototype.updateLight = function(index){
     if(this.lightStatus[index]) this.lights[index].enable();
     else this.lights[index].disable();
     this.lights[index].update();
+};
+
+XMLscene.prototype.logPicking = function ()
+{
+	if (this.pickMode == false) {
+		if (this.pickResults != null && this.pickResults.length > 0) {
+			for (var i=0; i< this.pickResults.length; i++) {
+				var obj = this.pickResults[i][0];
+				if (obj)
+				{
+					var customId = this.pickResults[i][1];
+					console.log("Picked object: " + obj + ", with pick id " + customId);
+				}
+			}
+			this.pickResults.splice(0,this.pickResults.length);
+		}
+	}
 }
 
+
 XMLscene.prototype.display = function () {
+
+		this.logPicking();
+		this.clearPickRegistration();
+
 	// ---- BEGIN Background, camera and axis setup
 
 	// Clear image and depth buffer everytime we update the scene
@@ -386,9 +420,28 @@ XMLscene.prototype.display = function () {
 		}
 	}*/
 
+	this.translate(0.5, 0, 0.5);
+
+	var indice = 1;
+
+	for (var i=0; i < this.planes.length; i++) {
+		for (var j = 0; j < this.planes[i].length; j++){
+			this.pushMatrix();
+
+			this.translate(j, 0, i);
+			this.registerForPick(indice++, this.planes[i][j]);
+
+			this.materials[(i+j)%2].apply();
+
+			this.planes[i][j].display();
+			this.popMatrix();
+		}
+	}
+
+
 	if (this.graph.loadedOk)
 	{
-      this.displaySceneGraph();
+      //this.displaySceneGraph();
 		for(var i = 0;i < this.total_lights; i++){
 			this.updateLight(i);
 		}

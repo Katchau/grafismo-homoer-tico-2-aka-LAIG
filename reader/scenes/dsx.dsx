@@ -104,6 +104,13 @@
             <specular r="1" g="1" b="1" a="1" />
             <shininess value="10" />
         </material>
+        <material id="blackMat" >
+                <emission r="0" g="0" b="0" a="1" />
+                <ambient r="0.2" g="0.2" b="0.2" a="1" />
+                <diffuse r="0" g="0" b="0" a="1" />
+                <specular r="1" g="1" b="1" a="1" />
+                <shininess value="10" />
+            </material>
         <material id="redMat" >
             <emission r="0" g="0" b="0" a="1" />
             <ambient r="0.2" g="0.2" b="0.2" a="1" />
@@ -129,13 +136,6 @@
             <emission r="0" g="0" b="0" a="1" />
             <ambient r="0.2" g="0.2" b="0.2" a="1" />
             <diffuse r="0.9" g="0.32" b="0" a="1" />
-            <specular r="1" g="1" b="1" a="1" />
-            <shininess value="10" />
-        </material>
-		<material id="blackMat" >
-            <emission r="0" g="0" b="0" a="1" />
-            <ambient r="0.2" g="0.2" b="0.2" a="1" />
-            <diffuse r="0" g="0" b="0" a="1" />
             <specular r="1" g="1" b="1" a="1" />
             <shininess value="10" />
         </material>
