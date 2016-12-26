@@ -34,7 +34,7 @@ XMLscene.prototype.init = function (application) {
 
     this.gl.clearDepth(100.0);
     this.gl.enable(this.gl.DEPTH_TEST);
-	this.gl.enable(this.gl.CULL_FACE);
+		this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
 
     this.enableTextures(true);
@@ -51,7 +51,25 @@ XMLscene.prototype.init = function (application) {
 
 		this.setPickEnabled(true);
 
-		this.planes = [];
+		this.piece;
+		this.dest;
+
+		this.board = [
+			['v','v','v','v','v','v','v','v','v','v',],
+			['v','v','v','v','v','v','v','v','v','v',],
+			['v','v','x','v','v','v','v','v','v','v',],
+			['v','v','v','v','v','v','v','v','v','v',],
+			['v','v','v','v','v','v','v','v','v','v',],
+			['v','v','v','v','v','v','v','v','v','v',],
+			['v','v','v','v','v','v','v','v','v','v',],
+			['v','v','v','v','v','v','o','v','v','v',],
+			['v','v','v','v','v','v','v','v','v','v',],
+			['v','v','v','v','v','v','v','v','v','v',]
+		]
+
+		this.cage = new CageBoard(this, 10, 10);
+
+		/*this.planes = [];
 
 		for(var i = 0; i < 10; i++){
 			var p = [];
@@ -60,7 +78,8 @@ XMLscene.prototype.init = function (application) {
 			}
 			this.planes.push(p);
 		}
-
+		this.cube = new MyCylinder(this, 0.5, 0.5, 0.25, 10, 10);
+*/
 	this.axis=new CGFaxis(this);
 };
 
@@ -357,7 +376,23 @@ XMLscene.prototype.logPicking = function ()
 				if (obj)
 				{
 					var customId = this.pickResults[i][1];
-					console.log("Picked object: " + obj + ", with pick id " + customId);
+					console.log(customId);
+					if(customId > 100){
+						var x = (customId % 10);
+						var y = (customId - 100 - x) / 10;
+						this.piece = new Point(x, y);
+					} else if (this.piece instanceof Point){
+							var x = (customId % 10);
+							var y = (customId - x) / 10;
+							this.dest = new Point(x, y);
+
+							this.board[this.dest.x][this.dest.y] = this.board[this.piece.x][this.piece.y];
+							this.board[this.piece.x][this.piece.y] = 'v';
+
+							this.piece = null;
+							this.dest = null;
+					}
+					console.log(customId);
 				}
 			}
 			this.pickResults.splice(0,this.pickResults.length);
@@ -379,13 +414,13 @@ XMLscene.prototype.display = function () {
 
 	// Initialize Model-View matrix as identity (no transformation
 	this.updateProjectionMatrix();
-    this.loadIdentity();
+  this.loadIdentity();
 
 	// Apply transformations corresponding to the camera position relative to the origin
 	this.applyViewMatrix();
 
 	// Draw axis
-	this.axis.display();
+	//this.axis.display();
 
 	//this.setDefaultAppearance();
 
@@ -420,24 +455,7 @@ XMLscene.prototype.display = function () {
 		}
 	}*/
 
-	this.translate(0.5, 0, 0.5);
-
-	var indice = 1;
-
-	for (var i=0; i < this.planes.length; i++) {
-		for (var j = 0; j < this.planes[i].length; j++){
-			this.pushMatrix();
-
-			this.translate(j, 0, i);
-			this.registerForPick(indice++, this.planes[i][j]);
-
-			this.materials[(i+j)%2].apply();
-
-			this.planes[i][j].display();
-			this.popMatrix();
-		}
-	}
-
+	this.cage.display();
 
 	if (this.graph.loadedOk)
 	{
