@@ -96,5 +96,8 @@ MyInterface.prototype.processKeyboard = function(event) {
         case 97:
             this.stopAnimation();
             break;
+        case 98:
+            this.scene.clientTest();
+            break;
 	};
 };
