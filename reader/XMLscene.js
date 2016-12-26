@@ -51,7 +51,8 @@ XMLscene.prototype.init = function(application) {
     this.setPickEnabled(true);
 
     this.cage = null;
-    this.client = new MyClient("http://localhost:8081");
+    this.client = new MyClient("http://localhost:8081/");
+    this.must_jump = false;
     this.axis = new CGFaxis(this);
 };
 
@@ -289,8 +290,10 @@ XMLscene.prototype.animation = function(vertex) {
         this.translate(anim.xi, anim.yi, anim.zi);
         this.rotate(anim.iAngle, 0, 1, 0);
         this.translate(-origi.x, -origi.y, -origi.z);
+    }else if (anim instanceof gameAnimation) {
+        this.translate(anim.x_atual, anim.y_atual, anim.z_atual);
     }
-}
+};
 
 //funcao que vai percorrer recursivamente (pesquisa em profundidade)todo o grafo, efetuando display das primitivas do vertice, alterando a matrix de transformacao do vertice atual
 //bem fazendo display de materiais e texturas associadas ao vertex.
@@ -335,9 +338,41 @@ XMLscene.prototype.updateLight = function(index) {
     this.lights[index].update();
 };
 
+XMLscene.prototype.clientTest = function(){
+    console.log(this.client.sendRequest("handshake"));
+};
+
 XMLscene.prototype.logPicking = function() {
     if(this.cage == null) return;
-    else this.cage.movement();
+    else {
+        var checkSelection = this.cage.movement();
+        if(checkSelection){
+            var answer = null;
+            if(this.must_jump){
+                answer = this.cage.makeJump();
+                if(answer === true) this.must_jump = false;
+                else{
+                    this.cage.dest = undefined;
+                    return;
+                }
+            }else{
+                answer = this.cage.checkPlay();
+                if(answer == "again") {
+                    this.must_jump = true;
+                    this.cage.dest = undefined;
+                    return;
+                }else {
+                    if(!answer){
+                        console.log("invalid movement");
+                        //todo possivelmente fazer aqui alguma coisa :D
+                    }
+                    this.must_jump = false;
+                }
+            }
+            this.cage.select = undefined;
+            this.cage.dest = undefined;
+        }
+    }
 };
 
 

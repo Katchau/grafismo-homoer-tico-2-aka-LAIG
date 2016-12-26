@@ -9,45 +9,83 @@ function CageBoard(scene, x, y) {
     this.piece = new MyCylinder(this.scene, 0.5, 0.5, 0.2, 10, 10);
     this.dest = undefined;
     this.select = undefined;
+    this.next = null;
     this.board = [
-        ['v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v'],
-        ['v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v'],
-        ['v', 'v', 'x', 'v', 'v', 'v', 'v', 'v', 'v', 'v'],
-        ['v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v'],
-        ['v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v'],
-        ['v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v'],
-        ['v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v'],
-        ['v', 'v', 'v', 'v', 'v', 'v', 'o', 'v', 'v', 'v'],
-        ['v', 'v', 'v', 'x', 'v', 'v', 'v', 'v', 'v', 'v'],
-        ['v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v']
+        ['x', 'o', 'x', 'o', 'x', 'o', 'x', 'o', 'x', 'o'],
+        ['o', 'x', 'o', 'x', 'o', 'x', 'o', 'x', 'o', 'x'],
+        ['x', 'o', 'x', 'o', 'x', 'o', 'x', 'o', 'x', 'o'],
+        ['o', 'x', 'o', 'x', 'o', 'x', 'o', 'x', 'o', 'x'],
+        ['x', 'o', 'x', 'o', 'x', 'o', 'x', 'o', 'x', 'o'],
+        ['o', 'x', 'o', 'x', 'o', 'x', 'o', 'x', 'o', 'x'],
+        ['x', 'o', 'x', 'o', 'x', 'o', 'x', 'o', 'x', 'o'],
+        ['o', 'x', 'o', 'x', 'o', 'x', 'o', 'x', 'o', 'x'],
+        ['x', 'o', 'x', 'o', 'x', 'o', 'x', 'o', 'x', 'o'],
+        ['o', 'x', 'o', 'x', 'o', 'x', 'o', 'x', 'o', 'x']
     ];
+    this.createMats();
 }
 
 CageBoard.prototype = Object.create(CGFobject.prototype);
 CageBoard.prototype.constructor = CageBoard;
 
-CageBoard.prototype.outOfBound = function (point) {
-    if(point.x == 0 || point.x == 11 || point.y == 0 || point.y == 11) return true;
-    return false;
+CageBoard.prototype.createMats = function (){
+    this.redMat = new CGFappearance(this.scene);
+    this.redMat.setAmbient(0.2,0.2,0.2,1);
+    this.redMat.setDiffuse(1,0,0,1);
+    this.redMat.setSpecular(1,1,1,1);
+    this.redMat.setShininess(10);
+    this.greenMat = new CGFappearance(this.scene);
+    this.greenMat.setAmbient(0.2,0.2,0.2,1);
+    this.greenMat.setDiffuse(0,0.32,0.13,1);
+    this.greenMat.setSpecular(1,1,1,1);
+    this.greenMat.setShininess(10);
+    this.whiteMat = new CGFappearance(this.scene);
+    this.whiteMat.setAmbient(0.2,0.2,0.2,1);
+    this.whiteMat.setDiffuse(1,1,1,1);
+    this.whiteMat.setSpecular(1,1,1,1);
+    this.whiteMat.setShininess(10);
+    this.blackMat = new CGFappearance(this.scene);
+    this.blackMat.setAmbient(0.2,0.2,0.2,1);
+    this.blackMat.setDiffuse(0,0,0,1);
+    this.blackMat.setSpecular(1,1,1,1);
+    this.blackMat.setShininess(10);
 };
 
+
+CageBoard.prototype.outOfBound = function (point) {
+    return (point.x == 0 || point.x == 11 || point.y == 0 || point.y == 11);
+};
+
+CageBoard.prototype.makeJump = function () {
+    var player = this.scene.client;
+    var answer = player.playerJump(this.next.x+1,this.next.y+1,this.dest.x+1,this.dest.y+1);
+    if(answer instanceof Point){
+        if(!this.outOfBound(answer)){
+            this.board[answer.x-1][answer.y-1] = this.board[this.next.x][this.next.y];
+        }
+        this.board[this.next.x][this.next.y] = 'v';
+        this.board[this.dest.x][this.dest.y] = 'v';
+        if(player.canReJump(answer.x,answer.y)) {
+            this.next = new Point(answer.x-1,answer.y-1);
+            return "again";
+        }
+        player.endTurn();
+        return true;
+    }
+    else return false;
+};
 
 CageBoard.prototype.checkPlay = function () {
     var player = this.scene.client;
     if(player.gameOver)return false;
     if(player.availablePlay()){
-        var answer = player.jump(this.select.x+1,this.select.y+1,this.dest.x+1,this.dest.y+1);
-        if(answer instanceof Point){
-            if(this.outOfBound(answer)){
-                this.board[answer.x-1][answer.y-1] = this.board[this.select.x][this.select.y];
-            }
-            this.board[this.select.x][this.select.y] = 'v';
-            this.board[this.dest.x][this.dest.y] = 'v';
-            //if(player.canReJump(answer.x,answer.y)) return "again";
-        }
-        else if(player.makeMovement(this.select.x+1,this.select.y+1,this.dest.x+1,this.dest.y+1)){
-            this.board[this.dest.x][this.dest.y] = this.board[this.select.x][this.select.y];
-            this.board[this.select.x][this.select.y] = 'v';
+        this.next = this.select;
+        var answer = this.makeJump();
+        if(answer === true)return true;
+        else if(answer == "again") return "again";
+        else if(player.makeMovement(this.select.x+1,this.select.y+1,this.dest.x+1,this.dest.y+1)) {
+                this.board[this.dest.x][this.dest.y] = this.board[this.select.x][this.select.y];
+                this.board[this.select.x][this.select.y] = 'v';
         }
         else return false;
     }
@@ -55,8 +93,8 @@ CageBoard.prototype.checkPlay = function () {
     return true;
 };
 
-CageBoard.prototype.movement = function (hasJump) {
-    var ret = null;
+CageBoard.prototype.movement = function () {
+    var ret = false;
     if (this.scene.pickMode == false) {
         if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
             for (var i = 0; i < this.scene.pickResults.length; i++) {
@@ -74,10 +112,7 @@ CageBoard.prototype.movement = function (hasJump) {
                         var y2 = (p2 % 10);
                         var x2 = (p2 - y2) / 10;
                         this.dest = new Point(x2, y2);
-                        //ret = this.checkPlay();
-                        //else ret = makeJump();
-                        this.select = undefined;
-                        this.dest = undefined;
+                        ret = true;
                     }
 
                 }
@@ -102,7 +137,7 @@ CageBoard.prototype.display = function() {
             this.scene.translate(j, 0, i);
             this.scene.registerForPick(indice++, this.plane);
 
-            this.scene.materials[(i + j) % 2].apply();
+            (i + j) % 2 == 0 ? this.whiteMat.apply() : this.blackMat.apply();
 
             this.plane.display();
 
@@ -115,7 +150,7 @@ CageBoard.prototype.display = function() {
               this.scene.rotate(Math.PI/2, 1, 0, 0);
               this.scene.registerForPick(piece, this.piece);
 
-              this.scene.materials[2].apply();
+              this.redMat.apply();
 
               this.piece.display();
 
@@ -126,7 +161,7 @@ CageBoard.prototype.display = function() {
               this.scene.rotate(Math.PI/2, 1, 0, 0);
               this.scene.registerForPick(piece, this.piece);
 
-              this.scene.materials[3].apply();
+              this.greenMat.apply();
 
               this.piece.display();
 
