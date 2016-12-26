@@ -340,10 +340,31 @@
 			<triangle x1="0" y1="0" z1="0" x2="0.33" y2="0" z2="0" x3="0.165" y3="0.5" z3="0" />
 		</primitive>
 
+    <primitive id="tabuleiro">
+      <board x="10" y="10" />
+    </primitive>
+
     </primitives>
 
 
     <components>
+
+    <component id="tabuleiro">
+
+        <transformation>
+        </transformation>
+
+        <materials>
+            <material id="whiteMat" />
+        </materials>
+
+        <texture id="none" />
+
+        <children>
+            <primitiveref id="tabuleiro" />
+        </children>
+
+    </component>
 
         <component id="SMHead">
 
@@ -866,14 +887,7 @@
             <texture id="none" />
 
             <children>
-				<componentref id="Background" />
-				<componentref id="Moon" />
-				<componentref id="RingLord" />
-				<componentref id="SnowMan" />
-				<componentref id="Tree 1" />
-				<componentref id="Tree 2" />
-				<componentref id="Tree 3" />
-				<componentref id="Tree 4" />
+				<componentref id="tabuleiro" />
             </children>
 		</component>
 

@@ -529,6 +529,13 @@ MySceneGraph.prototype.readPrimitives = function (e, j, obj, all_ids){
             }
             obj.size_chess+=1;
             break;
+				case "board":
+						this.boards[obj.size_b] = [];
+						this.boards[obj.size_b][0] = id;
+						this.boards[obj.size_b][1] = this.reader.getInteger(e.children[j],'x',true);
+						this.boards[obj.size_b][2] = this.reader.getInteger(e.children[j],'y',true);
+						obj.size_b+=1;
+						break;
 
 	}
 
@@ -551,9 +558,10 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement){
     this.patches = [];
     this.vehicles = [];
     this.chesses = [];
+		this.boards = [];
 
 	var obj = {
-		size_r : 0, size_t : 0, size_c : 0, size_s : 0, size_d : 0, size_p : 0, size_patch : 0, size_v : 0, size_chess : 0
+		size_r : 0, size_t : 0, size_c : 0, size_s : 0, size_d : 0, size_p : 0, size_patch : 0, size_v : 0, size_chess : 0, size_b : 0
 	};
 
 	var all_ids = [];
@@ -599,6 +607,7 @@ MySceneGraph.prototype.getPrimitive = function(vertex, objects, id){
                             if((bananas = this.isPrimitive(objects[6], id, vertex, "pat")) == null)
                                 if((bananas = this.isPrimitive(objects[7], id, vertex, "car")) == null)
                                     if((bananas = this.isPrimitive(objects[8], id, vertex, "chess")) == null)
+																				if((bananas = this.isPrimitive(objects[9], id, vertex, "board")) == null)
                                         return "primitive type not found";
 
     console.log("Work " + bananas);
@@ -633,7 +642,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement){
 
     var objects = [];
     objects.push(this.rectangles); objects.push(this.triangles); objects.push(this.cylinders); objects.push(this.spheres); objects.push(this.donuts);
-    objects.push(this.planes); objects.push(this.patches); objects.push(this.vehicles); objects.push(this.chesses);
+    objects.push(this.planes); objects.push(this.patches); objects.push(this.vehicles); objects.push(this.chesses); objects.push(this.boards);
 
 	for(var i = 0;i < size; i++){
 		var e = elems[0].children[i];
