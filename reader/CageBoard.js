@@ -32,13 +32,25 @@ CageBoard.prototype.display = function() {
 
             this.scene.popMatrix();
 
-            if(this.scene.board[i][j] == 'x' || this.scene.board[i][j] == 'o'){
+            if(this.scene.board[i][j] == 'x'){
+
               this.scene.pushMatrix();
               this.scene.translate(j, 0.2, i);
               this.scene.rotate(Math.PI/2, 1, 0, 0);
               this.scene.registerForPick(piece, this.piece);
 
-              this.scene.materials[((i + j) % 2) + 2 ].apply();
+              this.scene.materials[2].apply();
+
+              this.piece.display();
+
+              this.scene.popMatrix();
+            } else if(this.scene.board[i][j] == 'o'){
+              this.scene.pushMatrix();
+              this.scene.translate(j, 0.2, i);
+              this.scene.rotate(Math.PI/2, 1, 0, 0);
+              this.scene.registerForPick(piece, this.piece);
+
+              this.scene.materials[3].apply();
 
               this.piece.display();
 
