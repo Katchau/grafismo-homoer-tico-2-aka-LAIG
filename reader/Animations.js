@@ -129,3 +129,26 @@ class CircularAnimation extends Animation{
       return ret;
   }
 }
+
+class gameAnimation extends Animation{
+  constructor(id, xInicial, yInicial, xFinal, yFinal){
+      var time = 2;
+      super(id, time);
+      this.initialPoint = new Point(xInicial, yInicial, 0.5);
+      this.finalPoint = new Point(xFinal, yFinal, 0.5);
+      this.dist = Math.sqrt((xFinal - xInicial)*(xFinal - xInicial) + (yFinal - yInicial)*(yFinal - yInicial));
+      this.mov_per_it_x = (xFinal - xInicial) / time;
+      this.mov_per_it_z = (yFinal - yInicial) / time;
+      this.movement_per_it = 2 / time;
+      this.heigth = 10;
+
+      this.des = -1;
+      this.x_atual = 0;
+      this.y_atual = 0.5;
+      this.z_atual = 0;
+  }
+  clone(){
+      var ret = new gameAnimation(this.id, this.initialPoint.x, this.initialPoint.y, this.finalPoint.x, this.finalPoint.y);
+      return ret;
+  }
+}
