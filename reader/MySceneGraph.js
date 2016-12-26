@@ -405,6 +405,13 @@ MySceneGraph.prototype.parseAnimations = function(rootElement){
             rotang = this.deg2rad(rotang);
             this.animations.push(new CircularAnimation(id,time,centerx,centery,centerz,radius,startang,rotang));
         }
+				else if(type == "game"){
+            var xInicial = this.reader.getInteger(e,"xInicial",true);
+            var yInicial = this.reader.getInteger(e,"yInicial",true);
+            var xFinal = this.reader.getInteger(e,"xFinal",true);
+            var yFinal = this.reader.getInteger(e,"yFinal",true);
+            this.animations.push(new gameAnimation(id,xInicial, yInicial, xFinal, yFinal));
+        }
         else return "unknown animation type";
     }
 
