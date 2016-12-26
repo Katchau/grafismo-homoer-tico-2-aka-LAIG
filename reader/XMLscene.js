@@ -20,7 +20,7 @@ XMLscene.prototype.update = function(currTime) {
             this.anim_component[i].update(this.tempovar);
         }
     }
-}
+};
 
 XMLscene.prototype.init = function(application) {
     CGFscene.prototype.init.call(this, application);
@@ -50,35 +50,8 @@ XMLscene.prototype.init = function(application) {
 
     this.setPickEnabled(true);
 
-    this.piece;
-    this.dest;
-
-    this.board = [
-        ['v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', ],
-        ['v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', ],
-        ['v', 'v', 'x', 'v', 'v', 'v', 'v', 'v', 'v', 'v', ],
-        ['v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', ],
-        ['v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', ],
-        ['v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', ],
-        ['v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', ],
-        ['v', 'v', 'v', 'v', 'v', 'v', 'o', 'v', 'v', 'v', ],
-        ['v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', ],
-        ['v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', 'v', ]
-    ]
-
-    this.cage = new CageBoard(this, 10, 10);
-
-    /*this.planes = [];
-
-		for(var i = 0; i < 10; i++){
-			var p = [];
-			for(var j = 0; j < 10; j++){
-				p.push(new CGFplane(this, 1, 1, 10, 10));
-			}
-			this.planes.push(p);
-		}
-		this.cube = new MyCylinder(this, 0.5, 0.5, 0.25, 10, 10);
-*/
+    this.cage = null;
+    this.client = new MyClient("http://localhost:8081");
     this.axis = new CGFaxis(this);
 };
 
@@ -296,7 +269,7 @@ XMLscene.prototype.displayTexture = function(vertex) {
         }
         this.materials[material_ind].apply();
         return false;
-    }
+}
     /*
         função responsável por executar as alterações de movimento e rotação executadas na função update
      */
@@ -363,37 +336,9 @@ XMLscene.prototype.updateLight = function(index) {
 };
 
 XMLscene.prototype.logPicking = function() {
-    if (this.pickMode == false) {
-        if (this.pickResults != null && this.pickResults.length > 0) {
-            for (var i = 0; i < this.pickResults.length; i++) {
-                var obj = this.pickResults[i][0];
-                if (obj) {
-                    var customId = this.pickResults[i][1];
-                    console.log(customId);
-                    if (customId > 100) {
-                        var p1 = customId - 101;
-                        var y1 = (p1 % 10);
-                        var x1 = (p1 - y1) / 10;
-                        this.piece = new Point(x1, y1);
-                    } else if (this.piece != undefined) {
-                        var p2 = customId - 1;
-                        var y2 = (p2 % 10);
-                        var x2 = (p2 - y2) / 10;
-                        this.dest = new Point(x2, y2);
-
-                        this.board[this.dest.x][this.dest.y] = this.board[this.piece.x][this.piece.y];
-                        this.board[this.piece.x][this.piece.y] = 'v';
-
-                        this.piece = undefined;
-                        this.dest = undefined;
-                    }
-                    console.log(customId);
-                }
-            }
-            this.pickResults.splice(0, this.pickResults.length);
-        }
-    }
-}
+    if(this.cage == null) return;
+    else this.cage.movement();
+};
 
 
 XMLscene.prototype.display = function() {
@@ -415,7 +360,7 @@ XMLscene.prototype.display = function() {
     this.applyViewMatrix();
 
     // Draw axis
-    //this.axis.display();
+    this.axis.display();
 
     //this.setDefaultAppearance();
 
@@ -425,35 +370,8 @@ XMLscene.prototype.display = function() {
     // only get executed after the graph has loaded correctly.
     // This is one possible way to do it
 
-    /*var p1= new Point (-1.5, -1.5, 0.0);
-    var p2= new Point (-1.5,  1.5, 0.0);
-    var p3= new Point (0, -1.5, 3.0);
-    var p4= new Point (0,  1.5, 3.0);
-    var p5= new Point (1.5, -1.5, 0.0);
-    var p6= new Point (1.5,  1.5, 0.0);
-
-    var a = [p1, p2, p3, p4, p5, p6];
-
-    var s = new Patch(2, 1, 3, 2, a);
-
-    for(var i = 0; i < s.superficie_points.length; i++){
-    	for(var j = 0; j < s.superficie_points[i].length; j++){
-    		console.log("xs:" + s.superficie_points[i][j][0] + " ys:" + s.superficie_points[i][j][1] + " zs:" + s.superficie_points[i][j][2]);
-    	}
-    }
-
-    var f = new Plane(4, 2, 1, 1);
-
-    for(var w = 0; w < f.superficie_points.length; w++){
-    	for(var t = 0; t < f.superficie_points[w].length; t++){
-    		console.log("xf:" + f.superficie_points[w][t][0] + " yf:" + f.superficie_points[w][t][1] + " zf:" + f.superficie_points[w][t][2]);
-    	}
-    }*/
-
-    this.cage.display();
-
     if (this.graph.loadedOk) {
-        //this.displaySceneGraph();
+        this.displaySceneGraph();
         for (var i = 0; i < this.total_lights; i++) {
             this.updateLight(i);
         }

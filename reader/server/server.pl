@@ -114,11 +114,13 @@ verify_no_play(Plays), Res = 0 ; Res = 1 .
 
 parse_input(jump(Board, Piece, X, Y, Xf, Yf), NewBoard):- 
 ( 
-  jump(Board, NextBoard, Piece, X, Y, Xf, Yf, Xd, Yd), can_reJump(NextBoard, Piece, Xd, Yd), 
+  jump(Board, NextBoard, Piece, X, Y, Xf, Yf, Xd, Yd), 
   cenas(NewBoard, NextBoard, Xd, Yd);
-  jump(Board, NewBoard, Piece, X, Y, Xf, Yf);
   NewBoard = 'could not jump'
 ).
+
+parse_input(canJump(Board,Piece, X, Y), Res):- can_reJump(Board, Piece, X, Y),
+Res = 1; Res = 0 .
 
 parse_input(move(Board, Piece, Num, X, Y, Xf, Yf) , NewBoard):- 
 laig_player(Board, NewBoard, 10, Num, Piece,X, Y, Xf, Yf); 

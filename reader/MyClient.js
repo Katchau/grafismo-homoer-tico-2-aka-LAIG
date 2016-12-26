@@ -80,7 +80,7 @@ MyClient.prototype.requestManager = function (response) {
         }
         this.number1 = parseInt(number1);
         this.number2 = parseInt(number2);
-        return "jump again";
+        return new Point(this.number1, this.number2);
     }
 };
 
@@ -99,6 +99,10 @@ MyClient.prototype.reset_board = function () {
 
 MyClient.prototype.jump = function(x,y,xf,yf){
     return "jump(" + this.board + "," + this.player + "," + x + "," + y + "," + xf + "," + yf + ")";
+};
+
+MyClient.prototype.rejump = function(x,y){
+    return "canJump(" + this.board + "," + this.player + "," + x + "," + y + ")";
 };
 
 MyClient.prototype.getGameState = function () {
@@ -122,28 +126,29 @@ MyClient.prototype.prolog_request = function (request) {
     return this.requestManager(this.sendRequest(request));
 };
 
-MyClient.prototype.makePlay = function (x, y, xf, yf) {
-    if(this.gameOver) return false;
+MyClient.prototype.availablePlay = function(){
     if(!this.prolog_request(this.canPlay())){
-        this.switchPlayer();
-        return true;
+        return false;
     }
-    var jump_result = this.prolog_request(this.jump(x,y,xf,yf));
-    if(typeof jump_result == "string"){
-        //todo falta isto e já fica jogável
-        //todo fazer ciclo para vários saltos precisa novamente de input do jogador
-        //todo possivelmente vou ter de separar isto em várias funções, que é para poder invocar o ciclo de saltos várias vezes
-    }
-    else if(!jump_result){
-        var move_result = this.prolog_request(this.move(x,y,xf,yf));
-        if(!move_result) return false;
-    }
+    else return true;
+};
+
+MyClient.prototype.playerJump = function(x, y, xf, yf){
+    return this.prolog_request(this.jump(x,y,xf,yf));
+};
+
+MyClient.prototype.canReJump = function (x, y) {
+    return this.prolog_request(this.rejump(x,y));
+};
+
+MyClient.prototype.makeMovement = function (x,y,xf,yf) {
+    return this.prolog_request(this.move(x,y,xf,yf));
+};
+
+MyClient.prototype.endTurn = function () {
     if(this.prolog_request(this.getGameState())){
         this.gameOver = true;//falta declarar vencedor
     }
     this.playNumber++;
     this.switchPlayer();
-    return true;
-    //console.log(prolog_request);
-
 };
