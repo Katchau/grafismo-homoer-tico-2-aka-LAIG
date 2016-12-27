@@ -51,6 +51,12 @@ CageBoard.prototype.createMats = function (){
     this.greenMat.setDiffuse(0,0.32,0.13,1);
     this.greenMat.setSpecular(1,1,1,1);
     this.greenMat.setShininess(10);
+    this.yellMat = new CGFappearance(this.scene);
+    this.yellMat.setEmission(1,1,0,1);
+    this.yellMat.setAmbient(0.2,0.2,0.2,1);
+    this.yellMat.setDiffuse(1,1,0,1);
+    this.yellMat.setSpecular(1,1,1,1);
+    this.yellMat.setShininess(10);
     this.whiteMat = new CGFappearance(this.scene);
     this.whiteMat.setAmbient(0.2,0.2,0.2,1);
     this.whiteMat.setDiffuse(1,1,1,1);
@@ -199,6 +205,11 @@ CageBoard.prototype.display = function() {
                 if (this.board[i][j] == 'x') this.redMat.apply();
                 else if (this.board[i][j] == 'o') this.greenMat.apply();
 
+                if(this.select != undefined){
+                    if(i == this.select.x && this.select.y == j){
+                        this.yellMat.apply();
+                    }
+                }
                 this.piece.display();
 
                 this.scene.popMatrix();

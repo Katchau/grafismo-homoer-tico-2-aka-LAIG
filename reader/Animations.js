@@ -132,7 +132,7 @@ class CircularAnimation extends Animation{
 
 class gameAnimation extends Animation{
   constructor(id, xInicial, yInicial, xFinal, yFinal){
-      var time = 2;
+      var time = 1.5;
       super(id, time);
       this.initialPoint = new Point(xInicial, yInicial, 0.5);
       this.finalPoint = new Point(xFinal, yFinal, 0.5);
