@@ -19,6 +19,7 @@ XMLscene.prototype.update = function(currTime) {
         for (var i = 0; i < this.anim_component.length; i++) {
             this.anim_component[i].update(this.tempovar);
         }
+        if(this.cage != null)this.cage.animationUpdate(this.tempovar);
     }
 };
 

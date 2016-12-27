@@ -37,7 +37,7 @@ MyClient.prototype.createRequest = function () {
 MyClient.prototype.sendRequest = function (request) {
     var xmlhttp = this.createRequest();
     var url = this.server_url + "" + request;
-    xmlhttp.open("GET", url, false); //fazer de forma assíncrona, ou sincronizada?
+    xmlhttp.open("GET", url, false);
     xmlhttp.send();
     return xmlhttp.onreadystatechange();
 };
