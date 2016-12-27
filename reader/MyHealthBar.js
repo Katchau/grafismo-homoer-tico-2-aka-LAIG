@@ -1,7 +1,8 @@
 /* Construtor do retangulo */
-function MyRectangle(scene, x1, y1, x2, y2) {
+function MyHealthBar(scene, x1, y1, x2, y2) {
 	CGFobject.call(this, scene);
 
+	this.pieces = 50;
 	this.long = x2;
 	this.x1 = x1;
 	this.y1 = y1;
@@ -13,13 +14,13 @@ function MyRectangle(scene, x1, y1, x2, y2) {
 	this.maxT = 1;
 
 	this.initBuffers();
-};
+}
 
-MyRectangle.prototype = Object.create(CGFobject.prototype);
-MyRectangle.prototype.constructor=MyRectangle;
+MyHealthBar.prototype = Object.create(CGFobject.prototype);
+MyHealthBar.prototype.constructor=MyHealthBar;
 
 /* Inicializa as caracteristicas do retangulo */
-MyRectangle.prototype.initBuffers = function() {
+MyHealthBar.prototype.initBuffers = function() {
 	this.vertices = [
             this.x1, this.y1, 0,
             this.x2, this.y1, 0,
@@ -37,22 +38,20 @@ MyRectangle.prototype.initBuffers = function() {
 			0, 0, 1,
 			0, 0, 1,
 			0, 0, 1
-	]
+	];
 
     this.texCoords = [
         this.minS, this.maxT,
         this.maxS, this.maxT,
         this.minS, this.minT,
         this.maxS, this.minT,
-    ]
+    ];
 
 	this.primitiveType=this.scene.gl.TRIANGLES;
 	this.initGLBuffers();
-};
+}
 
-/* Mediante a textura aplicada ao retangulo altera o 's' e o 't' das texCoords  */
-MyRectangle.prototype.changeTextCoords = function (maxS, maxT) {
-    this.maxS = maxS;
-    this.maxT = maxT;
-    this.initBuffers();
+MyHealthBar.prototype.changeSize = function (){
+		this.x2 = (this.pieces-1)/50 * this.long;
+		this.initBuffers();
 }

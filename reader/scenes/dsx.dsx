@@ -92,6 +92,20 @@
             <specular r="1" g="1" b="1" a="1" />
             <shininess value="10" />
         </material>
+        <material id="redMat" >
+            <emission r="0" g="0" b="0" a="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="1" g="0" b="0" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="10" />
+        </material>
+        <material id="greenMat" >
+            <emission r="0" g="0" b="0" a="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="0" g="0.32" b="0.13" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="10" />
+        </material>
 
     </materials>
 
@@ -168,10 +182,55 @@
 			      <rectangle x1="0" y1="0" x2="100" y2="50" />
 		    </primitive>
 
+        <primitive id="HBP1">
+            <healthBar x1="0" y1="0" x2="8" y2="0.5" />
+        </primitive>
+
     </primitives>
 
 
     <components>
+        <component id="HBP1">
+
+            <transformation>
+                <translate x="1" y="0.65" z="0.1" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="redMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="HBP1" />
+            </children>
+
+        </component>
+
+        <component id="HBP2">
+
+            <transformation>
+                <translate x="1" y="0.65" z="0.1" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="greenMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="HBP1" />
+            </children>
+
+        </component>
 
         <component id="tabuleiro">
 
@@ -930,8 +989,6 @@
         <component id="TabelaP1">
 
             <transformation>
-                <translate x="75" y="25" z="22" />
-                <rotate axis="y" angle="-90" />
             </transformation>
 
             <animation>
@@ -952,8 +1009,6 @@
         <component id="TabelaP2">
 
             <transformation>
-                <translate x="30" y="25" z="32" />
-                <rotate axis="y" angle="90" />
             </transformation>
 
             <animation>
@@ -967,6 +1022,52 @@
 
             <children>
                 <primitiveref id="tabela" />
+            </children>
+
+        </component>
+
+        <component id="ScoreP1">
+
+            <transformation>
+                <translate x="75" y="25" z="22" />
+                <rotate axis="y" angle="-90" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="pl1" />
+
+            <children>
+                <componentref id="TabelaP1" />
+                <componentref id="HBP1" />
+            </children>
+
+        </component>
+
+        <component id="ScoreP2">
+
+            <transformation>
+                <translate x="30" y="25" z="32" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="pl1" />
+
+            <children>
+                <componentref id="TabelaP2" />
+                <componentref id="HBP2" />
             </children>
 
         </component>
@@ -990,8 +1091,8 @@
                 <componentref id="Parede2" />
                 <componentref id="Parede3" />
                 <componentref id="Parede4" />
-                <componentref id="TabelaP1" />
-                <componentref id="TabelaP2" />
+                <componentref id="ScoreP1" />
+                <componentref id="ScoreP2" />
             </children>
 
 		    </component>

@@ -1,5 +1,6 @@
 function XMLscene(myInterface) {
     this.myInterface = myInterface;
+    this.healthBars = [];
     CGFscene.call(this);
 }
 
