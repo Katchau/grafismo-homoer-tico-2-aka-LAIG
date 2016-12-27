@@ -140,7 +140,7 @@ class gameAnimation extends Animation{
       this.mov_per_it_x = (xFinal - xInicial) / time;
       this.mov_per_it_z = (yFinal - yInicial) / time;
       this.movement_per_it = 2 / time;
-      this.heigth = 10;
+      this.heigth = 1;
 
       this.des = -1;
       this.x_atual = 0;

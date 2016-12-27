@@ -72,15 +72,6 @@ MyComponent.prototype.update = function(tempovar){
                             this.animations[i+1].translate = new Point(anime.final_point.x-this.origin.x, anime.final_point.y-this.origin.y, anime.final_point.z-this.origin.z);
 				}
             }
-						else if(anime instanceof gameAnimation){
-								if (anime.time > this.tempo_dec){
-										anime.x_atual += anime.mov_per_it_x * tempovar;
-										anime.z_atual += anime.mov_per_it_z * tempovar;
-										anime.des += anime.movement_per_it * tempovar;
-										anime.y_atual = (-(anime.des * anime.des) + 1) * anime.heigth + 0.5;
-								}
-						}
-
         }
     }
 }

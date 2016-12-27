@@ -7,13 +7,23 @@ function CageBoard(scene, x, y) {
 
     this.plane = new CGFplane(this.scene, 1, 1, 10, 10);
     this.piece = new MyCylinder(this.scene, 0.5, 0.5, 0.2, 10, 10);
-    this.animation = null;
+
     this.dest = undefined;
     this.select = undefined;
     this.next = null;
+
     this.tempo_dec = 0;
     this.animation = null;
     this.animation_start = false;
+
+    this.resetBoard();
+    this.createMats();
+}
+
+CageBoard.prototype = Object.create(CGFobject.prototype);
+CageBoard.prototype.constructor = CageBoard;
+
+CageBoard.prototype.resetBoard = function () {
     this.board = [
         ['x', 'o', 'x', 'o', 'x', 'o', 'x', 'o', 'x', 'o'],
         ['o', 'x', 'o', 'x', 'o', 'x', 'o', 'x', 'o', 'x'],
@@ -26,11 +36,7 @@ function CageBoard(scene, x, y) {
         ['x', 'o', 'x', 'o', 'x', 'o', 'x', 'o', 'x', 'o'],
         ['o', 'x', 'o', 'x', 'o', 'x', 'o', 'x', 'o', 'x']
     ];
-    this.createMats();
-}
-
-CageBoard.prototype = Object.create(CGFobject.prototype);
-CageBoard.prototype.constructor = CageBoard;
+};
 
 CageBoard.prototype.createMats = function (){
     this.redMat = new CGFappearance(this.scene);
@@ -59,17 +65,26 @@ CageBoard.prototype.outOfBound = function (point) {
     return (point.x == 0 || point.x == 11 || point.y == 0 || point.y == 11);
 };
 
-CageBoard.prototype.makeJump = function () {
-    var player = this.scene.client;
-    var answer = player.playerJump(this.next.x+1,this.next.y+1,this.dest.x+1,this.dest.y+1);
-    if(answer instanceof Point){
+CageBoard.prototype.updateBoard = function(jump, answer){
+    if(jump){
         if(!this.outOfBound(answer)){
             this.board[answer.x-1][answer.y-1] = this.board[this.next.x][this.next.y];
         }
         this.board[this.next.x][this.next.y] = 'v';
         this.board[this.dest.x][this.dest.y] = 'v';
-        this.animation = new gameAnimation(69,this.next.x,this.next.y,this.dest.x,this.dest.y);
-        this.animation_start = true;
+        //this.resetAnimation(this.next,this.dest);
+    }
+    else{
+        this.board[this.dest.x][this.dest.y] = this.board[this.select.x][this.select.y];
+        this.board[this.select.x][this.select.y] = 'v';
+    }
+};
+
+CageBoard.prototype.makeJump = function () {
+    var player = this.scene.client;
+    var answer = player.playerJump(this.next.x+1,this.next.y+1,this.dest.x+1,this.dest.y+1);
+    if(answer instanceof Point){
+        this.updateBoard(true, answer);
         if(player.canReJump(answer.x,answer.y)) {
             this.next = new Point(answer.x-1,answer.y-1);
             return "again";
@@ -89,10 +104,7 @@ CageBoard.prototype.checkPlay = function () {
         if(answer === true)return true;
         else if(answer == "again") return "again";
         else if(player.makeMovement(this.select.x+1,this.select.y+1,this.dest.x+1,this.dest.y+1)) {
-            this.board[this.dest.x][this.dest.y] = this.board[this.select.x][this.select.y];
-            this.board[this.select.x][this.select.y] = 'v';
-            this.animation = new gameAnimation(69,this.select.x,this.select.y,this.dest.x,this.dest.y);
-            this.animation_start = true;
+            this.updateBoard(false);
         }
         else return false;
     }
@@ -130,6 +142,12 @@ CageBoard.prototype.movement = function () {
     }
 };
 
+CageBoard.prototype.resetAnimation = function(point1, point2){
+    this.animation = new gameAnimation(69,point1.x,point1.y,point2.x,point2.y);
+    this.animation_start = true;
+    this.tempo_dec = 0;
+};
+
 CageBoard.prototype.animationUpdate = function(tempovar){
     if(this.animation_start){
         this.tempo_dec += tempovar;
@@ -139,7 +157,9 @@ CageBoard.prototype.animationUpdate = function(tempovar){
             this.animation.des += this.animation.movement_per_it * tempovar;
             this.animation.y_atual = (-(this.animation.des * this.animation.des) + 1) * this.animation.heigth + 0.5;
         }
-        else this.animation_start = false;
+        else {
+            this.animation_start = false;
+        }
     }
 };
 
@@ -166,9 +186,8 @@ CageBoard.prototype.display = function() {
 
             if(this.board[i][j] == 'x' || this.board[i][j] == 'o') {
                 this.scene.pushMatrix();
-
-                if(this.animation != null && this.animation.initialPoint.x == i && this.animation.initialPoint.y == j){
-                    this.translate(this.animation.x_atual, this.animation.y_atual, this.animation.z_atual);
+                if(this.animation != null && this.animation_start && this.animation.initialPoint.x == i && this.animation.initialPoint.y == j){
+                    this.scene.translate(this.animation.z_atual, this.animation.y_atual, this.animation.x_atual);
                 }
                 this.scene.translate(j, 0.2, i);
                 this.scene.rotate(Math.PI / 2, 1, 0, 0);

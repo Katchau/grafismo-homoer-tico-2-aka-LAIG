@@ -291,8 +291,6 @@ XMLscene.prototype.animation = function(vertex) {
         this.translate(anim.xi, anim.yi, anim.zi);
         this.rotate(anim.iAngle, 0, 1, 0);
         this.translate(-origi.x, -origi.y, -origi.z);
-    }else if (anim instanceof gameAnimation) {
-        this.translate(anim.x_atual, anim.y_atual, anim.z_atual);
     }
 };
 
@@ -347,7 +345,7 @@ XMLscene.prototype.logPicking = function() {
     if(this.cage == null) return;
     else {
         var checkSelection = this.cage.movement();
-        if(checkSelection){
+        if(checkSelection && !this.cage.animation_start){
             var answer = null;
             if(this.must_jump){
                 answer = this.cage.makeJump();
