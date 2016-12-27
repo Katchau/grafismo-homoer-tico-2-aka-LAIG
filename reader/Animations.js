@@ -151,4 +151,14 @@ class gameAnimation extends Animation{
       var ret = new gameAnimation(this.id, this.initialPoint.x, this.initialPoint.y, this.finalPoint.x, this.finalPoint.y);
       return ret;
   }
+  updateAnimation(currTime, tempovar){
+      if (this.time > currTime){
+          this.x_atual += this.mov_per_it_x * tempovar;
+          this.z_atual += this.mov_per_it_z * tempovar;
+          this.des += this.movement_per_it * tempovar;
+          this.y_atual = (-(this.des * this.des) + 1) * this.heigth + 0.5;
+          return true;
+      }
+      else return false;
+  }
 }

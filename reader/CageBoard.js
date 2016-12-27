@@ -11,6 +11,8 @@ function CageBoard(scene, x, y) {
     this.dest = undefined;
     this.select = undefined;
     this.next = null;
+    this.jump = false;
+    this.jump_position = undefined;
 
     this.tempo_dec = 0;
     this.animation = null;
@@ -65,26 +67,30 @@ CageBoard.prototype.outOfBound = function (point) {
     return (point.x == 0 || point.x == 11 || point.y == 0 || point.y == 11);
 };
 
-CageBoard.prototype.updateBoard = function(jump, answer){
-    if(jump){
-        if(!this.outOfBound(answer)){
-            this.board[answer.x-1][answer.y-1] = this.board[this.next.x][this.next.y];
+CageBoard.prototype.updateBoard = function(){
+    if(this.jump){
+        if(!this.outOfBound(this.jump_position)){
+            this.board[this.jump_position.x-1][this.jump_position.y-1] = this.board[this.test1.x][this.test1.y];
         }
-        this.board[this.next.x][this.next.y] = 'v';
-        this.board[this.dest.x][this.dest.y] = 'v';
-        //this.resetAnimation(this.next,this.dest);
+        this.board[this.test1.x][this.test1.y] = 'v';
+        this.board[this.pos2.x][this.pos2.y] = 'v';
     }
     else{
-        this.board[this.dest.x][this.dest.y] = this.board[this.select.x][this.select.y];
-        this.board[this.select.x][this.select.y] = 'v';
+        this.board[this.pos2.x][this.pos2.y] = this.board[this.pos1.x][this.pos1.y];
+        this.board[this.pos1.x][this.pos1.y] = 'v';
     }
 };
 
 CageBoard.prototype.makeJump = function () {
     var player = this.scene.client;
     var answer = player.playerJump(this.next.x+1,this.next.y+1,this.dest.x+1,this.dest.y+1);
+    this.test1 = this.next.clone();
     if(answer instanceof Point){
-        this.updateBoard(true, answer);
+        this.jump_position = answer.clone();
+        this.jump = true;
+        var newPoint = new Point(answer.x-1,answer.y-1);
+        this.pos2 = this.dest.clone();
+        this.resetAnimation(this.test1,newPoint);
         if(player.canReJump(answer.x,answer.y)) {
             this.next = new Point(answer.x-1,answer.y-1);
             return "again";
@@ -99,12 +105,15 @@ CageBoard.prototype.checkPlay = function () {
     var player = this.scene.client;
     if(player.gameOver)return false;
     if(player.availablePlay()){
-        this.next = this.select;
+        this.next = this.select.clone();
         var answer = this.makeJump();
         if(answer === true)return true;
         else if(answer == "again") return "again";
         else if(player.makeMovement(this.select.x+1,this.select.y+1,this.dest.x+1,this.dest.y+1)) {
-            this.updateBoard(false);
+            this.jump = false;
+            this.pos1 = this.select.clone();
+            this.pos2 = this.dest.clone();
+            this.resetAnimation(this.select,this.dest);
         }
         else return false;
     }
@@ -133,7 +142,6 @@ CageBoard.prototype.movement = function () {
                         this.dest = new Point(x2, y2);
                         ret = true;
                     }
-
                 }
             }
             this.scene.pickResults.splice(0, this.scene.pickResults.length);
@@ -151,14 +159,9 @@ CageBoard.prototype.resetAnimation = function(point1, point2){
 CageBoard.prototype.animationUpdate = function(tempovar){
     if(this.animation_start){
         this.tempo_dec += tempovar;
-        if (this.animation.time > this.tempo_dec){
-            this.animation.x_atual += this.animation.mov_per_it_x * tempovar;
-            this.animation.z_atual += this.animation.mov_per_it_z * tempovar;
-            this.animation.des += this.animation.movement_per_it * tempovar;
-            this.animation.y_atual = (-(this.animation.des * this.animation.des) + 1) * this.animation.heigth + 0.5;
-        }
-        else {
+        if(!this.animation.updateAnimation(this.tempo_dec,tempovar)){
             this.animation_start = false;
+            this.updateBoard();
         }
     }
 };

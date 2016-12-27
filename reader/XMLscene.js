@@ -43,7 +43,7 @@ XMLscene.prototype.init = function(application) {
     this.tempo = 0;
     this.tempo_dec = 0;
     this.tempo_wait = 1;
-    this.init_anim = false;
+    this.init_anim = true;
 
     this.setUpdatePeriod(1);
 
