@@ -90,12 +90,12 @@ MyInterface.prototype.processKeyboard = function(event) {
         case 109:
             this.changeMat();
             break;
-        case 65:
+        /*case 65:
             this.stopAnimation();
             break;
         case 97:
             this.stopAnimation();
-            break;
+            break;*/
         case 98:
             this.scene.clientTest();
             break;
