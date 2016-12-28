@@ -116,7 +116,7 @@ CageBoard.prototype.pickPieces = function(choice){
     }
     else{
         this.piece = new PokeBall(this.scene);
-        this.height = 0.48; 
+        this.height = 0.48;
     }
 };
 

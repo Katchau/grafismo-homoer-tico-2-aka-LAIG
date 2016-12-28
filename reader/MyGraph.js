@@ -61,12 +61,12 @@ MyGraph.prototype.getPrimitives = function (vertex,primitive, info) {
             break;
         case "board":
             prim = new CageBoard(this.scene, primitive[1], primitive[2]);
-            this.scene.cage = prim;
+            if(this.scene.cage == null)this.scene.cage = prim;
             break;
-				case "healthBar":
-						prim = new MyHealthBar(this.scene, primitive[1], primitive[2], primitive[3], primitive[4]);
-						this.scene.healthBars.push(prim);
-						break;
+        case "healthBar":
+            prim = new MyHealthBar(this.scene, primitive[1], primitive[2], primitive[3], primitive[4]);
+            if(this.scene.healthBars.length < 2)this.scene.healthBars.push(prim);
+            break;
     }
     vertex.component.primitivess.push(prim);
 }
