@@ -108,6 +108,7 @@ CageBoard.prototype.makeJump = function () {
             this.next = new Point(answer.x-1,answer.y-1);
             return "again";
         }
+        //push board
         player.endTurn();
         return true;
     }
@@ -127,6 +128,7 @@ CageBoard.prototype.checkPlay = function () {
             this.pos1 = this.select.clone();
             this.pos2 = this.dest.clone();
             this.resetAnimation(this.select,this.dest);
+            //push board
         }
         else return false;
     }
