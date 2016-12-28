@@ -156,7 +156,7 @@ class gameAnimation extends Animation{
           this.x_atual += this.mov_per_it_x * tempovar;
           this.z_atual += this.mov_per_it_z * tempovar;
           this.des += this.movement_per_it * tempovar;
-          this.y_atual = (-(this.des * this.des) + 1) * this.heigth + 0.5;
+          this.y_atual = (-(this.des * this.des) + 1) * this.heigth;
           return true;
       }
       else return false;
