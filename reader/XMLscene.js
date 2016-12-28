@@ -199,7 +199,7 @@ XMLscene.prototype.createTextures = function() {
         var cenas = new Double_value(this.graph.txturs[i][1], this.graph.txturs[i][2]);
         this.text_param[i] = cenas;
     }
-}
+};
 
 //funcao responsavel por alterar as coordenadas da textura de uma primitiva, caso o scale seja true.
 //apenas altera do retangulo e do triangulo

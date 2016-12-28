@@ -6,7 +6,7 @@ function CageBoard(scene, x, y) {
     this.y = y;
 
     this.plane = new CGFplane(this.scene, 1, 1, 10, 10);
-    this.piece = new MyCylinder(this.scene, 0.5, 0.5, 0.2, 10, 10);
+    this.pickPieces(true);
 
     this.dest = undefined;
     this.select = undefined;
@@ -107,6 +107,17 @@ CageBoard.prototype.createMats = function (){
 CageBoard.prototype.pickMaterial = function(){
     this.piece1 = this.redMat;
     this.piece2 = this.bluMat;
+};
+
+CageBoard.prototype.pickPieces = function(choice){
+    if(choice){
+        this.piece = new MyCylinder(this.scene, 0.5, 0.5, 0.2, 10, 10);
+        this.height = 0.2;
+    }
+    else{
+        this.piece = new PokeBall(this.scene);
+        this.height = 0.48; 
+    }
 };
 
 CageBoard.prototype.outOfBound = function (point) {
@@ -256,14 +267,20 @@ CageBoard.prototype.display = function() {
                 if(this.animation != null && this.animation_start && this.animation.initialPoint.x == i && this.animation.initialPoint.y == j){
                     this.scene.translate(this.animation.z_atual, this.animation.y_atual, this.animation.x_atual);
                 }
-                this.scene.translate(j, 0.2, i);
+                this.scene.translate(j, this.height, i);
+                if (this.board[i][j] == 'o') this.scene.rotate(Math.PI, 0, 1, 0);
                 this.scene.rotate(Math.PI / 2, 1, 0, 0);
                 this.scene.registerForPick(piece, this.piece);
 
                 if (this.board[i][j] == 'x') this.piece1.apply();
                 else if (this.board[i][j] == 'o') this.piece2.apply();
 
-                if(this.select != undefined){
+                if(this.select != undefined && !this.animation_start){
+                    if(this.next != undefined){
+                        if(i == this.next.x && this.next.y == j){
+                            this.yellMat.apply();
+                        }
+                    }
                     if(i == this.select.x && this.select.y == j){
                         this.yellMat.apply();
                     }
