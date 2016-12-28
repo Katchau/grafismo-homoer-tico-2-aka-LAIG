@@ -26,6 +26,11 @@ XMLscene.prototype.update = function(currTime) {
         for(var i = 0; i < this.rings.length; i++){
             this.rings[i].updateAnimation(this.tempovar);
         }
+        if(this.cam_animation != null){
+            if(this.cam_start)
+                if(!this.cam_animation.updateAnimation(this.tempo_dec,this.tempovar))
+                    this.cam_start = false;
+        }
     }
 };
 
@@ -54,6 +59,8 @@ XMLscene.prototype.init = function(application) {
     this.setUpdatePeriod(1);
 
     this.anim_component = [];
+    this.cam_animation = null;
+    this.cam_start = false;
 
     this.setPickEnabled(true);
 
@@ -382,6 +389,16 @@ XMLscene.prototype.logPicking = function() {
     }
 };
 
+XMLscene.prototype.updateCamera = function () {
+    if(this.cam_start){
+        var tmp = this.cam_animation;
+        var x = tmp.x_atual + this.cameras[this.curr_cam][4];
+        var y = tmp.y_atual + this.cameras[this.curr_cam][5];
+        var z = tmp.z_atual + this.cameras[this.curr_cam][6];
+        this.camera.position = vec3.fromValues(x,y,z);
+        this.myInterface.setActiveCamera(this.camera);
+    }
+};
 
 XMLscene.prototype.display = function() {
 
@@ -405,6 +422,8 @@ XMLscene.prototype.display = function() {
     this.axis.display();
 
     this.setDefaultAppearance();
+
+    this.updateCamera();
 
     // ---- END Background, camera and axis setup
 

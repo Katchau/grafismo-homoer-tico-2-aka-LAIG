@@ -48,7 +48,7 @@ MyInterface.prototype.changeMat = function () {
         this.scene.material_pos = 0;
     }
     console.log("Key pressed M");
-}
+};
 
 /* Permite ao clicar na tecla 'V' ou 'v' alterar a view */
 MyInterface.prototype.changeView = function () {
@@ -58,11 +58,18 @@ MyInterface.prototype.changeView = function () {
     this.scene.changeCamera();
     this.setActiveCamera(this.scene.camera);
     console.log("Key pressed V");
-}
+};
 
-MyInterface.prototype.stopAnimation = function () {
-    this.scene.init_anim = (this.scene.init_anim) ? false : true;
-}
+
+MyInterface.prototype.changeView2 = function () {
+    var tmp1 = this.scene.cameras[0];
+    var tmp2 = this.scene.cameras[1];
+    this.scene.cam_animation = new gameAnimation(69,tmp1[4],tmp1[6],tmp2[4],tmp2[6]);
+    this.scene.cam_animation.heigth = 10;
+    this.scene.cam_start = true;
+    this.scene.tempo_dec = 0;
+    console.log("Key pressed V");
+};
 
 /**
  * processKeyboard
@@ -79,10 +86,10 @@ MyInterface.prototype.processKeyboard = function(event) {
 	switch (event.keyCode || event.which)
 	{
 		case 86:
-            this.changeView();
+            this.changeView2();
 			break;
         case 118:
-            this.changeView();
+            this.changeView2();
             break;
         case 77:
             this.changeMat();
@@ -90,20 +97,14 @@ MyInterface.prototype.processKeyboard = function(event) {
         case 109:
             this.changeMat();
             break;
-        /*case 65:
-            this.stopAnimation();
-            break;
-        case 97:
-            this.stopAnimation();
-            break;*/
         case 98:
             this.scene.clientTest();
             break;
-				case 85:
-						this.scene.cage.undoBoard();
-						break;
-				case 117:
-						this.scene.cage.undoBoard();
-						break;
+        case 85:
+            this.scene.cage.undoBoard();
+            break;
+        case 117:
+            this.scene.cage.undoBoard();
+            break;
 	};
 };
