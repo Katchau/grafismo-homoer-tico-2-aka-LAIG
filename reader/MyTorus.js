@@ -7,47 +7,28 @@ function MyTorus(scene, inner, outer, slices, loops) {
     this.slices = slices;
     this.stacks = loops;
 
-    this.initBuffers();
+    this.angle = 0;
+    //this.tempo_dec = 0;
+
+    this.scene.rings.push(this);
+    this.torus = new MyTorus2(scene,inner,outer,slices,loops);
 };
+
 
 MyTorus.prototype = Object.create(CGFobject.prototype);
 MyTorus.prototype.constructor = MyTorus;
 
+MyTorus.prototype.updateAnimation = function(tempovar){
+    //this.tempo_dec += tempovar;
+    this.angle += tempovar * Math.PI*3/2;
+};
+
+
 /* Inicializa as caracteristicas do Torus */
-MyTorus.prototype.initBuffers = function() {
-
-  this.vertices = [];
-  this.indices = [];
-  this.normals = [];
-  this.texCoords = [];
-
-  var r = (this.outer - this.inner) / 2;
-  var R = this.inner + r;
-
-  for (var i = 0; i <= this.stacks; i++) {
-      var u = i * 2 * Math.PI / this.stacks;
-
-      for (var j = 0; j <= this.slices; j++) {
-          var v = j * 2 * Math.PI / this.slices;
-
-          var x = (R + (r * Math.cos(u))) * Math.cos(v);
-          var y = (R + (r * Math.cos(u))) * Math.sin(v);
-          var z = r * Math.sin(u);
-
-          this.vertices.push(x, y, z);
-          this.normals.push(x, y, z);
-          this.texCoords.push(1 - (i / this.stacks), 1 -(j / this.slices));
-      }
-  }
-
-  for (var k = 0; k < this.stacks; k++) {
-      for (var w = 0; w < this.slices; w++) {
-          this.indices.push((k * (this.slices + 1)) + w, ((k * (this.slices + 1)) + w) + this.slices + 2, ((k * (this.slices + 1)) + w) + this.slices + 1);
-          this.indices.push((k * (this.slices + 1)) + w, ((k * (this.slices + 1)) + w) + 1, ((k * (this.slices + 1)) + w) + this.slices + 2);
-      }
-  }
-
-
-      this.primitiveType = this.scene.gl.TRIANGLES;
-      this.initGLBuffers();
+MyTorus.prototype.display = function() {
+    this.scene.pushMatrix();
+    this.scene.rotate(this.angle, 0, 1, 0);
+    console.log(this.angle);
+    this.torus.display();
+    this.scene.popMatrix();
 };

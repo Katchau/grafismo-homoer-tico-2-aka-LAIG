@@ -20,6 +20,7 @@ function CageBoard(scene, x, y) {
 
     this.resetBoard();
     this.createMats();
+    this.pickMaterial();
 }
 
 CageBoard.prototype = Object.create(CGFobject.prototype);
@@ -51,6 +52,11 @@ CageBoard.prototype.createMats = function (){
     this.greenMat.setDiffuse(0,0.32,0.13,1);
     this.greenMat.setSpecular(1,1,1,1);
     this.greenMat.setShininess(10);
+    this.bluMat = new CGFappearance(this.scene);
+    this.bluMat.setAmbient(0.2,0.2,0.2,1);
+    this.bluMat.setDiffuse(0,0.32,0.7,1);
+    this.bluMat.setSpecular(1,1,1,1);
+    this.bluMat.setShininess(10);
     this.yellMat = new CGFappearance(this.scene);
     this.yellMat.setEmission(1,1,0,1);
     this.yellMat.setAmbient(0.2,0.2,0.2,1);
@@ -67,6 +73,11 @@ CageBoard.prototype.createMats = function (){
     this.blackMat.setDiffuse(0,0,0,1);
     this.blackMat.setSpecular(1,1,1,1);
     this.blackMat.setShininess(10);
+};
+
+CageBoard.prototype.pickMaterial = function(){
+    this.piece1 = this.redMat;
+    this.piece2 = this.bluMat;
 };
 
 CageBoard.prototype.outOfBound = function (point) {
@@ -211,8 +222,8 @@ CageBoard.prototype.display = function() {
                 this.scene.rotate(Math.PI / 2, 1, 0, 0);
                 this.scene.registerForPick(piece, this.piece);
 
-                if (this.board[i][j] == 'x') this.redMat.apply();
-                else if (this.board[i][j] == 'o') this.greenMat.apply();
+                if (this.board[i][j] == 'x') this.piece1.apply();
+                else if (this.board[i][j] == 'o') this.piece2.apply();
 
                 if(this.select != undefined){
                     if(i == this.select.x && this.select.y == j){

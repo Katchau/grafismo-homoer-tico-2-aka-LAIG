@@ -21,6 +21,9 @@ XMLscene.prototype.update = function(currTime) {
             this.anim_component[i].update(this.tempovar);
         }
         if(this.cage != null)this.cage.animationUpdate(this.tempovar);
+        for(var i = 0; i < this.rings.length; i++){
+            this.rings[i].updateAnimation(this.tempovar);
+        }
     }
 };
 
@@ -55,6 +58,8 @@ XMLscene.prototype.init = function(application) {
     this.cage = null;
     this.client = new MyClient("http://localhost:8081/");
     this.must_jump = false;
+
+    this.rings = [];
     this.axis = new CGFaxis(this);
 };
 

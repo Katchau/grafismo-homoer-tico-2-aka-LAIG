@@ -22,12 +22,12 @@
     <views default="V5" >
 
         <perspective id="V5" near="0.1" far="500" angle="90">
-            <from x="65.5" y="20" z="27.5" />
-            <to x="0" y="15" z="27.5" />
+            <from x="65.5" y="20" z="50" />
+            <to x="0" y="15" z="50" />
         </perspective>
         <perspective id="V2" near="0.1" far="500" angle="90">
-            <from x="38.5" y="20" z="26.5" />
-            <to x="100" y="15" z="27.5" />
+            <from x="38.5" y="20" z="50" />
+            <to x="100" y="15" z="50" />
         </perspective>
 
     </views>
@@ -72,8 +72,10 @@
 
         <texture id="sky" file="scenes//textures//sky.jpg" length_s="1" length_t="1" />
         <texture id="wood" file="scenes//textures//wood.jpg" length_s="1" length_t="1" />
+		<texture id="carbonfiber" file="scenes//textures//carbonfiber.jpg" length_s="1" length_t="1" />
         <texture id="table" file="scenes//textures//table.jpg" length_s="1" length_t="1" />
-        <texture id="garden" file="scenes//textures//garden.jpg" length_s="1" length_t="1" />
+        <texture id="arcade1" file="scenes//textures//arcade1.jpg" length_s="1" length_t="1" />
+		<texture id="mario" file="scenes//textures//supermario.jpg" length_s="1" length_t="1" />
         <texture id="pl1" file="scenes//textures//player1.png" length_s="1" length_t="1" />
         <texture id="pl2" file="scenes//textures//player2.png" length_s="1" length_t="1" />
 
@@ -92,10 +94,24 @@
             <specular r="1" g="1" b="1" a="1" />
             <shininess value="10" />
         </material>
+		<material id="blackMat" >
+            <emission r="0" g="0" b="0" a="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="0" g="0" b="0" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="10" />
+        </material>
         <material id="redMat" >
             <emission r="0" g="0" b="0" a="1" />
             <ambient r="0.2" g="0.2" b="0.2" a="1" />
             <diffuse r="1" g="0" b="0" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="10" />
+        </material>
+		<material id="yellowMat" >
+            <emission r="0" g="0" b="0" a="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="1" g="1" b="0" a="1" />
             <specular r="1" g="1" b="1" a="1" />
             <shininess value="10" />
         </material>
@@ -106,7 +122,13 @@
             <specular r="1" g="1" b="1" a="1" />
             <shininess value="10" />
         </material>
-
+        <material id="bluMat" >
+             <emission r="0" g="0" b="0" a="1" />
+             <ambient r="0.2" g="0.2" b="0.2" a="1" />
+             <diffuse r="0" g="0.32" b="0.7" a="1" />
+             <specular r="1" g="1" b="1" a="1" />
+             <shininess value="10" />
+        </material>
     </materials>
 
 
@@ -142,8 +164,8 @@
             <sphere radius="1" slices="40" stacks="40" />
         </primitive>
 
-		    <primitive id="ringLord">
-			      <torus inner="0.5" outer="2" slices="10" loops="10" />
+		<primitive id="ringLord">
+			      <torus inner="3" outer="4.5" slices="20" loops="20" />
         </primitive>
 
 		    <primitive id="rectangle">
@@ -221,7 +243,7 @@
             </animation>
 
             <materials>
-                <material id="greenMat" />
+                <material id="bluMat" />
             </materials>
 
             <texture id="none" />
@@ -384,7 +406,327 @@
 
         </component>
 
-		    <component id="CaixaTabuleiro">
+		<component id="lmari1">
+
+            <transformation>
+				<translate x="11" y="0" z ="22" />
+                <scale x="2" y="2" z = "2" />
+				<rotate axis="y" angle="90" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="mario" />
+
+            <children>
+                <primitiveref id="base" />
+            </children>
+
+        </component>
+
+		<component id="lmari2">
+
+            <transformation>
+				<translate x="-11" y="0" z ="22" />
+                <scale x="2" y="2" z = "2" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="mario" />
+
+            <children>
+                <primitiveref id="base" />
+            </children>
+
+        </component>
+
+		<component id="lmari3">
+
+            <transformation>
+				<translate x="-11" y="0" z ="0" />
+                <scale x="2" y="2" z = "2" />
+				<rotate axis="y" angle="-90" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="mario" />
+
+            <children>
+                <primitiveref id="base" />
+            </children>
+
+        </component>
+
+		<component id="lmari4">
+
+            <transformation>
+				<translate x="11" y="0" z ="0" />
+                <scale x="2" y="2" z = "2" />
+				<rotate axis="y" angle="180" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="mario" />
+
+            <children>
+                <primitiveref id="base" />
+            </children>
+
+        </component>	
+
+		<component id="lmari5">
+
+            <transformation>
+				<translate x="-11" y="22" z ="22" />
+                <scale x="2" y="2" z = "2" />
+				<rotate axis="x" angle="-90" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="mario" />
+
+            <children>
+                <primitiveref id="base" />
+            </children>
+
+        </component>
+		
+		<component id="lmari6">
+
+            <transformation>
+				<translate x="-11" y="0" z ="0" />
+                <scale x="2" y="2" z = "2" />
+				<rotate axis="x" angle="90" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="mario" />
+
+            <children>
+                <primitiveref id="base" />
+            </children>
+
+        </component>
+		
+		<component id="lmaq1">
+
+            <transformation>
+				<translate x="11" y="0" z ="22" />
+                <scale x="2" y="2" z = "2" />
+				<rotate axis="y" angle="90" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="blackMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="base" />
+            </children>
+
+        </component>
+
+		<component id="lmaq2">
+
+            <transformation>
+				<translate x="0" y="0" z ="22" />
+                <scale x="1" y="2" z = "2" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="blackMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="base" />
+            </children>
+
+        </component>
+
+		<component id="lmaq3">
+
+            <transformation>
+				<translate x="0" y="0" z ="0" />
+                <scale x="2" y="2" z = "2" />
+				<rotate axis="y" angle="-90" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="blackMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="base" />
+            </children>
+
+        </component>
+
+		<component id="lmaq4">
+
+            <transformation>
+				<translate x="11" y="0" z ="0" />
+                <scale x="1" y="2" z = "2" />
+				<rotate axis="y" angle="180" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="blackMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="base" />
+            </children>
+
+        </component>	
+
+		<component id="lmaq5">
+
+            <transformation>
+				<translate x="0" y="22" z ="22" />
+                <scale x="1" y="2" z = "2" />
+				<rotate axis="x" angle="-90" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="blackMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="base" />
+            </children>
+
+        </component>	
+		
+		<component id="maquina">
+
+            <transformation>
+                <translate x="35" y="0" z = "10" />
+				<rotate axis="y" angle="30" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="blackMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="lmaq1" />
+                <componentref id="lmaq2" />
+                <componentref id="lmaq3" />
+                <componentref id="lmaq4" />
+				<componentref id="lmaq5" />
+            </children>
+
+        </component>
+		
+		<component id="marioRing">
+			<transformation>
+                <translate x="51" y="38" z = "76" />
+            </transformation>
+
+            <materials>
+                <material id="yellowMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="ringLord" />
+            </children>
+		</component>
+		
+		<component id="mariobox1">
+
+            <transformation>
+                <translate x="50" y="20" z = "70" />
+				<scale x="0.5" y="0.5" z="0.5" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="lmari1" />
+                <componentref id="lmari2" />
+                <componentref id="lmari3" />
+                <componentref id="lmari4" />
+				<componentref id="lmari5" />
+				<componentref id="lmari6" />
+            </children>
+
+        </component>
+		
+		<component id="CaixaTabuleiro">
             <transformation>
                 <translate x="2" y = "1" z = "2" />
             </transformation>
@@ -420,7 +762,7 @@
                 <material id="whiteMat" />
             </materials>
 
-            <texture id="table" />
+            <texture id="carbonfiber" />
 
             <children>
                 <primitiveref id="MesaRectangle" />
@@ -442,7 +784,7 @@
                 <material id="whiteMat" />
             </materials>
 
-            <texture id="table" />
+            <texture id="carbonfiber" />
 
             <children>
                 <primitiveref id="MesaRectangle" />
@@ -464,7 +806,7 @@
                 <material id="whiteMat" />
             </materials>
 
-            <texture id="table" />
+            <texture id="carbonfiber" />
 
             <children>
                 <primitiveref id="MesaRectangle" />
@@ -486,7 +828,7 @@
                 <material id="whiteMat" />
             </materials>
 
-            <texture id="table" />
+            <texture id="carbonfiber" />
 
             <children>
                 <primitiveref id="MesaRectangle" />
@@ -508,7 +850,7 @@
                 <material id="whiteMat" />
             </materials>
 
-            <texture id="table" />
+            <texture id="carbonfiber" />
 
             <children>
                 <primitiveref id="tampo" />
@@ -530,7 +872,7 @@
                 <material id="whiteMat" />
             </materials>
 
-            <texture id="table" />
+            <texture id="carbonfiber" />
 
             <children>
                 <primitiveref id="tampo" />
@@ -662,7 +1004,7 @@
         <component id="Mesa">
 
             <transformation>
-                <translate x="44.5" y="12" z="19.5" />
+                <translate x="44.5" y="12" z="42" />
             </transformation>
 
             <materials>
@@ -672,7 +1014,7 @@
             <texture id="none" />
 
             <children>
-				        <componentref id="CaixaTabuleiro" />
+			<componentref id="CaixaTabuleiro" />
                 <componentref id="TampoMesa" />
                 <componentref id="Perna1" />
                 <componentref id="Perna2" />
@@ -830,7 +1172,7 @@
         <component id="Chair1">
 
             <transformation>
-                <translate x="35.5" y="8.5" z="22.5" />
+                <translate x="35.5" y="8.5" z="45" />
                 <scale x="1.5" y="1.5" z="1.5" />
             </transformation>
 
@@ -854,7 +1196,7 @@
         <component id="Chair2">
 
             <transformation>
-                <translate x="68.5" y="8.5" z="31.5" />
+                <translate x="68.5" y="8.5" z="54" />
                 <rotate axis="y" angle="180" />
                 <scale x="1.5" y="1.5" z="1.5" />
             </transformation>
@@ -890,7 +1232,7 @@
                 <material id="whiteMat" />
             </materials>
 
-            <texture id="garden" />
+            <texture id="arcade1" />
 
             <children>
                 <primitiveref id="chao" />
@@ -1029,7 +1371,7 @@
         <component id="ScoreP1">
 
             <transformation>
-                <translate x="75" y="25" z="22" />
+                <translate x="90" y="25" z="44" />
                 <rotate axis="y" angle="-90" />
             </transformation>
 
@@ -1052,7 +1394,7 @@
         <component id="ScoreP2">
 
             <transformation>
-                <translate x="30" y="25" z="32" />
+                <translate x="10" y="25" z="55" />
                 <rotate axis="y" angle="90" />
             </transformation>
 
@@ -1071,7 +1413,27 @@
             </children>
 
         </component>
+		
+		<component id="Background">
+			<transformation>
+				<scale x="1.0" y="1.0" z="2.0" />
+            </transformation>
 
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+			
+			<children>
+				<componentref id="Chao" />
+                <componentref id="Parede1" />
+                <componentref id="Parede2" />
+                <componentref id="Parede3" />
+                <componentref id="Parede4" />
+			</children>
+		</component>
+		
         <component id="Raiz">
             <transformation>
             </transformation>
@@ -1083,14 +1445,13 @@
             <texture id="none" />
 
             <children>
+				<componentref id="maquina" />
+				<componentref id="mariobox1" />
+				<componentref id="marioRing" />
                 <componentref id="Mesa" />
                 <componentref id="Chair1" />
                 <componentref id="Chair2" />
-                <componentref id="Chao" />
-                <componentref id="Parede1" />
-                <componentref id="Parede2" />
-                <componentref id="Parede3" />
-                <componentref id="Parede4" />
+				<componentref id="Background" />
                 <componentref id="ScoreP1" />
                 <componentref id="ScoreP2" />
             </children>
