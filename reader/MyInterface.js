@@ -99,5 +99,11 @@ MyInterface.prototype.processKeyboard = function(event) {
         case 98:
             this.scene.clientTest();
             break;
+				case 85:
+						this.scene.cage.undoBoard();
+						break;
+				case 117:
+						this.scene.cage.undoBoard();
+						break;
 	};
 };

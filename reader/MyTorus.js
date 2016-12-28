@@ -28,7 +28,6 @@ MyTorus.prototype.updateAnimation = function(tempovar){
 MyTorus.prototype.display = function() {
     this.scene.pushMatrix();
     this.scene.rotate(this.angle, 0, 1, 0);
-    console.log(this.angle);
     this.torus.display();
     this.scene.popMatrix();
 };

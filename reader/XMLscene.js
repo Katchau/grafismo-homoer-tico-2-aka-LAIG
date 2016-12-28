@@ -1,6 +1,8 @@
 function XMLscene(myInterface) {
     this.myInterface = myInterface;
     this.healthBars = [];
+    this.boards = [];
+    this.playerBoards = [];
     CGFscene.call(this);
 }
 
