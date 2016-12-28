@@ -13,6 +13,7 @@ function CageBoard(scene, x, y) {
     this.next = null;
     this.jump = false;
     this.jump_position = undefined;
+    this.can_backup = true;
 
     this.tempo_dec = 0;
     this.animation = null;
@@ -33,13 +34,14 @@ CageBoard.prototype.undoBoard = function() {
       this.scene.boards.pop();
       this.scene.client.board = this.scene.playerBoards[l];
       this.scene.playerBoards.pop();
+      this.scene.client.revertTurn();
     }
 };
 
 CageBoard.prototype.copyPlayerBoard = function(){
-  var ret = this.scene.client.board;
+  var ret = this.scene.client.backup_board;
   return ret;
-}
+};
 
 CageBoard.prototype.copyBoard = function(){
   var ret = [];
@@ -51,7 +53,7 @@ CageBoard.prototype.copyBoard = function(){
       ret.push(temp);
     }
     return ret;
-}
+};
 
 CageBoard.prototype.resetBoard = function () {
     this.board = [
@@ -131,6 +133,13 @@ CageBoard.prototype.updateScore = function () {
     this.scene.healthBars[playerN].changeSize();
 };
 
+CageBoard.prototype.saveBoards = function(){
+    var temp1 = this.copyBoard();
+    this.scene.boards.push(temp1);
+    var temp2 = this.copyPlayerBoard();
+    this.scene.playerBoards.push(temp2);
+};
+
 CageBoard.prototype.makeJump = function () {
     var player = this.scene.client;
     var answer = player.playerJump(this.next.x+1,this.next.y+1,this.dest.x+1,this.dest.y+1);
@@ -142,15 +151,13 @@ CageBoard.prototype.makeJump = function () {
         this.pos2 = this.dest.clone();
         this.resetAnimation(this.test1,newPoint);
         this.updateScore();
+        if(this.can_backup)this.saveBoards();
         if(player.canReJump(answer.x,answer.y)) {
             this.next = new Point(answer.x-1,answer.y-1);
+            this.can_backup = false;
             return "again";
         }
-        var temp1 = this.copyBoard();
-        this.scene.boards.push(temp1);
-        var temp2 = this.copyPlayerBoard();
-        console.log(temp2);
-        this.scene.playerBoards.push(temp2);
+        this.can_backup = true;
         player.endTurn();
         return true;
     }
@@ -170,11 +177,7 @@ CageBoard.prototype.checkPlay = function () {
             this.pos1 = this.select.clone();
             this.pos2 = this.dest.clone();
             this.resetAnimation(this.select,this.dest);
-            var temp1 = this.copyBoard();
-            this.scene.boards.push(temp1);
-            var temp2 = this.copyPlayerBoard();
-            console.log(temp2);
-            this.scene.playerBoards.push(temp2);
+            this.saveBoards();
         }
         else return false;
     }

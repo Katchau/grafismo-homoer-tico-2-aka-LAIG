@@ -3,6 +3,7 @@ function MyClient(server) {
 
     this.server_url = server;
     this.board = null;
+    this.backup_board =null;
     this.gameOver = false;
     this.reset_board();
     this.player = 'x';
@@ -64,10 +65,12 @@ MyClient.prototype.requestManager = function (response) {
             break;
     }
     if(response.length == this.default_board_length){
+        this.backup_board = this.board;
         this.board = response;
         return true;
     }
     else if(response.length > this.default_board_length){
+        this.backup_board = this.board;
         this.board = response.substring(1,222);
         var next_play = response.substr(223);
         var number1 = "";
@@ -151,4 +154,9 @@ MyClient.prototype.endTurn = function () {
     }
     this.playNumber++;
     this.switchPlayer();
+};
+
+MyClient.prototype.revertTurn = function(){
+    this.switchPlayer();
+    this.playNumber--;
 };
