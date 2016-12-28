@@ -100,6 +100,10 @@ MyClient.prototype.reset_board = function () {
         "[o,x,o,x,o,x,o,x,o,x]]";
 };
 
+MyClient.prototype.reset_player = function () {
+    this.player = 'x';
+};
+
 MyClient.prototype.jump = function(x,y,xf,yf){
     return "jump(" + this.board + "," + this.player + "," + x + "," + y + "," + xf + "," + yf + ")";
 };

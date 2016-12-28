@@ -106,5 +106,11 @@ MyInterface.prototype.processKeyboard = function(event) {
         case 117:
             this.scene.cage.undoBoard();
             break;
+				case 82:
+		        this.scene.cage.resetGame();
+		        break;
+				case 114:
+				    this.scene.cage.resetGame();
+				    break;
 	};
 };

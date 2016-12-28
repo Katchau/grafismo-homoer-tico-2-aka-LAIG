@@ -27,6 +27,12 @@ function CageBoard(scene, x, y) {
 CageBoard.prototype = Object.create(CGFobject.prototype);
 CageBoard.prototype.constructor = CageBoard;
 
+CageBoard.prototype.resetGame = function() {
+    this.resetBoard();
+    this.scene.client.reset_board();
+    this.scene.client.reset_player();
+}
+
 CageBoard.prototype.undoBoard = function() {
     var l = this.scene.boards.length - 1;
     if(l >= 0){
