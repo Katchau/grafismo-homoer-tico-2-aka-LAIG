@@ -52,6 +52,7 @@ MyHealthBar.prototype.initBuffers = function() {
 }
 
 MyHealthBar.prototype.changeSize = function (){
-		this.x2 = (this.pieces-1)/50 * this.long;
-		this.initBuffers();
+		this.pieces--;
+		this.x2 = (this.pieces)/50 * this.long;
+		this.initBuffers();//?
 }

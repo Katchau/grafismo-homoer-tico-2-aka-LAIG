@@ -87,6 +87,12 @@ CageBoard.prototype.updateBoard = function(){
     }
 };
 
+CageBoard.prototype.updateScore = function () {
+    var player = this.scene.client;
+    var playerN = (player.player == 'x') ? 1 : 0;
+    this.scene.healthBars[playerN].changeSize();
+};
+
 CageBoard.prototype.makeJump = function () {
     var player = this.scene.client;
     var answer = player.playerJump(this.next.x+1,this.next.y+1,this.dest.x+1,this.dest.y+1);
@@ -97,6 +103,7 @@ CageBoard.prototype.makeJump = function () {
         var newPoint = new Point(answer.x-1,answer.y-1);
         this.pos2 = this.dest.clone();
         this.resetAnimation(this.test1,newPoint);
+        this.updateScore();
         if(player.canReJump(answer.x,answer.y)) {
             this.next = new Point(answer.x-1,answer.y-1);
             return "again";
