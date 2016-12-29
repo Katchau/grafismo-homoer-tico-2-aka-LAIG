@@ -365,6 +365,41 @@ XMLscene.prototype.updateLight = function(index) {
     this.lights[index].update();
 };
 
+
+XMLscene.prototype.changeView = function (view1, view2){
+    var tmp1 = this.cameras[view1];
+    var tmp2 = this.cameras[view2];
+    this.cam_animation = new gameAnimation(69,tmp1[4],tmp1[6],tmp2[4],tmp2[6]);
+    this.cam_animation2 = new gameAnimation(69,tmp1[7],tmp1[9],tmp2[7],tmp2[9]);
+    this.cam_animation.heigth = 10;
+    this.cam_animation2.heigth = 10;
+    this.cam_start = true;
+    this.tempo_dec = 0;
+};
+
+XMLscene.prototype.changeView2 = function () {
+    this.next_cam = (this.curr_cam == 0) ? 1 : 0;
+    this.changeView(this.curr_cam,this.next_cam);
+};
+
+XMLscene.prototype.updateCamera = function () {
+    if(this.cam_start){
+        var tmp = this.cam_animation;
+        var x = tmp.x_atual + this.cameras[this.curr_cam][4];
+        var y = tmp.y_atual + this.cameras[this.curr_cam][5];
+        var z = tmp.z_atual + this.cameras[this.curr_cam][6];
+        this.camera.position = vec3.fromValues(x,y,z);
+
+        var tmp2 = this.cam_animation2;
+        var x2 = tmp2.x_atual + this.cameras[this.curr_cam][7];
+        var y2 = tmp2.y_atual + this.cameras[this.curr_cam][8];
+        var z2 = tmp2.z_atual + this.cameras[this.curr_cam][9];
+        this.camera.target = vec3.fromValues(x2,y2,z2);
+
+        this.myInterface.setActiveCamera(this.camera);
+    }
+};
+
 XMLscene.prototype.clientTest = function(){
     console.log(this.client.sendRequest("handshake"));
 };
@@ -402,38 +437,15 @@ XMLscene.prototype.logPicking = function() {
     }
 };
 
-
-XMLscene.prototype.changeView = function (view1, view2){
-    var tmp1 = this.cameras[view1];
-    var tmp2 = this.cameras[view2];
-    this.cam_animation = new gameAnimation(69,tmp1[4],tmp1[6],tmp2[4],tmp2[6]);
-    this.cam_animation2 = new gameAnimation(69,tmp1[7],tmp1[9],tmp2[7],tmp2[9]);
-    this.cam_animation.heigth = 10;
-    this.cam_animation2.heigth = 10;
-    this.cam_start = true;
-    this.tempo_dec = 0;
-};
-
-XMLscene.prototype.changeView2 = function () {
-    this.next_cam = (this.curr_cam == 0) ? 1 : 0;
-    this.changeView(this.curr_cam,this.next_cam);
-};
-
-XMLscene.prototype.updateCamera = function () {
-    if(this.cam_start){
-        var tmp = this.cam_animation;
-        var x = tmp.x_atual + this.cameras[this.curr_cam][4];
-        var y = tmp.y_atual + this.cameras[this.curr_cam][5];
-        var z = tmp.z_atual + this.cameras[this.curr_cam][6];
-        this.camera.position = vec3.fromValues(x,y,z);
-
-        var tmp2 = this.cam_animation2;
-        var x2 = tmp2.x_atual + this.cameras[this.curr_cam][7];
-        var y2 = tmp2.y_atual + this.cameras[this.curr_cam][8];
-        var z2 = tmp2.z_atual + this.cameras[this.curr_cam][9];
-        this.camera.target = vec3.fromValues(x2,y2,z2);
-
-        this.myInterface.setActiveCamera(this.camera);
+XMLscene.prototype.playCage = function(gameMode){
+    if(gameMode == 1){
+        this.logPicking();
+    }
+    else{
+        if(this.client.player == 'x')
+            this.logPicking();
+        else if(this.client.player == 'o')
+            this.bot_play(gameMode); //2 = easy, 3 = hard
     }
 };
 
