@@ -145,7 +145,7 @@ CageBoard.prototype.updateBoard = function(){
         this.board[this.pos2.x][this.pos2.y] = this.board[this.pos1.x][this.pos1.y];
         this.board[this.pos1.x][this.pos1.y] = 'v';
     }
-    this.scene.changeView2();
+    if(this.can_backup)this.scene.changeView2();
 };
 
 CageBoard.prototype.updateScore = function () {
