@@ -18,6 +18,7 @@ function CageBoard(scene, x, y) {
     this.tempo_dec = 0;
     this.animation = null;
     this.animation_start = false;
+    this.rotate_ang = 0;
 
     this.timePerTurn = 60;
     this.lastTurnEnd = 60;
@@ -259,6 +260,9 @@ CageBoard.prototype.animationUpdate = function(tempovar){
             this.animation_start = false;
             this.updateBoard();
         }
+        else{
+            this.rotate_ang += Math.PI/2;
+        }
     }
 };
 
@@ -307,6 +311,9 @@ CageBoard.prototype.display = function() {
                 this.scene.translate(j, this.height, i);
                 if (this.board[i][j] == 'o') this.scene.rotate(Math.PI, 0, 1, 0);
                 this.scene.rotate(Math.PI / 2, 1, 0, 0);
+                if(this.animation != null && this.jump && this.animation_start && this.pos2.x == i && this.pos2.y == j){
+                    this.scene.rotate(this.rotate_ang,0,1,0);
+                }
                 this.scene.registerForPick(piece, this.piece);
 
                 if (this.board[i][j] == 'x') this.piece1.apply();
