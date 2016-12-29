@@ -19,9 +19,8 @@ function CageBoard(scene, x, y) {
     this.animation = null;
     this.animation_start = false;
 
-    this.timePerTurn = 10;
+    this.timePerTurn = 60;
     this.lastTurnEnd = 0;
-    this.lastCame = 0;
 
     this.resetBoard();
     this.createMats();
@@ -146,6 +145,7 @@ CageBoard.prototype.updateBoard = function(){
         this.board[this.pos2.x][this.pos2.y] = this.board[this.pos1.x][this.pos1.y];
         this.board[this.pos1.x][this.pos1.y] = 'v';
     }
+    this.scene.changeView2();
 };
 
 CageBoard.prototype.updateScore = function () {
@@ -262,11 +262,11 @@ CageBoard.prototype.animationUpdate = function(tempovar){
 };
 
 CageBoard.prototype.verifyTurns = function(tempovar){
-    var temp = tempovar - this.lastCame;
-    this.lastTurnEnd += temp;
+    this.lastTurnEnd += tempovar;
     if((this.lastTurnEnd / this.timePerTurn) > 1){
         this.scene.client.endTurn();
         this.lastTurnEnd = 0;
+        this.scene.changeView2();
     }
 };
 

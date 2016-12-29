@@ -61,16 +61,6 @@ MyInterface.prototype.changeView = function () {
 };
 
 
-MyInterface.prototype.changeView2 = function () {
-    var tmp1 = this.scene.cameras[0];
-    var tmp2 = this.scene.cameras[1];
-    this.scene.cam_animation = new gameAnimation(69,tmp1[4],tmp1[6],tmp2[4],tmp2[6]);
-    this.scene.cam_animation.heigth = 10;
-    this.scene.cam_start = true;
-    this.scene.tempo_dec = 0;
-    console.log("Key pressed V");
-};
-
 /**
  * processKeyboard
  * @param event {Event}
@@ -86,10 +76,10 @@ MyInterface.prototype.processKeyboard = function(event) {
 	switch (event.keyCode || event.which)
 	{
 		case 86:
-            this.changeView2();
+            this.changeView();
 			break;
         case 118:
-            this.changeView2();
+            this.changeView();
             break;
         case 77:
             this.changeMat();
@@ -106,11 +96,11 @@ MyInterface.prototype.processKeyboard = function(event) {
         case 117:
             this.scene.cage.undoBoard();
             break;
-				case 82:
-		        this.scene.cage.resetGame();
-		        break;
-				case 114:
-				    this.scene.cage.resetGame();
-				    break;
+        case 82:
+            this.scene.cage.resetGame();
+            break;
+        case 114:
+            this.scene.cage.resetGame();
+            break;
 	};
 };

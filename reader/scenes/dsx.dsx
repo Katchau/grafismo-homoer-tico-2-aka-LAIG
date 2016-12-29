@@ -23,11 +23,11 @@
 
         <perspective id="V5" near="0.1" far="500" angle="90">
             <from x="65.5" y="20" z="50" />
-            <to x="0" y="15" z="50" />
+            <to x="44.5" y="15" z="50" />
         </perspective>
         <perspective id="V2" near="0.1" far="500" angle="90">
-            <from x="38.5" y="20" z="50" />
-            <to x="100" y="15" z="50" />
+            <from x="39.5" y="20" z="50" />
+            <to x="54.5" y="15" z="50" />
         </perspective>
 
     </views>
