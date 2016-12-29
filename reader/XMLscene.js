@@ -80,6 +80,7 @@ XMLscene.prototype.init = function(application) {
     this.must_jump = false;
 
     this.rings = [];
+    this.playbox = null;
     this.axis = new CGFaxis(this);
 };
 
@@ -401,16 +402,21 @@ XMLscene.prototype.logPicking = function() {
     }
 };
 
-XMLscene.prototype.changeView2 = function () {
-    this.next_cam = (this.curr_cam == 0) ? 1 : 0;
-    var tmp1 = this.cameras[this.curr_cam];
-    var tmp2 = this.cameras[this.next_cam];
+
+XMLscene.prototype.changeView = function (view1, view2){
+    var tmp1 = this.cameras[view1];
+    var tmp2 = this.cameras[view2];
     this.cam_animation = new gameAnimation(69,tmp1[4],tmp1[6],tmp2[4],tmp2[6]);
     this.cam_animation2 = new gameAnimation(69,tmp1[7],tmp1[9],tmp2[7],tmp2[9]);
     this.cam_animation.heigth = 10;
     this.cam_animation2.heigth = 10;
     this.cam_start = true;
     this.tempo_dec = 0;
+};
+
+XMLscene.prototype.changeView2 = function () {
+    this.next_cam = (this.curr_cam == 0) ? 1 : 0;
+    this.changeView(this.curr_cam,this.next_cam);
 };
 
 XMLscene.prototype.updateCamera = function () {

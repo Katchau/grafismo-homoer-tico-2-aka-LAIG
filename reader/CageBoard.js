@@ -36,7 +36,10 @@ CageBoard.prototype.resetGame = function() {
     this.resetBoard();
     this.scene.client.reset_board();
     this.scene.client.reset_player();
-}
+    this.scene.playbox.garbage_can = [];
+    this.lastTurnEnd = 60;
+    this.actualTime = 60;
+};
 
 CageBoard.prototype.undoBoard = function() {
     var l = this.scene.boards.length - 1;
@@ -46,6 +49,8 @@ CageBoard.prototype.undoBoard = function() {
       this.scene.client.board = this.scene.playerBoards[l];
       this.scene.playerBoards.pop();
       this.scene.client.revertTurn();
+      this.lastTurnEnd = 60;
+      this.actualTime = 60;
     }
 };
 
@@ -140,7 +145,9 @@ CageBoard.prototype.updateBoard = function(){
         if(!this.outOfBound(this.jump_position)){
             this.board[this.jump_position.x-1][this.jump_position.y-1] = this.board[this.test1.x][this.test1.y];
         }
+        else this.scene.playbox.pushGarbage(this.board[this.test1.x][this.test1.y]);
         this.board[this.test1.x][this.test1.y] = 'v';
+        this.scene.playbox.pushGarbage(this.board[this.pos2.x][this.pos2.y]);
         this.board[this.pos2.x][this.pos2.y] = 'v';
     }
     else{
