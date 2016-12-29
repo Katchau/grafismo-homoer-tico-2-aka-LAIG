@@ -11,7 +11,7 @@ function getUrlVars() {
     return vars;
 }
 
-serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js', 'MyComponent.js', 'MyVertex.js', 'MyGraph.js', 'MyRectangle.js', 'MyCylinder.js' , 'MySphere.js' , 'MyTriangle.js', 'MyTorus.js', 'MyTorus2.js', 'MyBody.js', 'MyCircle.js', 'Point.js', 'Animations.js', 'Superficies.js', 'ChessBoard.js', 'MyVehicle.js', 'CageBoard.js', 'MyClient.js', 'MyHealthBar.js', 'MySemiCircle.js', 'PokeBall.js', 'MyTimer.js',
+serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js', 'MyComponent.js', 'MyVertex.js', 'MyGraph.js', 'MyRectangle.js', 'MyCylinder.js' , 'MySphere.js' , 'MyTriangle.js', 'MyTorus.js', 'MyTorus2.js', 'MyBody.js', 'MyCircle.js', 'Point.js', 'Animations.js', 'Superficies.js', 'ChessBoard.js', 'MyVehicle.js', 'CageBoard.js', 'MyClient.js', 'MyHealthBar.js', 'MySemiCircle.js', 'PokeBall.js', 'MyTimer.js', 'PlayBox.js',
 
 main=function()
 {
@@ -30,7 +30,7 @@ main=function()
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml
 	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor)
 
-	var filename=getUrlVars()['file'] || "dsx2.dsx";
+	var filename=getUrlVars()['file'] || "dsx.dsx";
 
 	// create and load graph, and associate it to scene.
 	// Check console for loading errors

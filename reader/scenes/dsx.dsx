@@ -208,6 +208,10 @@
             <healthBar x1="0" y1="0" x2="8" y2="0.5" />
         </primitive>
 
+        <primitive id="turbinada">
+            <machine />
+        </primitive>
+
     </primitives>
 
 
@@ -542,126 +546,12 @@
             </children>
 
         </component>
-		
-		<component id="lmaq1">
 
-            <transformation>
-				<translate x="11" y="0" z ="22" />
-                <scale x="2" y="2" z = "2" />
-				<rotate axis="y" angle="90" />
-            </transformation>
-
-            <animation>
-            </animation>
-
-            <materials>
-                <material id="blackMat" />
-            </materials>
-
-            <texture id="none" />
-
-            <children>
-                <primitiveref id="base" />
-            </children>
-
-        </component>
-
-		<component id="lmaq2">
-
-            <transformation>
-				<translate x="0" y="0" z ="22" />
-                <scale x="1" y="2" z = "2" />
-            </transformation>
-
-            <animation>
-            </animation>
-
-            <materials>
-                <material id="blackMat" />
-            </materials>
-
-            <texture id="none" />
-
-            <children>
-                <primitiveref id="base" />
-            </children>
-
-        </component>
-
-		<component id="lmaq3">
-
-            <transformation>
-				<translate x="0" y="0" z ="0" />
-                <scale x="2" y="2" z = "2" />
-				<rotate axis="y" angle="-90" />
-            </transformation>
-
-            <animation>
-            </animation>
-
-            <materials>
-                <material id="blackMat" />
-            </materials>
-
-            <texture id="none" />
-
-            <children>
-                <primitiveref id="base" />
-            </children>
-
-        </component>
-
-		<component id="lmaq4">
-
-            <transformation>
-				<translate x="11" y="0" z ="0" />
-                <scale x="1" y="2" z = "2" />
-				<rotate axis="y" angle="180" />
-            </transformation>
-
-            <animation>
-            </animation>
-
-            <materials>
-                <material id="blackMat" />
-            </materials>
-
-            <texture id="none" />
-
-            <children>
-                <primitiveref id="base" />
-            </children>
-
-        </component>	
-
-		<component id="lmaq5">
-
-            <transformation>
-				<translate x="0" y="22" z ="22" />
-                <scale x="1" y="2" z = "2" />
-				<rotate axis="x" angle="-90" />
-            </transformation>
-
-            <animation>
-            </animation>
-
-            <materials>
-                <material id="blackMat" />
-            </materials>
-
-            <texture id="none" />
-
-            <children>
-                <primitiveref id="base" />
-            </children>
-
-        </component>	
 		
 		<component id="maquina">
 
             <transformation>
-                <translate x="35" y="0" z = "10" />
-				<rotate axis="y" angle="30" />
+                <translate x="45" y="0" z = "10" />
             </transformation>
 
             <animation>
@@ -674,11 +564,7 @@
             <texture id="none" />
 
             <children>
-                <componentref id="lmaq1" />
-                <componentref id="lmaq2" />
-                <componentref id="lmaq3" />
-                <componentref id="lmaq4" />
-				<componentref id="lmaq5" />
+                <primitiveref id="turbinada" />
             </children>
 
         </component>

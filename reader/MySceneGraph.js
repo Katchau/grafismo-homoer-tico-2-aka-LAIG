@@ -536,23 +536,27 @@ MySceneGraph.prototype.readPrimitives = function (e, j, obj, all_ids){
             }
             obj.size_chess+=1;
             break;
-				case "board":
-						this.boards[obj.size_b] = [];
-						this.boards[obj.size_b][0] = id;
-						this.boards[obj.size_b][1] = this.reader.getInteger(e.children[j],'x',true);
-						this.boards[obj.size_b][2] = this.reader.getInteger(e.children[j],'y',true);
-						obj.size_b+=1;
-						break;
-				case "healthBar":
-						this.hBars[obj.size_hb] = [];
-						this.hBars[obj.size_hb][0] = id;
-						this.hBars[obj.size_hb][1] = this.reader.getFloat(e.children[j],'x1',true);
-						this.hBars[obj.size_hb][2] = this.reader.getFloat(e.children[j],'y1',true);
-						this.hBars[obj.size_hb][3] = this.reader.getFloat(e.children[j],'x2',true);
-						this.hBars[obj.size_hb][4] = this.reader.getFloat(e.children[j],'y2',true);
-						obj.size_hb+=1;
-						break;
-
+        case "board":
+            this.boards[obj.size_b] = [];
+            this.boards[obj.size_b][0] = id;
+            this.boards[obj.size_b][1] = this.reader.getInteger(e.children[j],'x',true);
+            this.boards[obj.size_b][2] = this.reader.getInteger(e.children[j],'y',true);
+            obj.size_b+=1;
+            break;
+        case "healthBar":
+            this.hBars[obj.size_hb] = [];
+            this.hBars[obj.size_hb][0] = id;
+            this.hBars[obj.size_hb][1] = this.reader.getFloat(e.children[j],'x1',true);
+            this.hBars[obj.size_hb][2] = this.reader.getFloat(e.children[j],'y1',true);
+            this.hBars[obj.size_hb][3] = this.reader.getFloat(e.children[j],'x2',true);
+            this.hBars[obj.size_hb][4] = this.reader.getFloat(e.children[j],'y2',true);
+            obj.size_hb+=1;
+            break;
+        case "machine":
+            this.machines[obj.size_m] = [];
+            this.machines[obj.size_m][0] = id;
+            obj.size_m+=1;
+            break;
 	}
 
 };
@@ -574,11 +578,12 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement){
     this.patches = [];
     this.vehicles = [];
     this.chesses = [];
-		this.boards = [];
-		this.hBars = []
+    this.boards = [];
+    this.hBars = [];
+    this.machines = [];
 
 	var obj = {
-		size_r : 0, size_t : 0, size_c : 0, size_s : 0, size_d : 0, size_p : 0, size_patch : 0, size_v : 0, size_chess : 0, size_b : 0, size_hb : 0
+		size_r : 0, size_t : 0, size_c : 0, size_s : 0, size_d : 0, size_p : 0, size_patch : 0, size_v : 0, size_chess : 0, size_b : 0, size_hb : 0, size_m : 0
 	};
 
 	var all_ids = [];
@@ -614,7 +619,7 @@ MySceneGraph.prototype.isPrimitive = function(object, id, vertex, tipo){
 /* Funcao que verifica se o tipo de primitiva e valida */
 MySceneGraph.prototype.getPrimitive = function(vertex, objects, id){
 
-    var bananas;
+    var bananas; //nao sei quem teve esta ideia, mas foi genial
     if((bananas = this.isPrimitive(objects[0], id, vertex, "rect")) == null)
         if((bananas = this.isPrimitive(objects[1], id, vertex, "tri")) == null)
             if((bananas = this.isPrimitive(objects[2], id, vertex, "cyl")) == null)
@@ -624,9 +629,10 @@ MySceneGraph.prototype.getPrimitive = function(vertex, objects, id){
                             if((bananas = this.isPrimitive(objects[6], id, vertex, "pat")) == null)
                                 if((bananas = this.isPrimitive(objects[7], id, vertex, "car")) == null)
                                     if((bananas = this.isPrimitive(objects[8], id, vertex, "chess")) == null)
-																				if((bananas = this.isPrimitive(objects[9], id, vertex, "board")) == null)
-																						if((bananas = this.isPrimitive(objects[10], id, vertex, "healthBar")) == null)
-                                        				return "primitive type not found";
+                                        if((bananas = this.isPrimitive(objects[9], id, vertex, "board")) == null)
+                                            if((bananas = this.isPrimitive(objects[10], id, vertex, "healthBar")) == null)
+                                                if((bananas = this.isPrimitive(objects[11], id, vertex, "machine")) == null)
+                                                    return "primitive type not found";
 
     console.log("Work " + bananas);
 
@@ -661,6 +667,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement){
     var objects = [];
     objects.push(this.rectangles); objects.push(this.triangles); objects.push(this.cylinders); objects.push(this.spheres); objects.push(this.donuts);
     objects.push(this.planes); objects.push(this.patches); objects.push(this.vehicles); objects.push(this.chesses); objects.push(this.boards); objects.push(this.hBars);
+    objects.push(this.machines);
 
 	for(var i = 0;i < size; i++){
 		var e = elems[0].children[i];

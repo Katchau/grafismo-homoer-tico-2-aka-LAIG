@@ -67,6 +67,9 @@ MyGraph.prototype.getPrimitives = function (vertex,primitive, info) {
             prim = new MyHealthBar(this.scene, primitive[1], primitive[2], primitive[3], primitive[4]);
             if(this.scene.healthBars.length < 2)this.scene.healthBars.push(prim);
             break;
+        case "machine":
+            prim = new PlayBox(this.scene);
+            break;
     }
     vertex.component.primitivess.push(prim);
 }
