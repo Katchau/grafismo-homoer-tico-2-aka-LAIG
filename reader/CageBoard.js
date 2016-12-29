@@ -182,7 +182,7 @@ CageBoard.prototype.makeJump = function () {
         this.can_backup = true;
         this.next = undefined;
         player.endTurn();
-        this.lastTurnEnd = 0;
+        this.lastTurnEnd = this.timePerTurn;
         return true;
     }
     else {
@@ -213,7 +213,7 @@ CageBoard.prototype.checkPlay = function () {
     }
     this.next = undefined;
     player.endTurn();
-    this.lastTurnEnd = 0;
+    this.lastTurnEnd = this.timePerTurn;
     return true;
 };
 

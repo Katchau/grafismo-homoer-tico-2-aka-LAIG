@@ -1,0 +1,1110 @@
+<!-- Os comentarios devem ter espacos no inicio e no fim, a -->
+<!-- separar dos hifens -->
+<!-- Nao devem ser usados caracteres especiais (p.ex. acentos) -->
+<!-- Todas as tags e atributos sao obrigatorios, exceto onde for -->
+<!-- referido o contrario -->
+
+<!-- Na descricao abaixo, os simbolos utilizados tem o seguinte significado: -->
+    <!-- ii: integer value -->
+    <!-- ff: float value -->
+    <!-- ss: string value -->
+    <!-- cc: character "x" or "y" or "z" -->
+  <!-- tt: "0" or "1"  ith Boolean significance -->
+
+<dsx>
+
+
+    <!-- deve definir-se um objeto para raiz do grafo , assim -->
+    <!-- como o comprimento dos tres eixos (cilindros) -->
+
+    <scene root="Raiz" axis_length="10" />
+
+    <views default="V5" >
+
+        <perspective id="V5" near="0.1" far="500" angle="90">
+            <from x="65.5" y="20" z="27.5" />
+            <to x="0" y="15" z="27.5" />
+        </perspective>
+        <perspective id="V2" near="0.1" far="500" angle="90">
+            <from x="38.5" y="20" z="26.5" />
+            <to x="100" y="15" z="27.5" />
+        </perspective>
+
+    </views>
+
+    <illumination doublesided="0" local="1" >
+
+        <ambient r="0.2" g="0.4" b="0.8" a="1" />
+        <background r="0" g="0" b="0" a="1" />
+
+    </illumination>
+
+
+    <lights>
+        <omni id="Light1" enabled="1" >
+            <location x="0" y="40" z="0" w="1" />
+            <ambient r="0" g="0" b="0" a="1" />
+            <diffuse r="0.9" g="0.9" b="0.9" a="1" />
+            <specular r="0.1" g="0.1" b="0.1" a="1" />
+        </omni>
+        <omni id="Light2" enabled="1" >
+            <location x="0" y="40" z="50" w="1" />
+            <ambient r="0" g="0" b="0" a="1" />
+            <diffuse r="1" g="1" b="1" a="1" />
+            <specular r="0.1" g="0.1" b="0.1" a="1" />
+        </omni>
+        <omni id="Light3" enabled="1" >
+            <location x="100" y="40" z="0" w="1" />
+            <ambient r="0" g="0" b="0" a="1" />
+            <diffuse r="0.9" g="0.9" b="0.9" a="1" />
+            <specular r="0.1" g="0.1" b="0.1" a="1" />
+        </omni>
+        <omni id="Light4" enabled="1" >
+            <location x="100" y="40" z="50" w="1" />
+            <ambient r="0" g="0" b="0" a="1" />
+            <diffuse r="1" g="1" b="1" a="1" />
+            <specular r="0.1" g="0.1" b="0.1" a="1" />
+        </omni>
+    </lights>
+
+
+    <textures>
+
+        <texture id="sky" file="scenes//textures//sky.jpg" length_s="1" length_t="1" />
+        <texture id="wood" file="scenes//textures//wood.jpg" length_s="1" length_t="1" />
+        <texture id="table" file="scenes//textures//table.jpg" length_s="1" length_t="1" />
+        <texture id="garden" file="scenes//textures//garden.jpg" length_s="1" length_t="1" />
+        <texture id="pl1" file="scenes//textures//player1.png" length_s="1" length_t="1" />
+        <texture id="pl2" file="scenes//textures//player2.png" length_s="1" length_t="1" />
+
+    </textures>
+
+
+    <materials>
+
+        <!-- Deve existir um ou mais blocos "material" -->
+        <!-- Os identificadores "id" nao podem ser repetidos -->
+
+        <material id="whiteMat" >
+            <emission r="0" g="0" b="0" a="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="1" g="1" b="1" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="10" />
+        </material>
+        <material id="redMat" >
+            <emission r="0" g="0" b="0" a="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="1" g="0" b="0" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="10" />
+        </material>
+        <material id="greenMat" >
+            <emission r="0" g="0" b="0" a="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="0" g="0.32" b="0.13" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="10" />
+        </material>
+        <material id="bluMat" >
+             <emission r="0" g="0" b="0" a="1" />
+             <ambient r="0.2" g="0.2" b="0.2" a="1" />
+             <diffuse r="0" g="0.32" b="0.7" a="1" />
+             <specular r="1" g="1" b="1" a="1" />
+             <shininess value="10" />
+        </material>
+
+    </materials>
+
+
+    <transformations>
+
+        <transformation id="tree_base transf">
+            <rotate axis="y" angle="-90" />
+		        <rotate axis="x" angle="-90" />
+            <scale x="0.5" y="0.5" z="1" />
+        </transformation>
+
+    </transformations>
+
+    <!-- novo bloco de animacao -->
+    <animations>
+        <!-- podem existir zero ou mais n�s "animation" -->
+        <!-- span � o tempo, em segundos, que a anima��o deve -->
+        <!-- demorar. Nesta vers�o do formato DSX, type pode ter -->
+        <!-- o valor "linear" ou "circular"; na animacao circular -->
+        <!-- os angulos sao expressos em graus  -->
+
+        <animation id="jumpy" span="3" type="linear">
+            <controlpoint xx="1.0" yy="0.66" zz="1.0" />
+            <controlpoint xx="3.0" yy="5.0" zz="1.0" />
+            <controlpoint xx="5.0" yy="0.66" zz="1.0" />
+        </animation>
+
+    </animations>
+
+    <primitives>
+
+		    <primitive id="SMaba">
+            <sphere radius="1" slices="40" stacks="40" />
+        </primitive>
+
+		    <primitive id="ringLord">
+			      <torus inner="0.5" outer="2" slices="10" loops="10" />
+        </primitive>
+
+		    <primitive id="rectangle">
+			      <rectangle x1="0" y1="0" x2="11" y2="1" />
+		    </primitive>
+
+        <primitive id="tabela">
+			      <rectangle x1="0" y1="0" x2="10" y2="5" />
+		    </primitive>
+
+        <primitive id="MesaRectangle">
+			      <rectangle x1="0" y1="0" x2="15" y2="1.5" />
+		    </primitive>
+
+        <primitive id="tampo">
+			      <rectangle x1="0" y1="0" x2="15" y2="15" />
+		    </primitive>
+
+        <primitive id="base">
+			      <rectangle x1="0" y1="0" x2="11" y2="11" />
+		    </primitive>
+
+        <primitive id="legs">
+			      <rectangle x1="0" y1="0" x2="15" y2="1" />
+		    </primitive>
+
+		    <primitive id="triangle">
+			      <triangle x1="0" y1="0" z1="0" x2="0.33" y2="0" z2="0" x3="0.165" y3="0.5" z3="0" />
+		    </primitive>
+
+        <primitive id="tabuleiro">
+            <board x="10" y="10" />
+        </primitive>
+
+        <primitive id="chao">
+			      <rectangle x1="0" y1="0" x2="100" y2="50" />
+		    </primitive>
+
+        <primitive id="HBP1">
+            <healthBar x1="0" y1="0" x2="8" y2="0.5" />
+        </primitive>
+
+    </primitives>
+
+
+    <components>
+
+        <component id="HBP1">
+
+            <transformation>
+                <translate x="1" y="0.65" z="0.1" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="redMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="HBP1" />
+            </children>
+
+        </component>
+
+        <component id="HBP2">
+
+            <transformation>
+                <translate x="1" y="0.65" z="0.1" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="bluMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="HBP1" />
+            </children>
+
+        </component>
+
+        <component id="tabuleiro">
+
+            <transformation>
+                <translate x="0.5" y="0.1" z = "0.5" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="tabuleiro" />
+            </children>
+
+        </component>
+
+        <component id="lado1">
+
+            <transformation>
+                <translate x="0" y="-1" z = "11" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="wood" />
+
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+
+        </component>
+
+        <component id="lado2">
+
+            <transformation>
+                <rotate axis="y" angle="-90" />
+                <translate x="0" y="-1" z = "0" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="wood" />
+
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+
+        </component>
+
+        <component id="lado3">
+
+            <transformation>
+                <translate x="11" y="-1" z = "11" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="wood" />
+
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+
+        </component>
+
+        <component id="lado4">
+
+            <transformation>
+                <rotate axis="y" angle="180" />
+                <translate x="-11" y="-1" z = "0" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="wood" />
+
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+
+        </component>
+
+        <component id="tampo">
+
+            <transformation>
+                <translate x="0" y="0" z = "11" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="wood" />
+
+            <children>
+                <primitiveref id="base" />
+            </children>
+
+        </component>
+
+        <component id="base">
+
+            <transformation>
+                <translate x="0" y="-1" z = "0" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="wood" />
+
+            <children>
+                <primitiveref id="base" />
+            </children>
+
+        </component>
+
+		    <component id="CaixaTabuleiro">
+            <transformation>
+                <translate x="2" y = "1" z = "2" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+				        <componentref id="tabuleiro" />
+                <componentref id="lado1" />
+                <componentref id="lado2" />
+                <componentref id="lado3" />
+                <componentref id="lado4" />
+                <componentref id="tampo" />
+                <componentref id="base" />
+            </children>
+
+		    </component>
+
+        <component id="MesaLado1">
+
+            <transformation>
+                <translate x="0" y="-1.5" z = "15" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="table" />
+
+            <children>
+                <primitiveref id="MesaRectangle" />
+            </children>
+
+        </component>
+
+        <component id="MesaLado2">
+
+            <transformation>
+                <rotate axis="y" angle="-90" />
+                <translate x="0" y="-1.5" z = "0" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="table" />
+
+            <children>
+                <primitiveref id="MesaRectangle" />
+            </children>
+
+        </component>
+
+        <component id="MesaLado3">
+
+            <transformation>
+                <translate x="15" y="-1.5" z = "15" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="table" />
+
+            <children>
+                <primitiveref id="MesaRectangle" />
+            </children>
+
+        </component>
+
+        <component id="MesaLado4">
+
+            <transformation>
+                <rotate axis="y" angle="180" />
+                <translate x="-15" y="-1.5" z = "0" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="table" />
+
+            <children>
+                <primitiveref id="MesaRectangle" />
+            </children>
+
+        </component>
+
+        <component id="MesaTampo">
+
+            <transformation>
+                <translate x="0" y="0" z = "15" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="table" />
+
+            <children>
+                <primitiveref id="tampo" />
+            </children>
+
+        </component>
+
+        <component id="MesaBase">
+
+            <transformation>
+                <translate x="0" y="-1.5" z = "0" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="table" />
+
+            <children>
+                <primitiveref id="tampo" />
+            </children>
+
+        </component>
+
+        <component id="TampoMesa">
+            <transformation>
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="MesaLado1" />
+                <componentref id="MesaLado2" />
+                <componentref id="MesaLado3" />
+                <componentref id="MesaLado4" />
+                <componentref id="MesaTampo" />
+                <componentref id="MesaBase" />
+            </children>
+
+		    </component>
+
+        <component id="Perna1">
+
+            <transformation>
+                <translate x="2" y="-1" z="2" />
+                <rotate axis="z" angle="-45" />
+                <scale x="1" y="0.5" z="0.067" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="MesaLado1" />
+                <componentref id="MesaLado2" />
+                <componentref id="MesaLado3" />
+                <componentref id="MesaLado4" />
+                <componentref id="MesaTampo" />
+                <componentref id="MesaBase" />
+            </children>
+
+        </component>
+
+        <component id="Perna2">
+
+            <transformation>
+                <translate x="2" y="-1" z="13" />
+                <rotate axis="z" angle="-45" />
+                <scale x="1" y="0.5" z="0.067" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="MesaLado1" />
+                <componentref id="MesaLado2" />
+                <componentref id="MesaLado3" />
+                <componentref id="MesaLado4" />
+                <componentref id="MesaTampo" />
+                <componentref id="MesaBase" />
+            </children>
+
+        </component>
+
+        <component id="Perna3">
+
+            <transformation>
+                <translate x="13" y="-1" z="2" />
+                <rotate axis="z" angle="-135" />
+                <scale x="1" y="0.5" z="0.067" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="MesaLado1" />
+                <componentref id="MesaLado2" />
+                <componentref id="MesaLado3" />
+                <componentref id="MesaLado4" />
+                <componentref id="MesaTampo" />
+                <componentref id="MesaBase" />
+            </children>
+
+        </component>
+
+        <component id="Perna4">
+
+            <transformation>
+                <translate x="13" y="-1" z="13" />
+                <rotate axis="z" angle="-135" />
+                <scale x="1" y="0.5" z="0.067" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="MesaLado1" />
+                <componentref id="MesaLado2" />
+                <componentref id="MesaLado3" />
+                <componentref id="MesaLado4" />
+                <componentref id="MesaTampo" />
+                <componentref id="MesaBase" />
+            </children>
+
+        </component>
+
+        <component id="Mesa">
+
+            <transformation>
+                <translate x="44.5" y="12" z="19.5" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+				        <componentref id="CaixaTabuleiro" />
+                <componentref id="TampoMesa" />
+                <componentref id="Perna1" />
+                <componentref id="Perna2" />
+                <componentref id="Perna3" />
+                <componentref id="Perna4" />
+            </children>
+
+        </component>
+
+        <component id="TampoCadeira">
+            <transformation>
+                <scale x="0.4" y="0.67" z="0.4" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="MesaLado1" />
+                <componentref id="MesaLado2" />
+                <componentref id="MesaLado3" />
+                <componentref id="MesaLado4" />
+                <componentref id="MesaTampo" />
+                <componentref id="MesaBase" />
+            </children>
+
+		    </component>
+
+        <component id="PernaC1">
+
+            <transformation>
+                <translate x="0.4" y="0" z="0.8" />
+                <rotate axis="z" angle="-45" />
+                <scale x="0.5" y="0.25" z="0.067" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="MesaLado1" />
+                <componentref id="MesaLado2" />
+                <componentref id="MesaLado3" />
+                <componentref id="MesaLado4" />
+                <componentref id="MesaTampo" />
+                <componentref id="MesaBase" />
+            </children>
+
+        </component>
+
+        <component id="PernaC2">
+
+            <transformation>
+                <translate x="0.4" y="0" z="4.2" />
+                <rotate axis="z" angle="-45" />
+                <scale x="0.5" y="0.25" z="0.067" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="MesaLado1" />
+                <componentref id="MesaLado2" />
+                <componentref id="MesaLado3" />
+                <componentref id="MesaLado4" />
+                <componentref id="MesaTampo" />
+                <componentref id="MesaBase" />
+            </children>
+
+        </component>
+
+        <component id="PernaC3">
+
+            <transformation>
+                <translate x="5.2" y="-1" z="0.8" />
+                <rotate axis="z" angle="-135" />
+                <scale x="0.5" y="0.25" z="0.067" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="MesaLado1" />
+                <componentref id="MesaLado2" />
+                <componentref id="MesaLado3" />
+                <componentref id="MesaLado4" />
+                <componentref id="MesaTampo" />
+                <componentref id="MesaBase" />
+            </children>
+
+        </component>
+
+        <component id="PernaC4">
+
+            <transformation>
+                <translate x="5.2" y="-1" z="4.2" />
+                <rotate axis="z" angle="-135" />
+                <scale x="0.5" y="0.25" z="0.067" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="MesaLado1" />
+                <componentref id="MesaLado2" />
+                <componentref id="MesaLado3" />
+                <componentref id="MesaLado4" />
+                <componentref id="MesaTampo" />
+                <componentref id="MesaBase" />
+            </children>
+
+        </component>
+
+        <component id="CostasCadeira">
+            <transformation>
+                <rotate axis="z" angle="100" />
+                <scale x="0.4" y="0.67" z="0.4" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="MesaLado1" />
+                <componentref id="MesaLado2" />
+                <componentref id="MesaLado3" />
+                <componentref id="MesaLado4" />
+                <componentref id="MesaTampo" />
+                <componentref id="MesaBase" />
+            </children>
+
+		    </component>
+
+        <component id="Chair1">
+
+            <transformation>
+                <translate x="35.5" y="8.5" z="22.5" />
+                <scale x="1.5" y="1.5" z="1.5" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="TampoCadeira" />
+                <componentref id="CostasCadeira" />
+                <componentref id="PernaC1" />
+                <componentref id="PernaC2" />
+                <componentref id="PernaC3" />
+                <componentref id="PernaC4" />
+            </children>
+
+        </component>
+
+        <component id="Chair2">
+
+            <transformation>
+                <translate x="68.5" y="8.5" z="31.5" />
+                <rotate axis="y" angle="180" />
+                <scale x="1.5" y="1.5" z="1.5" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="TampoCadeira" />
+                <componentref id="CostasCadeira" />
+                <componentref id="PernaC1" />
+                <componentref id="PernaC2" />
+                <componentref id="PernaC3" />
+                <componentref id="PernaC4" />
+            </children>
+
+        </component>
+
+        <component id="Chao">
+
+            <transformation>
+                <translate x="0" y="0" z="50" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="garden" />
+
+            <children>
+                <primitiveref id="chao" />
+            </children>
+
+        </component>
+
+        <component id="Parede1">
+
+            <transformation>
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="sky" />
+
+            <children>
+                <primitiveref id="chao" />
+            </children>
+
+        </component>
+
+        <component id="Parede2">
+
+            <transformation>
+                <translate x="100" y="0" z="50" />
+                <rotate axis="y" angle="180" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="sky" />
+
+            <children>
+                <primitiveref id="chao" />
+            </children>
+
+        </component>
+
+        <component id="Parede3">
+
+            <transformation>
+                <translate x="0" y="0" z="50" />
+                <rotate axis="y" angle="90" />
+                <scale x="0.5" y="1" z="1" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="sky" />
+
+            <children>
+                <primitiveref id="chao" />
+            </children>
+
+        </component>
+
+        <component id="Parede4">
+
+            <transformation>
+                <translate x="100" y="0" z="0" />
+                <rotate axis="y" angle="-90" />
+                <scale x="0.5" y="1" z="1" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="sky" />
+
+            <children>
+                <primitiveref id="chao" />
+            </children>
+
+        </component>
+
+        <component id="TabelaP1">
+
+            <transformation>
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="pl1" />
+
+            <children>
+                <primitiveref id="tabela" />
+            </children>
+
+        </component>
+
+        <component id="TabelaP2">
+
+            <transformation>
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="pl2" />
+
+            <children>
+                <primitiveref id="tabela" />
+            </children>
+
+        </component>
+
+        <component id="ScoreP1">
+
+            <transformation>
+                <translate x="90" y="25" z="22" />
+                <rotate axis="y" angle="-90" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="pl1" />
+
+            <children>
+                <componentref id="TabelaP1" />
+                <componentref id="HBP1" />
+            </children>
+
+        </component>
+
+        <component id="ScoreP2">
+
+            <transformation>
+                <translate x="10" y="25" z="33" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="pl1" />
+
+            <children>
+                <componentref id="TabelaP2" />
+                <componentref id="HBP2" />
+            </children>
+
+        </component>
+
+        <component id="Raiz">
+            <transformation>
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="Mesa" />
+                <componentref id="Chair1" />
+                <componentref id="Chair2" />
+                <componentref id="Chao" />
+                <componentref id="Parede1" />
+                <componentref id="Parede2" />
+                <componentref id="Parede3" />
+                <componentref id="Parede4" />
+                <componentref id="ScoreP1" />
+                <componentref id="ScoreP2" />
+            </children>
+
+		    </component>
+
+    </components>
+
+</dsx>
