@@ -179,11 +179,15 @@ CageBoard.prototype.makeJump = function () {
             return "again";
         }
         this.can_backup = true;
+        this.next = undefined;
         player.endTurn();
         this.lastTurnEnd = 0;
         return true;
     }
-    else return false;
+    else {
+        this.next = undefined;
+        return false;
+    }
 };
 
 CageBoard.prototype.checkPlay = function () {
@@ -201,8 +205,12 @@ CageBoard.prototype.checkPlay = function () {
             this.resetAnimation(this.select,this.dest);
             this.saveBoards();
         }
-        else return false;
+        else {
+            this.next = undefined;
+            return false;
+        }
     }
+    this.next = undefined;
     player.endTurn();
     this.lastTurnEnd = 0;
     return true;

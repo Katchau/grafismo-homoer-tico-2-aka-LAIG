@@ -144,7 +144,7 @@ class gameAnimation extends Animation{
 
       this.des = -1;
       this.x_atual = 0;
-      this.y_atual = 0.5;
+      this.y_atual = 0;
       this.z_atual = 0;
   }
   clone(){
