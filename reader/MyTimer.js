@@ -28,26 +28,27 @@ function MyTimer(scene) {
 	  this.numR.setSpecular(0.5,0.5,0.5,0.1);
 	  this.numR.setShininess(100);
 
-    this.initBuffers();
+    this.initTextures();
 }
 MyTimer.prototype = Object.create(CGFobject.prototype);
 MyTimer.prototype.constructor = MyTimer;
 
-/* Inicializa as caracteristicas do cilindro */
-MyTimer.prototype.initBuffers = function() {
-    var leftNum = "scenes//textures//number" + this.leftNumber + ".jpg";
-    var rightNum = "scenes//textures//number" + this.rightNumber + ".jpg";
-    console.log(leftNum);
-    this.numL.loadTexture(leftNum);
-    this.numR.loadTexture(rightNum);
+MyTimer.prototype.initTextures = function(){
+    this.textures = [];
+    for(var i = 0; i < 10; i++){
+        this.textures.push(new CGFtexture(this.scene, "scenes//textures//number" + i + ".jpg"));
+    }
 };
+
 
 MyTimer.prototype.update = function(num){
     var right = num % 10;
     var left = (num - right) / 10;
     this.leftNumber = left;
     this.rightNumber = right;
-    this.initBuffers();
+
+    this.numL.setTexture(this.textures[this.leftNumber]);
+    this.numR.setTexture(this.textures[this.rightNumber]);
 };
 
 /* Faz o display das várias componentes do cilindro, nomeadamente body e tampas */

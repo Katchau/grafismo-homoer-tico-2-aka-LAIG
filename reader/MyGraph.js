@@ -62,6 +62,7 @@ MyGraph.prototype.getPrimitives = function (vertex,primitive, info) {
         case "board":
             prim = new CageBoard(this.scene, primitive[1], primitive[2]);
             if(this.scene.cage == null)this.scene.cage = prim;
+            else prim = this.scene.cage;
             break;
         case "healthBar":
             prim = new MyHealthBar(this.scene, primitive[1], primitive[2], primitive[3], primitive[4]);

@@ -88,7 +88,9 @@ MyInterface.prototype.processKeyboard = function(event) {
             this.changeMat();
             break;
         case 98:
-            this.scene.clientTest();
+            //this.scene.clientTest();
+            this.scene.graph.loadedOk = false;
+            new MySceneGraph("dsx2.dsx",this.scene);
             break;
         case 85:
             this.scene.cage.undoBoard();
