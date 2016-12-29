@@ -6,7 +6,7 @@ function CageBoard(scene, x, y) {
     this.y = y;
 
     this.plane = new CGFplane(this.scene, 1, 1, 10, 10);
-    this.pickPieces(true);
+    this.pickPieces(false);
 
     this.dest = undefined;
     this.select = undefined;
@@ -18,6 +18,10 @@ function CageBoard(scene, x, y) {
     this.tempo_dec = 0;
     this.animation = null;
     this.animation_start = false;
+
+    this.timePerTurn = 10;
+    this.lastTurnEnd = 0;
+    this.lastCame = 0;
 
     this.resetBoard();
     this.createMats();
@@ -176,6 +180,7 @@ CageBoard.prototype.makeJump = function () {
         }
         this.can_backup = true;
         player.endTurn();
+        this.lastTurnEnd = 0;
         return true;
     }
     else return false;
@@ -199,6 +204,7 @@ CageBoard.prototype.checkPlay = function () {
         else return false;
     }
     player.endTurn();
+    this.lastTurnEnd = 0;
     return true;
 };
 
@@ -244,6 +250,15 @@ CageBoard.prototype.animationUpdate = function(tempovar){
             this.animation_start = false;
             this.updateBoard();
         }
+    }
+};
+
+CageBoard.prototype.verifyTurns = function(tempovar){
+    var temp = tempovar - this.lastCame;
+    this.lastTurnEnd += temp;
+    if((this.lastTurnEnd / this.timePerTurn) > 1){
+        this.scene.client.endTurn();
+        this.lastTurnEnd = 0;
     }
 };
 

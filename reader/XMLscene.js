@@ -18,6 +18,8 @@ XMLscene.prototype.update = function(currTime) {
     this.tempo = currTime;
     this.tempo_dec += this.tempovar;
 
+    this.cage.verifyTurns(this.tempovar);
+
     if (this.init_anim) {
         for (var i = 0; i < this.anim_component.length; i++) {
             this.anim_component[i].update(this.tempovar);
