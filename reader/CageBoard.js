@@ -21,6 +21,7 @@ function CageBoard(scene, x, y) {
 
     this.timePerTurn = 60;
     this.lastTurnEnd = 0;
+    this.actualTime = 60;
 
     this.resetBoard();
     this.createMats();
@@ -262,11 +263,17 @@ CageBoard.prototype.animationUpdate = function(tempovar){
 };
 
 CageBoard.prototype.verifyTurns = function(tempovar){
-    this.lastTurnEnd += tempovar;
-    if((this.lastTurnEnd / this.timePerTurn) > 1){
+    this.lastTurnEnd -= tempovar;
+    if(this.lastTurnEnd < 0){
         this.scene.client.endTurn();
-        this.lastTurnEnd = 0;
+        this.lastTurnEnd = this.timePerTurn;
         this.scene.changeView2();
+    }
+    var t = parseInt(this.lastTurnEnd);
+    console.log(t);
+    if (t != this.actualTime){
+      this.actualTime = t;
+      this.scene.timer.update(t);
     }
 };
 

@@ -3,6 +3,7 @@ function XMLscene(myInterface) {
     this.healthBars = [];
     this.boards = [];
     this.playerBoards = [];
+    this.timer = null;
     CGFscene.call(this);
 }
 
@@ -460,6 +461,7 @@ XMLscene.prototype.display = function() {
     // it is important that things depending on the proper loading of the graph
     // only get executed after the graph has loaded correctly.
     // This is one possible way to do it
+
 
     if (this.graph.loadedOk) {
         this.displaySceneGraph();
