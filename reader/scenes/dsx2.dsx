@@ -186,7 +186,7 @@
         </primitive>
 
         <primitive id="chao">
-			      <rectangle x1="0" y1="0" x2="100" y2="50" />
+			      <rectangle x1="0" y1="0" x2="100" y2="100" />
 		    </primitive>
 
         <primitive id="HBP1">
@@ -674,7 +674,7 @@
         <component id="Mesa">
 
             <transformation>
-                <translate x="44.5" y="12" z="19.5" />
+                <translate x="44.5" y="12" z="42" />
             </transformation>
 
             <materials>
@@ -842,7 +842,7 @@
         <component id="Chair1">
 
             <transformation>
-                <translate x="35.5" y="8.5" z="22.5" />
+                <translate x="35.5" y="8.5" z="45" />
                 <scale x="1.5" y="1.5" z="1.5" />
             </transformation>
 
@@ -866,7 +866,7 @@
         <component id="Chair2">
 
             <transformation>
-                <translate x="68.5" y="8.5" z="31.5" />
+                <translate x="68.5" y="8.5" z="54" />
                 <rotate axis="y" angle="180" />
                 <scale x="1.5" y="1.5" z="1.5" />
             </transformation>
@@ -1041,7 +1041,7 @@
         <component id="ScoreP1">
 
             <transformation>
-                <translate x="90" y="25" z="22" />
+                <translate x="90" y="25" z="44" />
                 <rotate axis="y" angle="-90" />
             </transformation>
 
@@ -1064,7 +1064,7 @@
         <component id="ScoreP2">
 
             <transformation>
-                <translate x="10" y="25" z="33" />
+                <translate x="10" y="25" z="55" />
                 <rotate axis="y" angle="90" />
             </transformation>
 
@@ -1087,8 +1087,7 @@
 		<component id="maquina">
 
             <transformation>
-                <translate x="45" y="0" z = "0" />
-                <scale x="1" y="1" z="0.5" />
+                <translate x="45" y="0" z = "10" />
             </transformation>
 
             <animation>
@@ -1106,6 +1105,27 @@
 
         </component>
 
+        <component id="Background">
+
+			      <transformation>
+				        <scale x="1.0" y="1.0" z="2.0" />
+            </transformation>
+
+            <materials>
+                <material id="whiteMat" />
+            </materials>
+
+            <texture id="none" />
+
+			      <children>
+				        <componentref id="Chao" />
+                <componentref id="Parede1" />
+                <componentref id="Parede2" />
+                <componentref id="Parede3" />
+                <componentref id="Parede4" />
+			      </children>
+		    </component>
+
         <component id="Raiz">
             <transformation>
             </transformation>
@@ -1120,11 +1140,7 @@
                 <componentref id="Mesa" />
                 <componentref id="Chair1" />
                 <componentref id="Chair2" />
-                <componentref id="Chao" />
-                <componentref id="Parede1" />
-                <componentref id="Parede2" />
-                <componentref id="Parede3" />
-                <componentref id="Parede4" />
+                <componentref id="Background" />
                 <componentref id="maquina" />
                 <componentref id="ScoreP1" />
                 <componentref id="ScoreP2" />
