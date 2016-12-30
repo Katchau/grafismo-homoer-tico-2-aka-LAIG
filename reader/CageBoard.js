@@ -25,6 +25,10 @@ function CageBoard(scene, x, y) {
     this.lastTurnEnd = 60;
     this.actualTime = 60;
 
+    this.repeat = false;
+    this.repeatStatus = 0;
+    this.lastTime = 0;
+
     this.resetBoard();
     this.createMats();
     this.pickMaterial();
@@ -41,6 +45,23 @@ CageBoard.prototype.resetGame = function() {
     this.lastTurnEnd = 60;
     this.actualTime = 60;
 };
+
+CageBoard.prototype.gameFilm = function(tempovar) {
+    this.lastTime += tempovar;
+    if(this.repeatStatus < this.scene.boards.length && this.lastTime > 2){
+        this.scene.changeView2();
+        this.lastTime++;
+        this.board = this.scene.boards[this.repeatStatus];
+        this.repeatStatus++;
+        this.lastTime = 0;
+    }
+    else if(this.repeatStatus >= this.scene.boards.length){
+        this.resetGame();
+        this.scene.changeViewHome();
+        this.scene.reset = true;
+        this.scene.repeat = false;
+    }
+}
 
 CageBoard.prototype.undoBoard = function() {
     var l = this.scene.boards.length - 1;

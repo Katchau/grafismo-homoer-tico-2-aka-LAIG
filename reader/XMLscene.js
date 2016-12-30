@@ -4,6 +4,7 @@ function XMLscene(myInterface) {
     this.boards = [];
     this.playerBoards = [];
     this.timer = null;
+    this.repeat = false;
     CGFscene.call(this);
 }
 
@@ -19,7 +20,8 @@ XMLscene.prototype.update = function(currTime) {
     this.tempo = currTime;
     this.tempo_dec += this.tempovar;
 
-    if(this.cage != null)this.cage.verifyTurns(this.tempovar);
+    if(this.cage != null && this.gameStart)this.cage.verifyTurns(this.tempovar);
+    if(this.cage != null && this.repeat) this.cage.gameFilm(this.tempovar);
 
     if (this.init_anim) {
         for (var i = 0; i < this.anim_component.length; i++) {
