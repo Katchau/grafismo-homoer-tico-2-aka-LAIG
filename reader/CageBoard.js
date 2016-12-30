@@ -263,7 +263,7 @@ CageBoard.prototype.bot_movement = function () {
         }
         else{
             this.jump = false;
-            this.pos2 = this.dest.clone();
+            this.pos2 = dest.clone();
             this.resetAnimation(this.pos1,this.pos2);
         }
         this.saveBoards();
