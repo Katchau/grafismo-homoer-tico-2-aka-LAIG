@@ -1,7 +1,7 @@
 :-use_module(library(sockets)).
 :-use_module(library(lists)).
 :-use_module(library(codesio)).
-:-include('proj1/player.pl').
+:-include('proj1/bot.pl').
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%                                        Server                                                   %%%%
@@ -128,7 +128,15 @@ NewBoard = 'could not move' .
 
 parse_input(gg(Board, Piece), Res):- game_over(Piece, Board, _), Res = 1; Res = 0 . 
 
+parse_input(bot(Board, Piece), Res):-
+nextPossiblePlays(Board, Piece, Plays),
+\+ verify_no_play(Plays),
+lol(Board, NewBoard, Plays, Piece, Tmp),
+Res = [NewBoard , Tmp];
+Res = 0 .
+
 parse_input(quit, goodbye).
+
 
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).

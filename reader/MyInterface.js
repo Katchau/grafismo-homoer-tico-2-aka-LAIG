@@ -114,6 +114,9 @@ MyInterface.prototype.processKeyboard = function(event) {
             else if(this.currScene == 1)
                 new MySceneGraph("dsx2.dsx",this.scene);
             break;
+        case 99:
+            if(this.scene.client != null)this.scene.client.botRequest();
+            break;
         case 85:
             this.scene.cage.undoBoard();
             break;

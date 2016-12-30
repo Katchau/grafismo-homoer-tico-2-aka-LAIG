@@ -125,6 +125,65 @@ MyClient.prototype.canPlay = function(){
     return "canPlay(" + this.board + "," + this.player + ")";
 };
 
+MyClient.prototype.botPlay = function () {
+    return "bot(" + this.board + "," + this.player + ")";
+};
+
+MyClient.prototype.botRequest = function (){
+    var response = this.sendRequest(this.botPlay());
+    if(response == "0") return false;
+    this.backup_board = this.board;
+    this.board = response.substring(1,222);
+    var lixo = response.substring(224);
+    var number1 = "";
+    var number2 = "";
+    var next_number = false;
+    for(var i = 0; i < lixo.length-1; i++){
+        if(lixo[i] == ',') {
+            if(next_number == false) next_number = true;
+            else break;
+        }
+        else if(next_number) number2 += lixo[i];
+        else number1 += lixo[i];
+    }
+    var x = parseInt(number1);
+    var y = parseInt(number2);
+    this.bot_start = new Point(x,y);
+    var skip = number1.length + number2.length;
+    var lixo2 = response.substring(224+skip+3);
+
+    number1 = "";
+    number2 = "";
+    this.points = [];
+    next_number = false;
+    for(var i = 0; i < lixo2.length; i++){
+        if(lixo2[i] == ']'){
+            x = parseInt(number1);
+            y = parseInt(number2);
+            this.points.push(new Point(x,y));
+            number1 = "";
+            number2 = "";
+            next_number = false;
+            break;
+        }
+        if(lixo2[i] == ',') {
+            console.log("qwdqwdqwd");
+            if(next_number == false) next_number = true;
+            else{
+                x = parseInt(number1);
+                y = parseInt(number2);
+                this.points.push(new Point(x,y));
+                number1 = "";
+                number2 = "";
+                next_number = false;
+            }
+        }
+        else if(next_number) number2 += lixo2[i];
+        else number1 += lixo2[i];
+    }
+    console.log(this.points);
+};
+
 MyClient.prototype.switchPlayer = function () {
     this.player = (this.player == 'x') ? 'o' : 'x';
 };
