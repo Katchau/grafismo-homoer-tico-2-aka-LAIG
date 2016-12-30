@@ -103,7 +103,7 @@ MyInterface.prototype.processKeyboard = function(event) {
             this.changeMat();
             break;
         case 98:
-            //this.scene.clientTest();
+            this.scene.rings = [];
             this.currScene++;
             if (this.currScene > 1)
                 this.currScene = 0;
