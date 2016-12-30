@@ -52,7 +52,7 @@
             <specular r="0.1" g="0.1" b="0.1" a="1" />
         </omni>
         <omni id="Light2" enabled="1" >
-            <location x="0" y="40" z="50" w="1" />
+            <location x="0" y="40" z="100" w="1" />
             <ambient r="0" g="0" b="0" a="1" />
             <diffuse r="1" g="1" b="1" a="1" />
             <specular r="0.1" g="0.1" b="0.1" a="1" />
@@ -64,7 +64,7 @@
             <specular r="0.1" g="0.1" b="0.1" a="1" />
         </omni>
         <omni id="Light4" enabled="1" >
-            <location x="100" y="40" z="50" w="1" />
+            <location x="100" y="40" z="100" w="1" />
             <ambient r="0" g="0" b="0" a="1" />
             <diffuse r="1" g="1" b="1" a="1" />
             <specular r="0.1" g="0.1" b="0.1" a="1" />
@@ -503,7 +503,7 @@
                 <primitiveref id="base" />
             </children>
 
-        </component>	
+        </component>
 
 		<component id="lmari5">
 
@@ -527,7 +527,7 @@
             </children>
 
         </component>
-		
+
 		<component id="lmari6">
 
             <transformation>
@@ -551,7 +551,7 @@
 
         </component>
 
-		
+
 		<component id="maquina">
 
             <transformation>
@@ -572,7 +572,7 @@
             </children>
 
         </component>
-		
+
 		<component id="marioRing">
 			<transformation>
                 <translate x="51" y="18" z = "76" />
@@ -588,7 +588,7 @@
                 <primitiveref id="ringLord" />
             </children>
 		</component>
-		
+
 		<component id="mariobox1">
 
             <transformation>
@@ -615,7 +615,7 @@
             </children>
 
         </component>
-		
+
 		<component id="CaixaTabuleiro">
             <transformation>
                 <translate x="2" y = "1" z = "2" />
@@ -1303,7 +1303,7 @@
             </children>
 
         </component>
-		
+
 		<component id="Background">
 			<transformation>
 				<scale x="1.0" y="1.0" z="2.0" />
@@ -1314,7 +1314,7 @@
             </materials>
 
             <texture id="none" />
-			
+
 			<children>
 				<componentref id="Chao" />
                 <componentref id="Parede1" />
@@ -1323,7 +1323,7 @@
                 <componentref id="Parede4" />
 			</children>
 		</component>
-		
+
         <component id="Raiz">
             <transformation>
             </transformation>
