@@ -22,12 +22,12 @@
     <views default="V5" >
 
         <perspective id="V5" near="0.1" far="500" angle="90">
-            <from x="65.5" y="20" z="27.5" />
-            <to x="0" y="15" z="27.5" />
+            <from x="65.5" y="20" z="50" />
+            <to x="44.5" y="15" z="50" />
         </perspective>
         <perspective id="V2" near="0.1" far="500" angle="90">
-            <from x="38.5" y="20" z="26.5" />
-            <to x="100" y="15" z="27.5" />
+            <from x="39.5" y="20" z="50" />
+            <to x="54.5" y="15" z="50" />
         </perspective>
 
     </views>
@@ -191,6 +191,10 @@
 
         <primitive id="HBP1">
             <healthBar x1="0" y1="0" x2="8" y2="0.5" />
+        </primitive>
+
+        <primitive id="turbinada">
+            <machine />
         </primitive>
 
     </primitives>
@@ -1080,6 +1084,28 @@
 
         </component>
 
+		<component id="maquina">
+
+            <transformation>
+                <translate x="45" y="0" z = "0" />
+                <scale x="1" y="1" z="0.5" />
+            </transformation>
+
+            <animation>
+            </animation>
+
+            <materials>
+                <material id="blackMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="turbinada" />
+            </children>
+
+        </component>
+
         <component id="Raiz">
             <transformation>
             </transformation>
@@ -1099,6 +1125,7 @@
                 <componentref id="Parede2" />
                 <componentref id="Parede3" />
                 <componentref id="Parede4" />
+                <componentref id="maquina" />
                 <componentref id="ScoreP1" />
                 <componentref id="ScoreP2" />
             </children>

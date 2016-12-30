@@ -6,6 +6,7 @@ function MyGraph() {
 
 	this.vertexIDs = [];
 	this.vertexSet = [];
+	this.hb = 0;
 }
 
 MyGraph.prototype = Object.create(CGFscene.prototype);
@@ -67,9 +68,14 @@ MyGraph.prototype.getPrimitives = function (vertex,primitive, info) {
         case "healthBar":
             prim = new MyHealthBar(this.scene, primitive[1], primitive[2], primitive[3], primitive[4]);
             if(this.scene.healthBars.length < 2)this.scene.healthBars.push(prim);
+            else{
+                prim = this.scene.healthBars[this.hb];
+                this.hb ++;
+            }
             break;
         case "machine":
-            prim = new PlayBox(this.scene);
+            if(this.scene.playbox != null) prim = this.scene.playbox;
+            else prim = new PlayBox(this.scene);
             break;
     }
     vertex.component.primitivess.push(prim);
