@@ -233,6 +233,8 @@ CageBoard.prototype.bot_jumps = function () {
     var dest = new Point(this.postitions[this.next_indice].x-1,this.postitions[this.next_indice].y-1);
     this.botJump(this.pos1,dest);
     this.jump_position =  new Point(dest.x+1,dest.y+1);
+    this.can_backup = false;
+    if(this.next_indice == this.postitions.length-1)this.can_backup = true;
     this.jump = true;
     this.test1 = this.pos1.clone();
     this.updateScore();
