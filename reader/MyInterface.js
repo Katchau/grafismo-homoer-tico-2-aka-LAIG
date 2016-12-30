@@ -30,8 +30,21 @@ MyInterface.prototype.init = function(application) {
 	return true;
 };
 
+//http://stackoverflow.com/questions/18085540/remove-folder-in-dat-gui
+MyInterface.prototype.removeFolder = function(name) {
+  var folder = this.gui.__folders[name];
+  if (!folder) {
+    return;
+  }
+  folder.close();
+  this.gui.__ul.removeChild(folder.domElement.parentNode);
+  delete this.gui.__folders[name];
+  this.gui.onResize();
+}
+
 /* Adiciona ao menu as luzes disponiveis */
 MyInterface.prototype.addLightGroup = function(){
+		this.removeFolder("Lights");
     var groupLights = this.gui.addFolder("Lights");
     groupLights.open();
     for(var i = 0; i < this.scene.total_lights; i++){
