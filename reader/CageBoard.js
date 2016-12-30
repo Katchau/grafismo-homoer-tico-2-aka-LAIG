@@ -300,7 +300,7 @@ CageBoard.prototype.makeJump = function () {
         return true;
     }
     else {
-        this.next = undefined;
+        if(!this.scene.must_jump)this.next = undefined;
         return false;
     }
 };
