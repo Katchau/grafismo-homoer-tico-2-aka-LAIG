@@ -238,7 +238,7 @@ CageBoard.prototype.bot_jumps = function () {
     this.updateScore();
     this.resetAnimation(this.pos1,dest);
     console.log("bot did multijump!");
-    this.pos1 = this.dest.clone();
+    this.pos1 = dest.clone();
     this.next_indice ++;
     return false;
 };
