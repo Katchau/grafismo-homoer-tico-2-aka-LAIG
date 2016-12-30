@@ -500,6 +500,7 @@ XMLscene.prototype.playCage = function(){
     }
     if(this.client.gameOver){
         this.gameStart = false;
+        this.client.gameOver = false;
         this.reset = true;
         this.cage.resetGame();
         this.changeViewHome();

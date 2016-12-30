@@ -241,6 +241,7 @@ CageBoard.prototype.bot_jumps = function () {
 
 CageBoard.prototype.bot_movement = function () {
     var bot = this.scene.client;
+    if(bot.gameOver)return true;
     var answer = bot.botRequest();
     if(!answer){
         this.next = undefined;
