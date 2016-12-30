@@ -393,9 +393,9 @@ XMLscene.prototype.updateCamera = function () {
         this.camera.position = vec3.fromValues(x,y,z);
 
         var tmp2 = this.cam_animation2;
-        var x2 = tmp2.x_atual + this.cameras[this.curr_cam][7];
-        var y2 = tmp2.y_atual + this.cameras[this.curr_cam][8];
-        var z2 = tmp2.z_atual + this.cameras[this.curr_cam][9];
+        var x2 = tmp2.x_atual + this.cameras[this.next_cam][7];
+        var y2 = tmp2.y_atual + this.cameras[this.next_cam][8];
+        var z2 = tmp2.z_atual + this.cameras[this.next_cam][9];
         this.camera.target = vec3.fromValues(x2,y2,z2);
 
         this.myInterface.setActiveCamera(this.camera);
@@ -445,6 +445,8 @@ XMLscene.prototype.mainMenu = function(){
         if(click == 691){
             this.reset = false;
             this.gameStart = true;
+            this.next_cam = (this.curr_cam == 0) ? 2 : 0;
+            this.changeView(this.curr_cam,this.next_cam);
         }
     }
 };

@@ -30,7 +30,7 @@ MyInterface.prototype.init = function(application) {
 	return true;
 };
 
-//http://stackoverflow.com/questions/18085540/remove-folder-in-dat-gui
+//easter egg - o Bruno é boa pessoa, mas eu não >:)
 MyInterface.prototype.removeFolder = function(name) {
   var folder = this.gui.__folders[name];
   if (!folder) {

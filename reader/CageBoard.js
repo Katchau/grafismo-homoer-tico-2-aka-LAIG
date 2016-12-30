@@ -19,6 +19,7 @@ function CageBoard(scene, x, y) {
     this.animation = null;
     this.animation_start = false;
     this.rotate_ang = 0;
+    this.size_p = 1;
 
     this.timePerTurn = 60;
     this.lastTurnEnd = 60;
@@ -258,6 +259,7 @@ CageBoard.prototype.resetAnimation = function(point1, point2){
     this.animation = new gameAnimation(69,point1.x,point1.y,point2.x,point2.y);
     this.animation_start = true;
     this.tempo_dec = 0;
+    this.size_p = 1;
 };
 
 CageBoard.prototype.animationUpdate = function(tempovar){
@@ -269,6 +271,8 @@ CageBoard.prototype.animationUpdate = function(tempovar){
         }
         else{
             this.rotate_ang += Math.PI/2;
+            this.size_p -= 0.1;
+            if(this.size_p <0) this.size_p = 0;
         }
     }
 };
@@ -319,6 +323,7 @@ CageBoard.prototype.display = function() {
                 if (this.board[i][j] == 'o') this.scene.rotate(Math.PI, 0, 1, 0);
                 this.scene.rotate(Math.PI / 2, 1, 0, 0);
                 if(this.animation != null && this.jump && this.animation_start && this.pos2.x == i && this.pos2.y == j){
+                    this.scene.scale(this.size_p,this.size_p,this.size_p);
                     this.scene.rotate(this.rotate_ang,0,1,0);
                 }
                 this.scene.registerForPick(piece, this.piece);

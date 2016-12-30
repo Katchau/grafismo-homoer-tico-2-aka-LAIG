@@ -29,7 +29,6 @@ function PlayBox(scene) {
     this.scene.timer = this.timer;
 
     this.garbage_can = [];
-    this.garbage_anim = [];
 
     this.scene.playbox = this;
 
