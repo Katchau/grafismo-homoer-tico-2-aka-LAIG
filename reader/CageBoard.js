@@ -226,7 +226,7 @@ CageBoard.prototype.bot_jumps = function () {
     }
     var dest = new Point(this.postitions[this.next_indice].x-1,this.postitions[this.next_indice].y-1);
     this.botJump(this.pos1,dest);
-    this.jump_position = dest.clone();
+    this.jump_position =  new Point(dest.x+1,dest.y+1);
     this.jump = true;
     this.test1 = this.pos1.clone();
     this.updateScore();
@@ -254,7 +254,7 @@ CageBoard.prototype.bot_movement = function () {
         var didJump = this.botJump(this.pos1,dest);
         if(didJump){
             this.test1 = this.pos1.clone();
-            this.jump_position = dest.clone();
+            this.jump_position = new Point(dest.x+1,dest.y+1);
             this.jump = true;
             this.updateScore();
             this.resetAnimation(this.pos1,this.jump_position);

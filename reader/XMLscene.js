@@ -493,7 +493,7 @@ XMLscene.prototype.playCage = function(){
         if(this.client.player == 'x')
             this.logPicking();
         else if(this.client.player == 'o')
-            if(!this.cage.animation_start){
+            if(!this.cage.animation_start && !this.cam_start){
                 if(this.botJ)this.botJ = this.cage.bot_movement();
                 else this.botJ = this.cage.bot_jumps();
             }
