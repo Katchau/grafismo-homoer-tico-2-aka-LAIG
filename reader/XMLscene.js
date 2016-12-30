@@ -367,6 +367,12 @@ XMLscene.prototype.updateLight = function(index) {
     this.lights[index].update();
 };
 
+XMLscene.prototype.changeViewHome = function(){
+    this.next_cam = 2;
+    this.changeView(this.curr_cam,this.next_cam);
+    this.gameStart = false;
+    this.reset = true;
+};
 
 XMLscene.prototype.changeView = function (view1, view2){
     var tmp1 = this.cameras[view1];
@@ -445,14 +451,16 @@ XMLscene.prototype.mainMenu = function(){
         if(click == 691){
             this.reset = false;
             this.gameStart = true;
+            this.gameMode = 1;
             this.next_cam = (this.curr_cam == 0) ? 2 : 0;
             this.changeView(this.curr_cam,this.next_cam);
         }
     }
 };
 
-XMLscene.prototype.playCage = function(gameMode){
-    if(gameMode == 1){
+XMLscene.prototype.playCage = function(){
+    if(this.cage == null || !this.gameStart) return;
+    if(this.gameMode == 1){
         this.logPicking();
     }
     else{
@@ -461,11 +469,17 @@ XMLscene.prototype.playCage = function(gameMode){
         else if(this.client.player == 'o')
             this.bot_play(gameMode); //2 = easy, 3 = hard
     }
+    if(this.client.gameOver){
+        this.gameStart = false;
+        this.reset = true;
+        this.cage.resetGame();
+        this.changeViewHome();
+    }
 };
 
 XMLscene.prototype.display = function() {
 
-    this.logPicking();
+    this.playCage();
     this.mainMenu();
     this.clearPickRegistration();
 

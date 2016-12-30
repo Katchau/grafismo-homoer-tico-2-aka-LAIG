@@ -104,14 +104,14 @@ MyInterface.prototype.processKeyboard = function(event) {
             break;
         case 98:
             //this.scene.clientTest();
-						this.currScene++;
-						if (this.currScene > 1)
-							this.currScene = 0;
+            this.currScene++;
+            if (this.currScene > 1)
+                this.currScene = 0;
             this.scene.graph.loadedOk = false;
-						if(this.currScene == 0)
+            if(this.currScene == 0)
             	new MySceneGraph("dsx.dsx",this.scene);
-						else if(this.currScene == 1)
-							new MySceneGraph("dsx2.dsx",this.scene);
+            else if(this.currScene == 1)
+                new MySceneGraph("dsx2.dsx",this.scene);
             break;
         case 85:
             this.scene.cage.undoBoard();
@@ -120,10 +120,16 @@ MyInterface.prototype.processKeyboard = function(event) {
             this.scene.cage.undoBoard();
             break;
         case 82:
-            this.scene.cage.resetGame();
+            if(this.scene.gameStart){
+                this.scene.cage.resetGame();
+                this.scene.changeViewHome();
+            }
             break;
         case 114:
-            this.scene.cage.resetGame();
+            if(this.scene.gameStart){
+                this.scene.cage.resetGame();
+                this.scene.changeViewHome();
+            }
             break;
 	};
 };
