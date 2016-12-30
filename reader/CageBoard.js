@@ -168,16 +168,10 @@ CageBoard.prototype.updateBoard = function(){
     if(this.jump){
         if(!this.outOfBound(this.jump_position)){
             this.board[this.jump_position.x-1][this.jump_position.y-1] = this.board[this.test1.x][this.test1.y];
-            console.log("ban1");
-            console.log(this.jump_position);
         }
         else this.scene.playbox.pushGarbage(this.board[this.test1.x][this.test1.y]);
-        console.log("ban2");
-        console.log(this.test1);
         this.board[this.test1.x][this.test1.y] = 'v';
         this.scene.playbox.pushGarbage(this.board[this.pos2.x][this.pos2.y]);
-        console.log("ban3");
-        console.log(this.pos2);
         this.board[this.pos2.x][this.pos2.y] = 'v';
     }
     else{
@@ -269,6 +263,7 @@ CageBoard.prototype.bot_movement = function () {
         }
         else{
             this.jump = false;
+            this.pos2 = this.dest.clone();
             this.resetAnimation(this.pos1,this.pos2);
         }
         this.saveBoards();
