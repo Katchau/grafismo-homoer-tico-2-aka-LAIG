@@ -167,7 +167,6 @@ MyClient.prototype.botRequest = function (){
             break;
         }
         if(lixo2[i] == ',') {
-            console.log("qwdqwdqwd");
             if(next_number == false) next_number = true;
             else{
                 x = parseInt(number1);
@@ -181,7 +180,7 @@ MyClient.prototype.botRequest = function (){
         else if(next_number) number2 += lixo2[i];
         else number1 += lixo2[i];
     }
-    console.log(this.points);
+    return true;
 };
 
 MyClient.prototype.switchPlayer = function () {

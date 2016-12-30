@@ -11,6 +11,7 @@ function CageBoard(scene, x, y) {
     this.dest = undefined;
     this.select = undefined;
     this.next = null;
+    this.next_indice = null;
     this.jump = false;
     this.jump_position = undefined;
     this.can_backup = true;
@@ -39,6 +40,7 @@ CageBoard.prototype.constructor = CageBoard;
 
 CageBoard.prototype.resetGame = function() {
     this.resetBoard();
+    this.next_indice = null;
     this.scene.client.reset_board();
     this.scene.client.reset_player();
     this.scene.playbox.garbage_can = [];
@@ -50,18 +52,17 @@ CageBoard.prototype.gameFilm = function(tempovar) {
     this.lastTime += tempovar;
     if(this.repeatStatus < this.scene.boards.length && this.lastTime > 2){
         this.scene.changeView2();
-        this.lastTime++;
         this.board = this.scene.boards[this.repeatStatus];
         this.repeatStatus++;
         this.lastTime = 0;
     }
-    else if(this.repeatStatus >= this.scene.boards.length){
+    else if(this.repeatStatus >= this.scene.boards.length && this.lastTime > 2){
         this.resetGame();
         this.scene.changeViewHome();
         this.scene.reset = true;
         this.scene.repeat = false;
     }
-}
+};
 
 CageBoard.prototype.undoBoard = function() {
     var l = this.scene.boards.length - 1;
@@ -71,6 +72,7 @@ CageBoard.prototype.undoBoard = function() {
       this.scene.client.board = this.scene.playerBoards[l];
       this.scene.playerBoards.pop();
       this.scene.client.revertTurn();
+      this.scene.changeView2();
       this.lastTurnEnd = 60;
       this.actualTime = 60;
     }
@@ -190,6 +192,88 @@ CageBoard.prototype.saveBoards = function(){
     this.scene.boards.push(temp1);
     var temp2 = this.copyPlayerBoard();
     this.scene.playerBoards.push(temp2);
+};
+
+CageBoard.prototype.botJump = function (point1,point2) {
+    var x = Math.abs(point1.x-point2.x);
+    var y = Math.abs(point1.y-point2.y);
+    if((x == 2 && y == 0) || (x == 0 || y == 2)){
+        if(point2.x > point1.x){
+            this.pos2 = new Point(point2.x-1,point2.y);
+        }
+        if(point1.x > point2.x){
+            this.pos2 = new Point(point2.x+1,point2.y);
+        }
+        if(point2.y > point1.y){
+            this.pos2 = new Point(point2.x,point2.y-1);
+        }
+        if(point1.y > point2.y){
+            this.pos2 = new Point(point2.x,point2.y+1);
+        }
+        return true;
+    }
+    else return false;
+};
+
+CageBoard.prototype.bot_jumps = function () {
+    var bot = this.scene.client;
+    if(this.next_indice == this.postitions.length){
+        this.saveBoards();
+        this.next_indice = null;
+        bot.endTurn();
+        this.lastTurnEnd = this.timePerTurn;
+        return true;
+    }
+    var dest = new Point(this.postitions[this.next_indice].x-1,this.postitions[this.next_indice].y-1);
+    this.botJump(this.pos1,dest);
+    this.jump_position = dest.clone();
+    this.jump = true;
+    this.test1 = this.pos1.clone();
+    this.updateScore();
+    this.resetAnimation(this.pos1,this.jump_position);
+    console.log("bot did multijump!");
+    this.pos1 = this.jump_position.clone();
+    this.next_indice ++;
+    return false;
+};
+
+CageBoard.prototype.bot_movement = function () {
+    var bot = this.scene.client;
+    var answer = bot.botRequest();
+    if(!answer){
+        this.next = undefined;
+        bot.endTurn();
+        this.lastTurnEnd = this.timePerTurn;
+        return true;
+    }
+    this.pos1 = new Point(bot.bot_start.x-1,bot.bot_start.y-1);
+    this.postitions = bot.points;
+    if(this.postitions.length == 1){
+        this.next_indice = null;
+        var dest = new Point(this.postitions[0].x-1,this.postitions[0].y-1);
+        var didJump = this.botJump(this.pos1,dest);
+        if(didJump){
+            this.test1 = this.pos1.clone();
+            this.jump_position = dest.clone();
+            this.jump = true;
+            this.updateScore();
+            this.resetAnimation(this.pos1,this.jump_position);
+        }
+        else{
+            this.jump = false;
+            this.resetAnimation(this.pos1,this.pos2);
+        }
+        this.saveBoards();
+    }
+    else{
+        this.next_indice = 0;
+        return false;
+
+    }
+    this.next = undefined;
+    bot.endTurn();
+    this.lastTurnEnd = this.timePerTurn;
+    return true;
 };
 
 CageBoard.prototype.makeJump = function () {

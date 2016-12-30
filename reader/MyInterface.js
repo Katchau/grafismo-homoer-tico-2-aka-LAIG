@@ -135,12 +135,12 @@ MyInterface.prototype.processKeyboard = function(event) {
                 this.scene.changeViewHome();
             }
             break;
-				case 102:
-						if(this.scene.gameStart == false){
-								this.scene.changeViewHome();
-								this.scene.repeat = true;
-								this.scene.reset = false;
-							}
-						break;
+        case 102:
+            if(this.scene.gameStart == false){
+                this.scene.changeViewHome();
+                this.scene.repeat = true;
+                this.scene.reset = false;
+            }
+            break;
 	};
 };

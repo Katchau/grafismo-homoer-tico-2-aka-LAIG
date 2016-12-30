@@ -78,7 +78,7 @@ jump_bot_cycle(Board, NewBoard, Piece, X, Y, Xf, Yf, [Xd , Yd | Resto]):- (
 															nl, display_board(NewBoard), nl
 														).
 														
-jump_bot_cycle(Board, NewBoard, Piece, X, Y, Xf, Yf, [Xf , Yf]):- jump(Board, NewBoard, Piece, X, Y, Xf, Yf).
+jump_bot_cycle(Board, NewBoard, Piece, X, Y, Xf, Yf, [Xd , Yd]):- jump(Board, NewBoard, Piece, X, Y, Xf, Yf, Xd, Yd).
 														
 bot_movement_aux(Board, NewBoard, Piece, X, Y, Xf, Yf, Dests):- validate_destination(X, Y, Xf, Yf),
                                                             (

@@ -455,7 +455,31 @@ XMLscene.prototype.mainMenu = function(){
             this.gameStart = true;
             this.gameMode = 1;
             this.next_cam = (this.curr_cam == 0) ? 2 : 0;
+            this.boards = [];
+            this.playerBoards = [];
             this.changeView(this.curr_cam,this.next_cam);
+        }
+        if(click == 692){
+            this.reset = false;
+            this.gameStart = true;
+            this.gameMode = 2;
+            this.next_cam = (this.curr_cam == 0) ? 2 : 0;
+            this.boards = [];
+            this.botJ = true;
+            this.playerBoards = [];
+            this.changeView(this.curr_cam,this.next_cam);
+        }
+        if(click == 693){
+            this.cage.timePerTurn = 60;
+            this.cage.lastTurnEnd = 60;
+            this.cage.actualTime = 60;
+            console.log("izi mode activated");
+        }
+        if(click == 694){
+            this.cage.timePerTurn = 20;
+            this.cage.lastTurnEnd = 20;
+            this.cage.actualTime = 20;
+            console.log("god mode activated. Madness");
         }
     }
 };
@@ -469,7 +493,10 @@ XMLscene.prototype.playCage = function(){
         if(this.client.player == 'x')
             this.logPicking();
         else if(this.client.player == 'o')
-            this.bot_play(gameMode); //2 = easy, 3 = hard
+            if(!this.cage.animation_start){
+                if(this.botJ)this.botJ = this.cage.bot_movement();
+                else this.botJ = this.cage.bot_jumps();
+            }
     }
     if(this.client.gameOver){
         this.gameStart = false;
