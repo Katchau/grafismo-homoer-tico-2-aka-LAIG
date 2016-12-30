@@ -274,7 +274,7 @@ CageBoard.prototype.animationUpdate = function(tempovar){
 };
 
 CageBoard.prototype.verifyTurns = function(tempovar){
-    if(this.scene.timer != null ){
+    if(this.scene.timer != null && this.scene.gameStart){
         this.lastTurnEnd -= tempovar;
         if(this.lastTurnEnd < 0){
             this.scene.client.endTurn();

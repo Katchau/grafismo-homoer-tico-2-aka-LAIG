@@ -25,7 +25,7 @@ XMLscene.prototype.update = function(currTime) {
         for (var i = 0; i < this.anim_component.length; i++) {
             this.anim_component[i].update(this.tempovar);
         }
-        if(this.cage != null)this.cage.animationUpdate(this.tempovar);
+        if(this.cage != null && this.gameStart)this.cage.animationUpdate(this.tempovar);
         for(var i = 0; i < this.rings.length; i++){
             this.rings[i].updateAnimation(this.tempovar);
         }
@@ -77,6 +77,8 @@ XMLscene.prototype.init = function(application) {
 
     this.cage = null;
     this.client = new MyClient("http://localhost:8081/");
+    this.gameStart = false;
+    this.reset = true;
     this.must_jump = false;
 
     this.rings = [];
@@ -107,9 +109,9 @@ XMLscene.prototype.setDefaultAppearance = function() {
 XMLscene.prototype.onGraphLoaded = function() {
     this.SetInitialStatus();
     this.SetViews();
-    this.createLights();
     this.createMaterials();
     this.createTextures();
+    this.createLights();
 };
 
 //inicializa os parâmetros do illumination e do scene, de acordo com o ficheiro dsx
@@ -405,7 +407,7 @@ XMLscene.prototype.clientTest = function(){
 };
 
 XMLscene.prototype.logPicking = function() {
-    if(this.cage == null) return;
+    if(this.cage == null || !this.gameStart) return;
     else {
         var checkSelection = this.cage.movement();
         if(checkSelection && !this.cage.animation_start){
@@ -437,6 +439,16 @@ XMLscene.prototype.logPicking = function() {
     }
 };
 
+XMLscene.prototype.mainMenu = function(){
+    if(this.playbox != null && this.reset){
+        var click = this.playbox.checkClicks();
+        if(click == 691){
+            this.reset = false;
+            this.gameStart = true;
+        }
+    }
+};
+
 XMLscene.prototype.playCage = function(gameMode){
     if(gameMode == 1){
         this.logPicking();
@@ -452,6 +464,7 @@ XMLscene.prototype.playCage = function(gameMode){
 XMLscene.prototype.display = function() {
 
     this.logPicking();
+    this.mainMenu();
     this.clearPickRegistration();
 
     // ---- BEGIN Background, camera and axis setup

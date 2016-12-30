@@ -28,7 +28,11 @@ function MyTimer(scene) {
 	  this.numR.setSpecular(0.5,0.5,0.5,0.1);
 	  this.numR.setShininess(100);
 
+
     this.initTextures();
+
+    this.numL.setTexture(this.textures[6]);
+    this.numR.setTexture(this.textures[0]);
 }
 MyTimer.prototype = Object.create(CGFobject.prototype);
 MyTimer.prototype.constructor = MyTimer;
