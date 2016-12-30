@@ -25,6 +25,8 @@ MyInterface.prototype.init = function(application) {
 
 	this.gui = new dat.GUI();
 
+	this.currScene = 0;
+
 	return true;
 };
 
@@ -89,8 +91,14 @@ MyInterface.prototype.processKeyboard = function(event) {
             break;
         case 98:
             //this.scene.clientTest();
+						this.currScene++;
+						if (this.currScene > 1)
+							this.currScene = 0;
             this.scene.graph.loadedOk = false;
-            new MySceneGraph("dsx2.dsx",this.scene);
+						if(this.currScene == 0)
+            	new MySceneGraph("dsx.dsx",this.scene);
+						else if(this.currScene == 1)
+							new MySceneGraph("dsx2.dsx",this.scene);
             break;
         case 85:
             this.scene.cage.undoBoard();
