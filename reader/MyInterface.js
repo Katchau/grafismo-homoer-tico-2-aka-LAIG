@@ -107,6 +107,7 @@ MyInterface.prototype.processKeyboard = function(event) {
             this.currScene++;
             if (this.currScene > 1)
                 this.currScene = 0;
+            this.scene.cage.pickPieces(this.currScene);
             this.scene.graph.loadedOk = false;
             if(this.currScene == 0)
             	new MySceneGraph("dsx.dsx",this.scene);

@@ -74,10 +74,10 @@
 
     <textures>
 
-        <texture id="sky" file="scenes//textures//sky.jpg" length_s="1" length_t="1" />
+        <texture id="sky" file="scenes//textures//clean.png" length_s="1" length_t="1" />
         <texture id="wood" file="scenes//textures//wood.jpg" length_s="1" length_t="1" />
         <texture id="table" file="scenes//textures//table.jpg" length_s="1" length_t="1" />
-        <texture id="garden" file="scenes//textures//garden.jpg" length_s="1" length_t="1" />
+        <texture id="garden" file="scenes//textures//garden.png" length_s="5" length_t="5" />
         <texture id="pl1" file="scenes//textures//player1.png" length_s="1" length_t="1" />
         <texture id="pl2" file="scenes//textures//player2.png" length_s="1" length_t="1" />
 
@@ -117,7 +117,13 @@
              <specular r="1" g="1" b="1" a="1" />
              <shininess value="10" />
         </material>
-
+		<material id="yellowMat" >
+            <emission r="0" g="0" b="0" a="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1" />
+            <diffuse r="1" g="1" b="0" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="10" />
+        </material>
     </materials>
 
 
@@ -153,10 +159,6 @@
             <sphere radius="1" slices="40" stacks="40" />
         </primitive>
 
-		    <primitive id="ringLord">
-			      <torus inner="0.5" outer="2" slices="10" loops="10" />
-        </primitive>
-
 		    <primitive id="rectangle">
 			      <rectangle x1="0" y1="0" x2="11" y2="1" />
 		    </primitive>
@@ -190,7 +192,7 @@
         </primitive>
 
         <primitive id="chao">
-			      <rectangle x1="0" y1="0" x2="100" y2="100" />
+			      <rectangle x1="0" y1="0" x2="100" y2="50" />
 		    </primitive>
 
         <primitive id="HBP1">
@@ -199,6 +201,10 @@
 
         <primitive id="turbinada">
             <machine />
+        </primitive>
+
+		<primitive id="ringLord">
+		     <torus inner="3" outer="4.5" slices="20" loops="20" />
         </primitive>
 
     </primitives>
@@ -1130,6 +1136,54 @@
 			      </children>
 		    </component>
 
+		<component id="Ring1">
+			<transformation>
+                <translate x="28" y="9" z = "76" />
+            </transformation>
+
+            <materials>
+                <material id="yellowMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="ringLord" />
+            </children>
+		</component>
+
+		<component id="Ring2">
+			<transformation>
+                <translate x="50" y="9" z = "76" />
+            </transformation>
+
+            <materials>
+                <material id="yellowMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="ringLord" />
+            </children>
+		</component>
+
+		<component id="Ring3">
+			<transformation>
+                <translate x="78" y="9" z = "76" />
+            </transformation>
+
+            <materials>
+                <material id="yellowMat" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="ringLord" />
+            </children>
+		</component>
+
         <component id="Raiz">
             <transformation>
             </transformation>
@@ -1148,6 +1202,9 @@
                 <componentref id="maquina" />
                 <componentref id="ScoreP1" />
                 <componentref id="ScoreP2" />
+                <componentref id="Ring1" />
+                <componentref id="Ring2" />
+                <componentref id="Ring3" />
             </children>
 
 		    </component>

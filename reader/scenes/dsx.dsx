@@ -575,7 +575,7 @@
 		
 		<component id="marioRing">
 			<transformation>
-                <translate x="51" y="38" z = "76" />
+                <translate x="51" y="18" z = "76" />
             </transformation>
 
             <materials>
@@ -592,7 +592,7 @@
 		<component id="mariobox1">
 
             <transformation>
-                <translate x="50" y="20" z = "70" />
+                <translate x="50" y="0" z = "70" />
 				<scale x="0.5" y="0.5" z="0.5" />
             </transformation>
 
