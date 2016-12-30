@@ -75,6 +75,26 @@ MyInterface.prototype.changeView = function () {
     console.log("Key pressed V");
 };
 
+MyInterface.prototype.watchMovie = function () {
+    if(this.scene.gameStart == false){
+        this.scene.changeViewHome();
+        this.scene.repeat = true;
+        this.scene.reset = false;
+    }
+};
+
+MyInterface.prototype.changeDSX = function(){
+    this.scene.rings = [];
+    this.currScene++;
+    if (this.currScene > 1)
+        this.currScene = 0;
+    this.scene.cage.pickPieces(this.currScene);
+    this.scene.graph.loadedOk = false;
+    if(this.currScene == 0)
+        new MySceneGraph("dsx.dsx",this.scene);
+    else if(this.currScene == 1)
+        new MySceneGraph("dsx2.dsx",this.scene);
+};
 
 /**
  * processKeyboard
@@ -103,19 +123,10 @@ MyInterface.prototype.processKeyboard = function(event) {
             this.changeMat();
             break;
         case 98:
-            this.scene.rings = [];
-            this.currScene++;
-            if (this.currScene > 1)
-                this.currScene = 0;
-            this.scene.cage.pickPieces(this.currScene);
-            this.scene.graph.loadedOk = false;
-            if(this.currScene == 0)
-            	new MySceneGraph("dsx.dsx",this.scene);
-            else if(this.currScene == 1)
-                new MySceneGraph("dsx2.dsx",this.scene);
+            this.changeDSX();
             break;
-        case 99:
-            if(this.scene.client != null)this.scene.client.botRequest();
+        case 66:
+            this.changeDSX();
             break;
         case 85:
             this.scene.cage.undoBoard();
@@ -136,11 +147,10 @@ MyInterface.prototype.processKeyboard = function(event) {
             }
             break;
         case 102:
-            if(this.scene.gameStart == false){
-                this.scene.changeViewHome();
-                this.scene.repeat = true;
-                this.scene.reset = false;
-            }
+            this.watchMovie();
+            break;
+        case 70:
+            this.watchMovie();
             break;
 	};
 };
